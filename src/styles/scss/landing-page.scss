@@ -1,0 +1,198 @@
+.landing_page,
+header,
+nav,
+nav ul,
+.links {
+    display: flex;
+}
+
+.landing_page {
+    flex-direction: column;
+
+    // header
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        border: 0.0625rem solid #d0d0d0;
+        font-weight: 700;
+        padding: 12.8px;
+
+        .logo {
+            flex: 1;
+            color: var(--btn-color);
+            font-size: 48px;
+            font-weight: 700;
+            padding-left: 48px;
+        }
+
+        nav {
+            flex: 2;
+            align-items: center;
+            justify-content: space-around;
+            color: var(--font-pry-color);
+
+            ul,
+            .links {
+                gap: 24px;
+            }
+
+            ul {
+                justify-content: center;
+                width: 100%;
+                li {
+                    a {
+                        font-weight: 700;
+
+                        &:hover {
+                            color: var(--btn-color);
+                        }
+
+                        &.active {
+                            color: var(--btn-color);
+                        }
+                    }
+                }
+            }
+
+            .links {
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+
+                a {
+                    padding: 0.5rem 25px;
+                    border-radius: 0.5rem;
+                    text-align: center;
+                    transition: all 0.5s ease-in-out;
+                    border: 0.0625rem solid var(--btn-color);
+                }
+
+                .log_in {
+                    &:hover {
+                        background-color: var(--btn-color);
+                        color: var(--pry-bg-color);
+                    }
+                }
+
+                .sign_up {
+                    background-color: var(--btn-color);
+                    color: var(--pry-bg-color);
+
+                    &:hover {
+                        background-color: #3a2b9e;
+                    }
+                }
+            }
+        }
+    }
+
+    // hero section
+    .hero {
+        background-color: rgba(0, 0, 0, 0.55);
+        background-image: url(../../images/lady-biting-pen.png);
+        height: 764px;
+        // padding: 25rem 0;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-blend-mode: darken;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .hero_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--pry-bg-color);
+            width: 100%;
+            max-width: 984px;
+            padding: 20px 0;
+            margin-bottom: 25px;
+
+            h2 {
+                font-size: 48px;
+                font-weight: 700;
+                margin-bottom: 2rem;
+            }
+
+            p {
+                font-size: 24px;
+                font-weight: 400;
+                margin-bottom: 3rem;
+                width: 740px;
+                align-self: flex-start;
+            }
+
+            .hero_btn {
+                padding: 0.5rem 25px;
+                border-radius: 0.5rem;
+                text-align: center;
+                align-self: flex-start;
+                transition: all 0.5s ease-in-out;
+                border: 0.0625rem solid var(--btn-color);
+                background-color: var(--btn-color);
+                color: var(--pry-bg-color);
+                font-weight: 700;
+                font-size: 18px;
+
+                &:hover {
+                    // background-color: rgba(255, 255, 255, 0.55);
+                    background-color: #3a2b9e;
+                }
+            }
+        }
+    }
+
+    // about section
+    .about {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        // height: 404px;
+        padding: 5rem 10rem;
+        width: 100%;
+        
+        .about_container {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            width: 100%;
+
+            .left {
+                flex: 1;
+                width: 686px;
+
+                h2 {
+                    font-size: 48px;
+                    font-weight: 700;
+                    margin-bottom: 2rem;
+                }
+
+                p {
+                    font-size: 16px;
+                    font-weight: 400;
+                    margin-bottom: 3rem;
+                    // width: 686px;
+                    align-self: flex-start;
+                    font-style: normal;
+                }
+            }
+
+            .right {
+                flex: 1;
+                background-image: url(../../images/students-in-corridor.png);
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-blend-mode: darken;
+                width: 40px;
+                height: 414px;
+            }
+        }
+    }
+}
