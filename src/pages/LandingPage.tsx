@@ -1,3 +1,6 @@
+import AnalyticsIcon from "../icons/AnalyticsIcon";
+import BookIcon from "../icons/BookIcon";
+import PeopleIcon from "../icons/PeopleIcon";
 import "../styles/scss/landing-page.scss";
 
 export const LandingPage = () => {
@@ -42,7 +45,7 @@ export const LandingPage = () => {
             Unleash the Power of Words, Connect with Like-minded Readers and
             Writers
           </p>
-          <a href="http://" className="hero_btn">
+          <a href="http://" className="hero_btn btn">
             Get started
           </a>
         </div>
@@ -81,10 +84,81 @@ export const LandingPage = () => {
             </p>
           </div>
           <div className="bottom">
-            <div className="analytics"></div>
-            <div className="social_interactions"></div>
-            <div className="content_creation"></div>
+            <div className="analytics">
+              <div className="icon">
+                <AnalyticsIcon />
+              </div>
+              <article>
+                <h3>Analytics</h3>
+                <p>
+                  Analytics to track the number of views, likes and comment and
+                  also analyze the performance of your articles over a period of
+                  time
+                </p>
+              </article>
+            </div>
+            <div className="social_interactions">
+              <div className="icon">
+                <PeopleIcon />
+              </div>
+              <article>
+                <h3>Social interactions</h3>
+                <p>
+                  Users on the platform can interact with posts they like,
+                  comment and engage in discussions
+                </p>
+              </article>
+            </div>
+            <div className="content_creation">
+              <div className="icon">
+                <BookIcon />
+              </div>
+              <article>
+                <h3>Content creation</h3>
+                <p>
+                  Write nice and appealing with our in-built markdown, a rich
+                  text editor
+                </p>
+              </article>
+            </div>
           </div>
+        </div>
+      </div>
+
+      <div className="testimonial">
+        <div className="left">
+          <div className="avatar"></div>
+        </div>
+        <div className="right">
+          <p>
+            "Chatter has become an integral part of my online experience. As a
+            user of this incredible blogging platform, I have discovered a
+            vibrant community of individuals who are passionate about sharing
+            their ideas and engaging in thoughtful discussions.”
+          </p>
+          <div className="avatar_name">
+            <p>
+              <span>Osayuki Okhuarobo, </span>Software developer at AltSchool
+            </p>
+          </div>
+          <a href="http://" className="btn">
+            Join chatter
+          </a>
+        </div>
+      </div>
+
+      <div className="c_t_a">
+        <div className="left">
+          <div className="c_t_a-images">
+            <div className="image1"></div>
+            <div className="image2"></div>
+            <div className="image3"></div>
+          </div>
+        </div>
+        <div className="right">
+          <h3>Write, read and connect with great minds on chatter</h3>
+          <p>Share people your great ideas, and also read write-ups based on your interests. connect with people of same interests and goals  </p>
+          <a href="http://" className="btn">Get started</a>
         </div>
       </div>
     </section>
