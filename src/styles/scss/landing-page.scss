@@ -91,7 +91,6 @@ nav ul,
         background-color: rgba(0, 0, 0, 0.55);
         background-image: url(../../images/lady-biting-pen.png);
         height: 764px;
-        // padding: 25rem 0;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -127,22 +126,24 @@ nav ul,
             }
 
             .hero_btn {
-                padding: 0.5rem 25px;
-                border-radius: 0.5rem;
-                text-align: center;
                 align-self: flex-start;
-                transition: all 0.5s ease-in-out;
-                border: 0.0625rem solid var(--btn-color);
-                background-color: var(--btn-color);
-                color: var(--pry-bg-color);
-                font-weight: 700;
-                font-size: 18px;
-
-                &:hover {
-                    // background-color: rgba(255, 255, 255, 0.55);
-                    background-color: #3a2b9e;
-                }
             }
+        }
+    }
+
+    .btn {
+        padding: 0.5rem 25px;
+        border-radius: 0.5rem;
+        text-align: center;
+        transition: all 0.5s ease-in-out;
+        border: 0.0625rem solid var(--btn-color);
+        background-color: var(--btn-color);
+        color: var(--pry-bg-color);
+        font-weight: 700;
+        font-size: 18px;
+
+        &:hover {
+            background-color: #3a2b9e;
         }
     }
 
@@ -152,10 +153,9 @@ nav ul,
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        // height: 404px;
-        padding: 5rem 10rem;
+        padding: 5rem 6rem;
         width: 100%;
-        
+
         .about_container {
             margin-top: 2.5rem;
             display: flex;
@@ -174,10 +174,10 @@ nav ul,
                 }
 
                 p {
-                    font-size: 16px;
+                    font-size: 18px;
                     font-weight: 400;
                     margin-bottom: 3rem;
-                    // width: 686px;
+                    width: 680px;
                     align-self: flex-start;
                     font-style: normal;
                 }
@@ -193,6 +193,202 @@ nav ul,
                 width: 40px;
                 height: 414px;
             }
+        }
+    }
+
+    //join chatter section
+    .why_join_chatter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .why_join_chatter-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 1040px;
+            margin-bottom: 5%;
+
+            .top,
+            .bottom {
+                flex: 1;
+            }
+
+            .top {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 54px;
+
+                h2 {
+                    font-size: 48px;
+                    margin-bottom: 24px;
+                }
+
+                p {
+                    font-size: 18px;
+                }
+            }
+
+            .bottom {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 24px;
+
+                div {
+                    article {
+                        p {
+                            font-size: 18px;
+                            width: 254px;
+                        }
+                    }
+                }
+
+                .analytics,
+                .social_interactions,
+                .content_creation {
+                    border: 1px solid #d0d0d0;
+                    border-radius: 8px;
+                    padding: 12px 15px;
+                    width: 306px;
+                    height: 324px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 30px;
+                    justify-content: center;
+                    align-items: flex-start;
+
+                    svg {
+                        width: 23px;
+                        height: 22px;
+                    }
+                }
+
+                .icon {
+                    background: rgba(214, 209, 248, 0.2);
+                    border-radius: 50px;
+                    padding: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .social_interactions {
+                    article {
+                        margin-bottom: 24px;
+                    }
+                }
+
+                .content_creation {
+                    article {
+                        margin-bottom: 49px;
+                    }
+                }
+            }
+        }
+    }
+
+    //testimonial
+    .testimonial {
+        width: 100%;
+        background: rgba(255, 237, 204, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem;
+
+        .left {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .avatar {
+                background-image: url(../../images/good-looking-man.png);
+                background-color: #d9d9d9;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-blend-mode: darken;
+                border-radius: 50%;
+                width: 300px;
+                height: 292px;
+            }
+        }
+
+        .right {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 24px;
+            width: 924px;
+            height: 292px;
+            font-size: 18px;
+
+            p {
+                width: 924px;
+            }
+
+            .avatar_name {
+                margin-top: 40px;
+
+                span {
+                    font-weight: 700;
+                    font-size: 20px;
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+
+    //c_t_a section
+    .c_t_a {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .left {
+            flex: 1;
+
+            .c_t_a-images {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .image1,
+                .image2,
+                .image3 {
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-blend-mode: darken;
+                    border-radius: 50%;
+                    width: 169px;
+                    height: 169px;
+                }
+
+                .image1 {
+                    background-image: url(../../images/good-looking-woman.png);
+                }
+
+                .image2 {
+                    background-image: url(../../images/man-with-glasses.png);
+                }
+
+                .image3 {
+                    background-image: url(../../images/male-headshot-with-glasses.png);
+                }
+            }
+        }
+
+        .right {
+            flex: 2;
         }
     }
 }
