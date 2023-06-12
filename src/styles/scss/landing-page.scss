@@ -240,6 +240,10 @@ nav ul,
 
                 div {
                     article {
+                        h3 {
+                            margin-bottom: 1rem;
+                        }
+
                         p {
                             font-size: 18px;
                             width: 254px;
@@ -270,7 +274,7 @@ nav ul,
                 .icon {
                     background: rgba(214, 209, 248, 0.2);
                     border-radius: 50px;
-                    padding: 20px;
+                    padding: 30px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -353,42 +357,160 @@ nav ul,
         align-items: center;
         justify-content: center;
 
-        .left {
-            flex: 1;
+        .c_t_a-container {
+            width: 1287px;
+            display: flex;
+            justify-content: space-between;
+            padding: 3rem 0;
 
-            .c_t_a-images {
+            .left {
+                flex: 1;
+
+                .c_t_a-images {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    width: 100%;
+                    padding: 2rem;
+
+                    .image1 {
+                        background-image: url(../../images/good-looking-woman.png);
+                    }
+
+                    .image2 {
+                        background-image: url(../../images/man-with-glasses.png);
+                        left: 150px;
+                    }
+
+                    .image3 {
+                        background-image: url(../../images/male-headshot-with-glasses.png);
+                    }
+
+                    .image1,
+                    .image2,
+                    .image3 {
+                        position: relative;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        background-blend-mode: darken;
+                        border-radius: 50%;
+                        width: 134px;
+                        height: 138px;
+                    }
+                }
+            }
+
+            .right {
+                flex: 2;
+                padding: 1.8rem 0;
+
+                article {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    gap: 34px;
+                    margin-left: 54px;
+
+                    h3 {
+                        width: 655px;
+                        font-size: 48px;
+                        font-weight: 700;
+                        margin-bottom: 1rem;
+                    }
+
+                    p {
+                        width: 594px;
+                        font-size: 18px;
+                    }
+
+                    a {
+                        margin-top: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    //footer section
+    footer {
+        width: 100%;
+        background-color: rgba(255, 237, 204, 0.5);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 5rem 0;
+        height: 402px;
+
+        .footer_container {
+            display: flex;
+            width: 100%;
+
+            .left {
+                flex: 1;
+                position: relative;
+                left: 108px;
+
+                .logo {
+                    width: 214px;
+
+                    a {
+                        color: var(--btn-color);
+                        font-size: 48px;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+
+            .right {
+                flex: 2;
                 display: flex;
-                flex-direction: column;
-                align-items: center;
+                justify-content: space-around;
+                z-index: 100;
 
-                .image1,
-                .image2,
-                .image3 {
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    background-blend-mode: darken;
-                    border-radius: 50%;
-                    width: 169px;
-                    height: 169px;
-                }
+                & > div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 15px;
 
-                .image1 {
-                    background-image: url(../../images/good-looking-woman.png);
-                }
+                    h2 {
+                        font-size: 24px;
+                        font-weight: 700;
+                        margin-bottom: 1rem;
+                    }
 
-                .image2 {
-                    background-image: url(../../images/man-with-glasses.png);
-                }
+                    .footer_links {
+                        li {
+                            font-size: 18px;
+                            text-transform: capitalize;
+                            margin-bottom: 0.8rem;
 
-                .image3 {
-                    background-image: url(../../images/male-headshot-with-glasses.png);
+                            a {
+                                &:hover {
+                                    color: var(--btn-color);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
 
-        .right {
-            flex: 2;
+        .footer_bottom{
+            width: 100%;
+            align-self: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 5rem;
+
+            svg{
+                font-size: 16px;
+                // margin-top: 3px;
+            }
         }
     }
 }
