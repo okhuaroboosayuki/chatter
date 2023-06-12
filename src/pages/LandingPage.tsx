@@ -1,6 +1,7 @@
 import AnalyticsIcon from "../icons/AnalyticsIcon";
 import BookIcon from "../icons/BookIcon";
 import PeopleIcon from "../icons/PeopleIcon";
+import CopyrightIcon from "@mui/icons-material/Copyright";
 import "../styles/scss/landing-page.scss";
 
 export const LandingPage = () => {
@@ -148,19 +149,86 @@ export const LandingPage = () => {
       </div>
 
       <div className="c_t_a">
-        <div className="left">
-          <div className="c_t_a-images">
-            <div className="image1"></div>
-            <div className="image2"></div>
-            <div className="image3"></div>
+        <div className="c_t_a-container">
+          <div className="left">
+            <div className="c_t_a-images">
+              <div className="image1"></div>
+              <div className="image2"></div>
+              <div className="image3"></div>
+            </div>
+          </div>
+          <div className="right">
+            <article>
+              <h3>Write, read and connect with great minds on chatter</h3>
+              <p>
+                Share people your great ideas, and also read write-ups based on
+                your interests. connect with people of same interests and goals
+              </p>
+              <a href="http://" className="btn">
+                Get started
+              </a>
+            </article>
           </div>
         </div>
-        <div className="right">
-          <h3>Write, read and connect with great minds on chatter</h3>
-          <p>Share people your great ideas, and also read write-ups based on your interests. connect with people of same interests and goals  </p>
-          <a href="http://" className="btn">Get started</a>
-        </div>
       </div>
+
+      <footer>
+        <div className="footer_container">
+          <div className="left">
+            <h1 className="logo">
+              <a href="http://">Chatter</a>
+            </h1>
+          </div>
+
+          <div className="right">
+            <div className="explore">
+              <h2 className="footer_heading">Explore</h2>
+              <ul className="footer_links">
+                <li>
+                  <a href="http://">community</a>
+                </li>
+                <li>
+                  <a href="http://">Trending blogs</a>
+                </li>
+                <li>
+                  <a href="http://">Chatter for teams</a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="support">
+              <h2 className="footer_heading">Support</h2>
+              <ul className="footer_links">
+                <li>
+                  <a href="http://">Support docs</a>
+                </li>
+                <li>
+                  <a href="http://">Join slack</a>
+                </li>
+                <li>
+                  <a href="http://">Contact</a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="official_blog">
+              <h2 className="footer_heading">Official blog</h2>
+              <ul className="footer_links">
+                <li>
+                  <a href="http://">Official blog</a>
+                </li>
+                <li>
+                  <a href="http://">Engineering blog</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="footer_bottom">
+          <CopyrightIcon />
+          <p>2023 Chatter. All rights reserved</p>
+        </div>
+      </footer>
     </section>
   );
 };
