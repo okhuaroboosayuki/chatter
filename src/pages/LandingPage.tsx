@@ -226,7 +226,7 @@ export const LandingPage = () => {
         </div>
         <div className="footer_bottom">
           <CopyrightIcon />
-          <p>2023 Chatter. All rights reserved</p>
+          <p>{new Date().getFullYear()} Chatter. All rights reserved</p>
         </div>
       </footer>
     </section>
