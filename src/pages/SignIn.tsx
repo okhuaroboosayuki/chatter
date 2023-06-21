@@ -2,7 +2,7 @@ import "../styles/scss/signup.scss";
 import GoogleIcon from "../icons/GoogleIcon";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
-export const SignUp = () => {
+export const SignIn = () => {
   return (
     <section className="register">
       <div className="register_container">
