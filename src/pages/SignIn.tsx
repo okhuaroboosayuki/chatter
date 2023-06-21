@@ -1,4 +1,4 @@
-import "../styles/scss/signup.scss";
+import "../styles/scss/sign-in.scss";
 import GoogleIcon from "../icons/GoogleIcon";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
