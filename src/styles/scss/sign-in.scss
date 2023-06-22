@@ -19,18 +19,10 @@
     .left {
         position: relative;
 
-        img {
-            width: 97vh;
-            height: 100vh;
-            aspect-ratio: 1/1;
-            display: block;
-            object-position: center;
-        }
-
-        .left_content {
+        .left_content-container {
             position: absolute;
             background-color: rgba(0, 0, 0, 0.6);
-            width: 97vh;
+            width: 105vh;
             height: 100%;
             top: 0;
             display: flex;
@@ -38,7 +30,7 @@
             justify-content: center;
             color: var(--pry-bg-color);
 
-            .left_content-container {
+            .left_content {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -61,6 +53,56 @@
         }
     }
 
+    // .left {
+    //     background-image: url(../../images/lady-writing-on-a-book.webp);
+    //     background-repeat: no-repeat;
+    //     background-size: cover;
+    //     background-position: center;
+    //     filter: blur(10px);
+
+    //     &::before {
+    //         content: "";
+    //         position: absolute;
+    //         inset: 0;
+    //         opacity: 0;
+    //         animation: pulse 2.5s infinite;
+    //         background-color: white;
+
+    //         @keyframes pulse {
+    //             0% {
+    //                 opacity: 0;
+    //             }
+    //             50% {
+    //                 opacity: 0.2;
+    //             }
+    //             100% {
+    //                 opacity: 0;
+    //             }
+    //         }
+    //     }
+    // }
+
+    // .left .loaded::before {
+    //     animation: none;
+    //     content: none;
+    // }
+
+    // .left .loaded {
+    //     img {
+    //         opacity: 1;
+    //     }
+    // }
+
+    img {
+        // opacity: 0;
+        width: 105vh;
+        height: 100vh;
+        aspect-ratio: 1/1;
+        display: block;
+        object-position: center;
+        transition: opacity 250ms ease-in-out;
+    }
+
     .right {
         display: flex;
         flex-direction: column;
@@ -68,13 +110,69 @@
         justify-content: center;
 
         .right_container {
-            width: 100%;
-            padding: 25rem 0;
-            display: flex;
+            display: inline-flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 14px;
+            height: 90%;
+            position: relative;
+            bottom: 2.7rem;
+
+            .links {
+                display: flex;
+                width: 27.5rem;
+                // align-items: flex-end;
+                // gap: 17.5rem;
+                margin-top: 0.5rem;
+
+                .link_one, .link_two {
+                    display: flex;
+                    flex-direction: column;
+                    gap: .5rem;
+
+                    a {
+                        display: flex;
+                        cursor: pointer;
+                    }
+                }
+
+                .link_two a{
+                    justify-content: flex-end;
+                }
+
+                .active_border_bottom {
+                    display: flex;
+
+                    .active,
+                    .inactive {
+                        width: 13.75rem;
+                        height: 0.375rem;
+                        flex-shrink: 0;
+                        border: none;
+                    }
+
+                    .active {
+                        background-color: var(--btn-color);
+                        transition: all 0.5s ease-in-out;
+                    }
+
+                    .inactive {
+                        background-color: #d9d9d9;
+                        transition: all 0.5s ease-in-out;
+                    }
+                }
+            }
+
+            .login_container {
+                position: relative;
+                top: 5rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 3rem;
+            }
 
             h2 {
                 font-size: 2rem;
@@ -86,11 +184,15 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                align-items: center;
                 gap: 14px;
+                width: 100%;
 
                 .names {
                     display: flex;
-                    gap: 24px;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.75rem;
                     width: 100%;
                 }
 
@@ -105,47 +207,54 @@
                     }
 
                     .first_name_input,
-                    .last_name_input,
-                    .email_input,
-                    select {
+                    .last_name_input {
                         border: 1px solid #ced4da;
                         outline: none;
                         height: 56px;
-                        width: 252px;
+                        width: 15.75rem;
                         border-radius: 8px;
-                        padding: 10px 16px 10px 16px;
+                        padding: 0.625rem 1rem;
+                        box-shadow: 0px 0px 1px 0px rgba(33, 37, 41, 0.08), 0px 2px 2px 0px rgba(33, 37, 41, 0.06);
 
                         &:focus {
                             border: 1px solid var(--font-pry-color);
                         }
                     }
 
+                    .email_input,
                     select {
-                        width: 100%;
+                        border: 1px solid #ced4da;
+                        outline: none;
+                        height: 56px;
+                        width: 32.5rem;
+                        border-radius: 8px;
+                        padding: 10px 16px 10px 16px;
+                        box-shadow: 0px 0px 1px 0px rgba(33, 37, 41, 0.08), 0px 2px 2px 0px rgba(33, 37, 41, 0.06);
+
+                        &:focus {
+                            border: 1px solid var(--font-pry-color);
+                        }
                     }
 
                     .first_name_input,
                     .last_name_input,
                     .email_input {
-                        letter-spacing: 0.5px;
+                        letter-spacing: 0.5008px;
                         word-spacing: 1px;
 
                         &::placeholder {
                             font-size: 14px;
                         }
                     }
-
-                    .email_input {
-                        width: 100%;
-                    }
                 }
 
                 .input {
-                    width: 100%;
+                    width: 32.5rem;
                     display: flex;
                     align-items: center;
                     padding: 10px 16px 10px 16px;
                     border: 1px solid #ced4da;
+                    box-shadow: 0px 0px 1px 0px rgba(33, 37, 41, 0.08), 0px 2px 2px 0px rgba(33, 37, 41, 0.06);
                     outline: none;
                     height: 56px;
                     border-radius: 8px;
@@ -160,7 +269,7 @@
                         border: none;
                         outline: none;
                         height: 50px;
-                        letter-spacing: 0.5px;
+                        letter-spacing: 0.5008px;
 
                         &::placeholder {
                             position: relative;
@@ -181,7 +290,8 @@
                 }
 
                 button[type="submit"] {
-                    padding: 8px 16px;
+                    width: 32.5rem;
+                    padding: 0.5rem 1rem;
                     border-radius: 0.5rem;
                     text-align: center;
                     transition: all 0.5s ease-in-out;
@@ -202,25 +312,29 @@
             }
 
             .or_sign_with,
-            .google, .google span,
-            .linkedIn, .linkedIn span {
+            .google,
+            .google span,
+            .linkedIn,
+            .linkedIn span {
                 display: flex;
                 align-items: center;
-                justify-content: center;
             }
 
             .or_sign_with {
+                justify-content: center;
                 flex-direction: column;
                 gap: 8px;
                 width: 100%;
 
-                .google, .linkedIn{
-                    border: 1px solid #D0D0D0;
+                .google,
+                .linkedIn {
+                    justify-content: center;
+                    border: 1px solid #d0d0d0;
                     border-radius: 8px;
                     padding: 8px 16px;
-                    width: 100%;
+                    width: 32.5rem;
                     cursor: pointer;
-                    gap: 12px;
+                    gap: 1.5rem;
                     text-transform: capitalize;
 
                     &:hover {
@@ -228,8 +342,10 @@
                     }
                 }
 
-                .google span, .linkedIn span {
-                    gap: 8px;
+                .google span,
+                .linkedIn span {
+                    gap: 0.6875rem;
+                    justify-content: flex-start;
                 }
 
                 .linkedIn img {
