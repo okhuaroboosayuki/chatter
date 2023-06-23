@@ -1,8 +1,9 @@
 // import { useEffect, useRef } from "react";
 import "../styles/scss/sign-in.scss";
-import { SignUp } from "../components/SignUp";
+// import { SignUp } from "../components/SignUp";
 // import { Login } from "../components/Login";
 import { SignInHeader } from "../components/SignInHeader";
+import { Outlet } from "react-router-dom";
 
 export const SignIn = () => {
   // const blurredImageDivRef = useRef<HTMLDivElement>(null);
@@ -49,15 +50,14 @@ export const SignIn = () => {
         <div className="right">
           <div className="right_container">
             <div className="links">
-              <SignInHeader to={"register/signup"} className="link_one">
+              <SignInHeader to={"/signup"} className="link_one">
                 Register
               </SignInHeader>
-              <SignInHeader to={"register/login"} className="link_two">
+              <SignInHeader to={"login"} className="link_two">
                 Log In
               </SignInHeader>
             </div>
-            <SignUp />
-            {/* <Login /> */}
+            <Outlet/>
           </div>
         </div>
       </div>
