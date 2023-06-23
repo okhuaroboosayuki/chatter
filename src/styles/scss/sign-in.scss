@@ -22,7 +22,7 @@
         .left_content-container {
             position: absolute;
             background-color: rgba(0, 0, 0, 0.6);
-            width: 105vh;
+            width: 90vh;
             height: 100%;
             top: 0;
             display: flex;
@@ -36,6 +36,7 @@
                 align-items: center;
                 justify-content: center;
                 gap: 24px;
+                margin-bottom: 3.3rem;
 
                 h2 {
                     text-transform: uppercase;
@@ -95,7 +96,7 @@
 
     img {
         // opacity: 0;
-        width: 105vh;
+        width: 90vh;
         height: 100vh;
         aspect-ratio: 1/1;
         display: block;
@@ -121,10 +122,10 @@
 
             .links {
                 display: flex;
+                align-items: center;
+                justify-content: center;
                 width: 27.5rem;
-                // align-items: flex-end;
-                // gap: 17.5rem;
-                margin-top: 0.5rem;
+                margin-top: 0.86rem;
 
                 .link_one, .link_two {
                     display: flex;
@@ -137,7 +138,13 @@
                     }
                 }
 
+                .link_one a{
+                    justify-self: flex-start;
+                    align-items: center;
+                }
+
                 .link_two a{
+                    align-items: center;
                     justify-content: flex-end;
                 }
 
