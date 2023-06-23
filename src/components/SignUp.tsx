@@ -1,10 +1,16 @@
 import "../styles/scss/sign-in.scss";
 import GoogleIcon from "../icons/GoogleIcon";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import { Helmet } from "react-helmet-async";
 
 export const SignUp = () => {
   return (
     <>
+      <Helmet>
+        <title>Register</title>
+        <meta name="description" content="Register to get access to the app" />
+        <link rel="canonical" href="/signup" />
+      </Helmet>
       <h2>Register as a Writer/Reader</h2>
 
       <form>
