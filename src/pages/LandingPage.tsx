@@ -3,19 +3,20 @@ import BookIcon from "../icons/BookIcon";
 import PeopleIcon from "../icons/PeopleIcon";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import "../styles/scss/landing-page.scss";
+import { Link } from "react-router-dom";
 
 export const LandingPage = () => {
   return (
     <section className="landing_page">
       <header>
         <h1 className="logo">
-          <a href="/">Chatter</a>
+          <Link to={"/"}>Chatter</Link>
         </h1>
 
         <nav>
           <ul>
             <li>
-              <a href="/">Home</a>
+              <Link to={"/"}>Home</Link>
             </li>
             <li>
               <a href="http://">About us</a>
@@ -29,12 +30,12 @@ export const LandingPage = () => {
           </ul>
 
           <div className="links">
-            <a href="http://" className="log_in">
+            <Link to={"/signup/login"} className="log_in">
               Log in
-            </a>
-            <a href="http://" className="sign_up">
+            </Link>
+            <Link to={"/signup"} className="sign_up">
               Sign up
-            </a>
+            </Link>
           </div>
         </nav>
       </header>
@@ -176,7 +177,7 @@ export const LandingPage = () => {
         <div className="footer_container">
           <div className="left">
             <h1 className="logo">
-              <a href="http://">Chatter</a>
+              <Link to={"/"}>Chatter</Link>
             </h1>
           </div>
 
