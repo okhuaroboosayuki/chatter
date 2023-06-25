@@ -1,11 +1,13 @@
 // import { useEffect, useRef } from "react";
 import "../styles/scss/sign-in.scss";
-// import { SignUp } from "../components/SignUp";
-// import { Login } from "../components/Login";
 import { SignInHeader } from "../components/SignInHeader";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import BackIcon from "../icons/BackIcon";
 
 export const SignIn = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // const blurredImageDivRef = useRef<HTMLDivElement>(null);
   // const imgRef = useRef<HTMLImageElement>(null);
 
@@ -48,6 +50,14 @@ export const SignIn = () => {
         </div>
 
         <div className="right">
+          {location.pathname === "/signup/confirm" ? (
+            <div className="back_icon">
+              <BackIcon className="icon" onClick={() => navigate(-1)} />
+              <span>Back</span>
+            </div>
+          ) : (
+            ""
+          )}
           <div className="right_container">
             <div className="links">
               <SignInHeader to={"/signup"} className="link_one">
@@ -57,7 +67,7 @@ export const SignIn = () => {
                 Log In
               </SignInHeader>
             </div>
-            <Outlet/>
+            <Outlet />
           </div>
         </div>
       </div>
