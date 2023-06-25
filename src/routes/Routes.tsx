@@ -3,6 +3,7 @@ import App from "../App";
 import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../components/SignUp";
 import { Login } from "../components/Login";
+import { Confirmation } from '../components/Confirmation';
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,14 @@ export const router = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
+      {
+        path: "confirm",
+        element: <Confirmation />,
+      }
     ],
+  },
+  {
+    path: "/:userId/feed",
+    // element: <Feed />,
   },
 ]);
