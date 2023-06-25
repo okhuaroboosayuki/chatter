@@ -110,6 +110,22 @@
         align-items: center;
         justify-content: center;
 
+        .back_icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            position: absolute;
+            left: 44%;
+            top: .8rem;
+
+            .icon {
+                width: 1.875rem;
+                height: 1.875rem;
+            }
+        }
+
         .right_container {
             display: inline-flex;
             flex-direction: column;
@@ -127,10 +143,11 @@
                 width: 27.5rem;
                 margin-top: 0.86rem;
 
-                .link_one, .link_two {
+                .link_one,
+                .link_two {
                     display: flex;
                     flex-direction: column;
-                    gap: .5rem;
+                    gap: 0.5rem;
 
                     a {
                         display: flex;
@@ -138,12 +155,12 @@
                     }
                 }
 
-                .link_one a{
+                .link_one a {
                     justify-self: flex-start;
                     align-items: center;
                 }
 
-                .link_two a{
+                .link_two a {
                     align-items: center;
                     justify-content: flex-end;
                 }
