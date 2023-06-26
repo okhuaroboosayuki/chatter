@@ -11,6 +11,6 @@ export function CustomLink(props: CustomLinkProps) {
   const isActive = useMatch({ path: resolvedPath.pathname });
 
   return (
-      <NavLink to={props.to} className={isActive ? "active" : "inactive"}>{props.children}</NavLink>
+      <NavLink to={props.to} className={isActive ? "active_link" : "inactive_link"}>{props.children}</NavLink>
   );
 }
