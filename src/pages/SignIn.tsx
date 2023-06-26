@@ -59,14 +59,18 @@ export const SignIn = () => {
             ""
           )}
           <div className="right_container">
-            <div className="links">
-              <SignInHeader to={"/signup"} className="link_one">
-                Register
-              </SignInHeader>
-              <SignInHeader to={"login"} className="link_two">
-                Log In
-              </SignInHeader>
-            </div>
+            {location.pathname === "/signup/confirm" ? (
+              ""
+            ) : (
+              <div className="links">
+                <SignInHeader to={"/signup"} className="link_one">
+                  Register
+                </SignInHeader>
+                <SignInHeader to={"login"} className="link_two">
+                  Log In
+                </SignInHeader>
+              </div>
+            )}
             <Outlet />
           </div>
         </div>
