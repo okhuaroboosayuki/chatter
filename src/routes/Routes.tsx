@@ -3,7 +3,8 @@ import App from "../App";
 import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../components/SignUp";
 import { Login } from "../components/Login";
-import { Confirmation } from '../components/Confirmation';
+import { Confirmation } from "../components/Confirmation";
+import { Feed } from "../pages/Feed";
 
 export const router = createBrowserRouter([
   {
@@ -25,11 +26,11 @@ export const router = createBrowserRouter([
       {
         path: "confirm",
         element: <Confirmation />,
-      }
+      },
     ],
   },
   {
     path: "/:userId/feed",
-    // element: <Feed />,
+    element: <Feed />,
   },
 ]);
