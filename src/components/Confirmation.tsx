@@ -11,7 +11,7 @@ export const Confirmation = () => {
         </p>
       </div>
       <div className="bottom">
-        <form>
+        <form className="num_input_form">
           <div className="inputs">
             <div className="num_input_wrapper">
               <input type="number" name="" id="" className="num_input" />
