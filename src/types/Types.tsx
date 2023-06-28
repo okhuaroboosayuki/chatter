@@ -13,3 +13,8 @@ export type SignupProps = {
     email: string;
     password: string;
 }
+
+export type GoogleSignInProps = {
+    auth: any;
+    provider: any;
+}
