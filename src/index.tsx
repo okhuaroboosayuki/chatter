@@ -5,6 +5,7 @@ import "./styles/css/style.css";
 import { router } from "./routes/Routes";
 import { HelmetProvider } from "react-helmet-async";
 import reportWebVitals from "./reportWebVitals";
+import { AuthContextProvider } from "./context/AuthenticationContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,7 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <HelmetProvider>
-      <RouterProvider router={router} />
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
     </HelmetProvider>
   </React.StrictMode>
 );
