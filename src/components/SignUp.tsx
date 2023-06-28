@@ -2,14 +2,16 @@ import "../styles/scss/sign-in.scss";
 import GoogleIcon from "../icons/GoogleIcon";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Helmet } from "react-helmet-async";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthenticationContext";
-import { auth } from "../lib/firebase";
+import { auth, provider } from '../lib/Firebase';
 import { useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
   const navigate = useNavigate();
-  const { signup } = useContext(AuthContext);
+  const { signup, googleSignIn } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(false);
 
   const firstNameRef = useRef<HTMLInputElement>(null!);
   const lastNameRef = useRef<HTMLInputElement>(null!);
@@ -25,16 +27,31 @@ export const SignUp = () => {
       const email = emailRef.current?.value;
       const password = passwordRef.current?.value;
 
+      setLoading(true);
+
       await signup({
         auth,
         email,
         password,
       });
-      navigate("/signup/confirm");
+      navigate("/signup/login");
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setLoading(true);
+      await googleSignIn({auth, provider});
+
+      navigate("/signup/login");
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -43,7 +60,9 @@ export const SignUp = () => {
         <meta name="description" content="Register to get access to the app" />
         <link rel="canonical" href="/signup" />
       </Helmet>
-      <h2>Register as a Writer/Reader</h2>
+      <h2>Register as a Writer/Reader
+      {loading && <p>Loading...</p>}
+      </h2>
 
       <form onSubmit={handleSubmit}>
         <div className="names">
@@ -129,7 +148,7 @@ export const SignUp = () => {
 
         <div className="or_sign_with">
           <div className="google">
-            <span>
+            <span onClick={handleGoogleSignIn}>
               <GoogleIcon />
               <div>Sign up with google</div>
             </span>
