@@ -17,8 +17,6 @@ type AuthContextProviderProps = {
 type AuthContextType = {
   currentUser: any;
   setCurrentUser?: React.Dispatch<React.SetStateAction<any>>;
-  loading?: boolean;
-  setLoading?: React.Dispatch<React.SetStateAction<boolean>>;
   signup: ({ auth, email, password }: SignupProps) => Promise<UserCredential>;
   googleSignIn: ({ auth, provider }: GoogleSignInProps) => Promise<UserCredential>;
   login: ({ auth, email, password }: SignupProps) => Promise<UserCredential>;
