@@ -4,21 +4,23 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { AuthUser, SignupProps } from "../types/Types";
-import { auth } from "../lib/firebase";
+import {GoogleSignInProps, SignupProps } from "../types/Types";
+import { auth } from "../lib/Firebase";
 
 type AuthContextProviderProps = {
   children: React.ReactNode;
 };
 
 type AuthContextType = {
-  currentUser: AuthUser | null;
-  setCurrentUser?: React.Dispatch<React.SetStateAction<null>>;
+  currentUser: any;
+  setCurrentUser?: React.Dispatch<React.SetStateAction<any>>;
   loading?: boolean;
   setLoading?: React.Dispatch<React.SetStateAction<boolean>>;
   signup: ({ auth, email, password }: SignupProps) => Promise<UserCredential>;
+  googleSignIn: ({ auth, provider }: GoogleSignInProps) => Promise<UserCredential>;
   login: ({ auth, email, password }: SignupProps) => Promise<UserCredential>;
   logout: () => Promise<void>;
 };
@@ -26,7 +28,7 @@ type AuthContextType = {
 export const AuthContext = createContext({} as AuthContextType);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-  const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
+  const [currentUser, setCurrentUser] = useState(null as unknown);
   const [loading, setLoading] = useState(false);
 
   // sign up function
@@ -39,6 +41,11 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
+  // google sign in function
+  function googleSignIn({ auth, provider}: GoogleSignInProps) {
+    return signInWithPopup(auth, provider)
+  }
+
   //log out function
   function logout() {
     return signOut(auth);
@@ -47,7 +54,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setCurrentUser(user as AuthUser);
+        setCurrentUser(user);
       } else {
         setCurrentUser(null);
       }
@@ -59,6 +66,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const AuthValue: AuthContextType = {
     currentUser,
     signup,
+    googleSignIn,
     login,
     logout,
   };
