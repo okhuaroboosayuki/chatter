@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/scss/side-nav.scss";
 import { CustomLink } from "./CustomLink";
 import FeedIcon from "../icons/FeedIcon";
@@ -8,8 +8,22 @@ import DraftIcon from "../icons/DraftIcon";
 import TrendingIcon from "../icons/TrendingIcon";
 import PersonIcon from "../icons/PersonIcon";
 import NotificationIcon from "../icons/NotificationIcon";
+import { AuthContext } from "../context/AuthenticationContext";
+import { useContext } from "react";
 
 export const SideNav = () => {
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/signup/login");
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <nav className="side_nav">
       <h1 className="logo">
@@ -77,7 +91,9 @@ export const SideNav = () => {
           </div>
         </li>
         <li className="log_out">
-          <Link to={"/"} className="log_out_btn">Log out</Link>
+          <button onClick={handleLogout} className="log_out_btn">
+            Log out
+          </button>
         </li>
       </ul>
     </nav>
