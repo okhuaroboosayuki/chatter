@@ -3,7 +3,6 @@ import "../styles/scss/sign-in.scss";
 import { SignInHeader } from "../components/SignInHeader";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import BackIcon from "../icons/BackIcon";
-import { AuthContextProvider } from "../context/AuthenticationContext";
 
 export const SignIn = () => {
   const navigate = useNavigate();
@@ -27,7 +26,6 @@ export const SignIn = () => {
   // }, []);
 
   return (
-    <AuthContextProvider>
       <section className="register">
         <div className="register_container">
           <div
@@ -78,6 +76,5 @@ export const SignIn = () => {
           </div>
         </div>
       </section>
-    </AuthContextProvider>
   );
 };
