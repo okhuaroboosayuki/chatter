@@ -47,9 +47,9 @@ export const LandingPage = () => {
             Unleash the Power of Words, Connect with Like-minded Readers and
             Writers
           </p>
-          <a href="http://" className="hero_btn btn">
+          <Link to={"/signup"} className="hero_btn btn">
             Get started
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -143,9 +143,9 @@ export const LandingPage = () => {
               <span>Osayuki Okhuarobo, </span>Software developer at AltSchool
             </p>
           </div>
-          <a href="http://" className="btn">
+          <Link to={"/signup"} className="btn">
             Join chatter
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -165,9 +165,9 @@ export const LandingPage = () => {
                 Share people your great ideas, and also read write-ups based on
                 your interests. connect with people of same interests and goals
               </p>
-              <a href="http://" className="btn">
+              <Link to={"/signup"} className="btn">
                 Get started
-              </a>
+              </Link>
             </article>
           </div>
         </div>
