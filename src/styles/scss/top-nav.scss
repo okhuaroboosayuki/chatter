@@ -1,9 +1,98 @@
-.top_nav{
+.top_nav {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    // width: 100%;
-    position: absolute;
-    right: 0;
+    justify-content: flex-end;
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
+    flex-shrink: 0;
+    padding: 0.5625rem 8.0625rem 0.5625rem 19.375rem;
+    height: 4.125rem;
+    border-bottom: 1px solid #d0d0d0;
+
+    .search_wrapper {
+        flex: 2;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        position: relative;
+        // left: 4rem;
+
+        .search_input {
+            width: 28rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #d0d0d0;
+            height: 3rem;
+            padding-left: 1rem;
+            padding-right: 0.05rem;
+
+            .search_icon {
+                width: 1.3rem;
+                height: 1.3rem;
+                cursor: pointer;
+            }
+
+            .search {
+                outline: none;
+                border: none;
+                height: 2.6rem;
+                width: 100%;
+                font-size: 1rem;
+
+                &::placeholder {
+                    font-size: 1rem;
+                    color: #626262;
+                }
+            }
+        }
+    }
+
+    .top_nav_right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: .5rem;
+
+        .notifications {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            .notifications_icon {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+
+            .notifications_count {
+                width: 1.2rem;
+                height: 1.2rem;
+                background-color: #ff0000;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                font-size: 0.75rem;
+                position: relative;
+                top: -0.5rem;
+                left: -0.5rem;
+            }
+        }
+
+        .profile_pic{
+            img{
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+        }
+    }
 }
