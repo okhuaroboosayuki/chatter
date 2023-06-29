@@ -4,15 +4,17 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthenticationContext";
-import { auth, provider } from "../lib/Firebase";
+import { auth, db, provider } from "../lib/Firebase";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { addDoc, collection } from "firebase/firestore";
 
 export const SignUp = () => {
   const navigate = useNavigate();
   const { signup, googleSignIn } = useContext(AuthContext);
 
+  // use formik to handle form state and validation
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -27,16 +29,28 @@ export const SignUp = () => {
         const email = values.email;
         const password = values.password;
 
-        await signup({
-          auth,
-          email,
-          password,
+        // create a new user in firebase auth
+        await signup({auth, email, password});
+
+        // add user to firestore with the user id from auth and the rest of the form data
+        const loggedInUserId = auth.currentUser?.uid;
+        const databaseCollection = collection(db, "users");
+        await addDoc(databaseCollection, {
+          id: loggedInUserId,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          options: values.options,
+          pictute: "",
         });
+
+        // navigate to the feed page
         navigate("/signup/login");
       } catch (error) {
         console.log(error);
       }
     },
+    // use yup to validate the form
     validationSchema: Yup.object({
       firstName: Yup.string().required("First Name is required"),
       lastName: Yup.string().required("Last Name is required"),
@@ -55,6 +69,19 @@ export const SignUp = () => {
       await googleSignIn({ auth, provider });
 
       const loggedInUserId = auth.currentUser?.uid;
+
+      console.log(auth);
+
+      const databaseCollection = collection(db, "users");
+
+        await addDoc(databaseCollection, {
+          id: loggedInUserId,
+          firstName: auth.currentUser?.displayName?.split(" ")[0],
+          lastName: auth.currentUser?.displayName?.split(" ")[1],
+          email: auth.currentUser?.email,
+          options: "",
+          picture: auth.currentUser?.photoURL,
+        });
 
       navigate(`/${loggedInUserId}/feed`);
     } catch (error) {
@@ -117,9 +144,9 @@ export const SignUp = () => {
             onChange={formik.handleChange}
           >
             <option value="Select">Select</option>
-            <option value="writer">Writer</option>
-            <option value="reader">Reader</option>
-            <option value="reader">Writer & Reader</option>
+            <option value="Writer">Writer</option>
+            <option value="Reader">Reader</option>
+            <option value="Writer & Reader">Writer & Reader</option>
           </select>
           {formik.errors.options && formik.touched.options && (
             <div className="error">{formik.errors.options}</div>
