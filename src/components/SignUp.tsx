@@ -8,7 +8,7 @@ import { auth, db, provider } from "../lib/Firebase";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -34,8 +34,8 @@ export const SignUp = () => {
 
         // add user to firestore with the user id from auth and the rest of the form data
         const loggedInUserId = auth.currentUser?.uid;
-        const databaseCollection = collection(db, "users");
-        await addDoc(databaseCollection, {
+        const userRef = doc(db, "users", `${loggedInUserId}`);
+        await setDoc(userRef, {
           id: loggedInUserId,
           firstName: values.firstName,
           lastName: values.lastName,
@@ -70,9 +70,9 @@ export const SignUp = () => {
 
       const loggedInUserId = auth.currentUser?.uid;
 
-      const databaseCollection = collection(db, "users");
+      const userRef = doc(db, "users", `${loggedInUserId}`);
 
-        await addDoc(databaseCollection, {
+        await setDoc(userRef, {
           id: loggedInUserId,
           firstName: auth.currentUser?.displayName?.split(" ")[0],
           lastName: auth.currentUser?.displayName?.split(" ")[1],
@@ -81,7 +81,7 @@ export const SignUp = () => {
           picture: auth.currentUser?.photoURL,
         });
 
-      navigate(`/feed${loggedInUserId}`);
+      navigate(`/feed/${loggedInUserId}`);
     } catch (error) {
       console.log(error);
     }
