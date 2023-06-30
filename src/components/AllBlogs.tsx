@@ -1,4 +1,7 @@
+import CommentsIcon from "../icons/CommentsIcon";
+import HeartIcon from "../icons/HeartIcon";
 import OpenBookIcon from "../icons/OpenBookIcon";
+import SmallChartIcon from "../icons/SmallChartIcon";
 import "../styles/scss/all-blogs.scss";
 
 export const AllBlogs = () => {
@@ -29,7 +32,9 @@ export const AllBlogs = () => {
           </div>
         </div>
         <div className="blog_title">
-          <h3 className="blog_title_heading">Starting out as a Frontend Engineer</h3>
+          <h3 className="blog_title_heading">
+            Starting out as a Frontend Engineer
+          </h3>
           <p className="blog_post_reading_time">
             <OpenBookIcon className="open_book_icon" />
             <span>10 mins read</span>
@@ -46,8 +51,22 @@ export const AllBlogs = () => {
           <div className="blog_content_image">
             <img src={require("../images/blog-post-pic.png")} alt="post pic" />
           </div>
+
+          <div className="blog_post_analytics">
+            <div className="comments">
+              <CommentsIcon className="comments_icon" />
+              <span className="number_of_comments">256</span>
+            </div>
+            <div className="likes">
+              <HeartIcon className="likes_icon" />
+              <span className="number_of_likes">1.2k</span>
+            </div>
+            <div className="views">
+              <SmallChartIcon className="views_icon" />
+              <span className="number_of_views">6.4k views</span>
+            </div>
+          </div>
         </div>
-        <div className="blog_post_analytics"></div>
       </article>
     </section>
   );
