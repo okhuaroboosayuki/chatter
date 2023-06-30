@@ -1,0 +1,97 @@
+.all_blogs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid#d0d0d0;
+
+    .single_blog {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100%;
+        border-bottom: 1px solid#d0d0d0;
+        position: relative;
+        left: 3.2rem;
+        padding: .5rem 0rem;
+        margin-top: 1rem;
+        gap: 1.5rem;
+
+        .author_details {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.75rem;
+
+            .left {
+                display: inline-flex;
+
+                .author_image {
+                    width: 6rem;
+                    height: 6rem;
+                    border-radius: 50%;
+                    background-color: #e6e5e5;
+                }
+            }
+
+            .right{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                gap: 0.5rem;
+
+                .author_name {
+                    font-size: 1.5rem;
+                    font-weight: 500;
+                }
+
+                .author_title {
+                    font-size: 1rem;
+                    font-weight: 400;
+                    color: #626262;
+                    display: inline-flex;
+                    gap: 0.5rem;
+                }
+            }
+        }
+
+        .blog_title{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+
+            .blog_title_heading{
+                font-size: 2rem;
+                font-weight: 500;
+            }
+
+            .blog_post_reading_time{
+                font-size: 1rem;
+                font-weight: 400;
+                color: #626262;
+                line-height: 1.5rem;
+                display: inline-flex;
+                gap: 0.3rem;
+            }
+        }
+
+        .blog_content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: .7rem;
+
+            .blog_content_text {
+                width: 38.75rem;
+                font-size: 1.125rem;
+                font-weight: 400;
+                color: #626262;
+                line-height: 1.6875rem;
+            }
+        }
+    }
+}
