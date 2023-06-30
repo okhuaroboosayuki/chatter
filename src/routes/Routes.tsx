@@ -5,22 +5,37 @@ import { SignUp } from "../components/SignUp";
 import { Login } from "../components/Login";
 import { Confirmation } from "../components/Confirmation";
 import { Feed } from "../pages/Feed";
-import { AuthContext } from "../context/AuthenticationContext";
-import { useContext, useEffect } from "react";
+import { ErrorPage } from "../pages/ErrorPage";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../lib/Firebase";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
 };
 
 function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const route = window.location.pathname;
+  
   useEffect(() => {
-    if (!currentUser) {
-      navigate("/signup");
-    }
-  }, [currentUser, navigate])
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        if (route === "/") {
+          navigate(`/feed/${user.uid}`);
+        }
+        if (route === "/signup") {
+          navigate(`/feed/${user.uid}`);
+        }
+        if (route === "/signup/login") {
+          navigate(`/feed/${user.uid}`);
+        }
+        if (route === "/signup/confirm") {
+          navigate(`/feed/${user.uid}`);
+        }
+      } else return;
+    });
+  }, [navigate, route]);
 
   return <>{children}</>;
 }
@@ -36,24 +51,40 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <SignUp />,
+        element: (
+          <ProtectedRoute>
+            <SignUp />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "login",
-        element: <Login />,
+        element: (
+          <ProtectedRoute>
+            <Login />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "confirm",
-        element: <Confirmation />,
+        element: (
+          <ProtectedRoute>
+            <Confirmation />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
   {
-    path: "/:userId/feed",
+    path: "/feed/:userId",
     element: (
       <ProtectedRoute>
         <Feed />
       </ProtectedRoute>
     ),
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
