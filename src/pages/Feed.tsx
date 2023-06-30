@@ -8,6 +8,8 @@ import {
 } from "../context/AuthenticationContext";
 import PenIcon from "../icons/PenIcon";
 import { useContext } from "react";
+import { Outlet } from "react-router-dom";
+import { CustomLinkTwo } from "../components/CustomLink";
 
 export const Feed = () => {
   const { currentUser } = useContext(AuthContext);
@@ -40,10 +42,24 @@ export const Feed = () => {
                 </div>
               </div>
 
-              <div className="feed_categories">
-                {/* <Link to={#ggk}></Link> */}
-              </div>
-              <div className="feed_posts"></div>
+              <section className="blogs">
+                <div className="blogs_container">
+                  <div className="blogs_heading_links">
+                    <h3>
+                      <CustomLinkTwo to={`/feed/${currentUser?.uid}`}>
+                        For you
+                      </CustomLinkTwo>
+                    </h3>
+                    <h3>
+                      <CustomLinkTwo to="/">Featured</CustomLinkTwo>
+                    </h3>
+                    <h3>
+                      <CustomLinkTwo to="/">Recent</CustomLinkTwo>
+                    </h3>
+                  </div>
+                </div>
+                <Outlet />
+              </section>
             </div>
           </div>
         </section>
