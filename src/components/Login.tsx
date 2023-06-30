@@ -27,7 +27,7 @@ export const Login = () => {
 
         const loggedInUserId = auth.currentUser?.uid;
 
-        navigate(`/${loggedInUserId}/feed`);
+        navigate(`/feed/${loggedInUserId}`);
       } catch (error) {
         console.log(error);
       }

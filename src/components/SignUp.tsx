@@ -70,8 +70,6 @@ export const SignUp = () => {
 
       const loggedInUserId = auth.currentUser?.uid;
 
-      console.log(auth);
-
       const databaseCollection = collection(db, "users");
 
         await addDoc(databaseCollection, {
@@ -83,7 +81,7 @@ export const SignUp = () => {
           picture: auth.currentUser?.photoURL,
         });
 
-      navigate(`/${loggedInUserId}/feed`);
+      navigate(`/feed${loggedInUserId}`);
     } catch (error) {
       console.log(error);
     }

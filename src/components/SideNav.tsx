@@ -12,10 +12,11 @@ import { AuthContext } from "../context/AuthenticationContext";
 import { useContext } from "react";
 
 export const SideNav = () => {
-  const { logout } = useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-
+  const loggedinUser = currentUser?.uid;
+  
   const handleLogout = async () => {
     try {
       await logout();
@@ -27,7 +28,7 @@ export const SideNav = () => {
   return (
     <nav className="side_nav">
       <h1 className="logo">
-        <Link to={"/"} className="logo_link">
+        <Link to={`/feed/${loggedinUser}`} className="logo_link">
           Chatter
         </Link>
       </h1>
@@ -35,23 +36,23 @@ export const SideNav = () => {
         <li className="overview">
           <h4 className="overview_heading">Overview</h4>
           <div className="overview_links">
-            <CustomLink to={"/:userId/feed"}>
+            <CustomLink to={`/feed/${loggedinUser}`}>
               <FeedIcon className="icon" />
               <span>Feed</span>
             </CustomLink>
-            <CustomLink to={"bookmarks"}>
+            <CustomLink to={"/bookmarks"}>
               <BookmarkIcon className="icon" />
               <span>Bookmarks</span>
             </CustomLink>
-            <CustomLink to={"team-blogs"}>
+            <CustomLink to={"/team-blogs"}>
               <TeamIcon className="icon" />
               <span>Team Blogs</span>
             </CustomLink>
-            <CustomLink to={"drafts"}>
+            <CustomLink to={"/drafts"}>
               <DraftIcon className="icon" />
               <span>Drafts</span>
             </CustomLink>
-            <CustomLink to={"analytics"}>
+            <CustomLink to={"/analytics"}>
               <BookmarkIcon className="icon" />
               <span>Analytics</span>
             </CustomLink>
