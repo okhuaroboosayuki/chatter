@@ -9,6 +9,7 @@ import { ErrorPage } from "../pages/ErrorPage";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../lib/Firebase";
+import { AllBlogs } from "../components/AllBlogs";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
@@ -17,7 +18,7 @@ type ProtectedRouteProps = {
 function ProtectedRoute({ children }: ProtectedRouteProps) {
   const navigate = useNavigate();
   const route = window.location.pathname;
-  
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -82,6 +83,16 @@ export const router = createBrowserRouter([
         <Feed />
       </ProtectedRoute>
     ),
+    children: [
+      {
+        index: true,
+        element: (
+          <ProtectedRoute>
+            <AllBlogs />
+          </ProtectedRoute>
+        ),
+      },
+    ],
   },
   {
     path: "*",
