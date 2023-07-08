@@ -69,6 +69,8 @@
             .blog_title_heading {
                 font-size: 2rem;
                 font-weight: 500;
+                text-transform: capitalize;
+                width: 38.75rem;
             }
 
             .blog_post_reading_time {
@@ -99,7 +101,7 @@
 
             .blog_content_image {
                 width: 38.75rem;
-                height: 15.125rem;
+                height: 20.125rem;
 
                 img {
                     width: 100%;
