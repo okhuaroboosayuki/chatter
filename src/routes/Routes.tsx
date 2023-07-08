@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../lib/Firebase";
 import { AllBlogs } from "../components/AllBlogs";
+import { NewBlogPost } from "../pages/NewBlogPost";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
@@ -22,16 +23,7 @@ function ProtectedRoute({ children }: ProtectedRouteProps) {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        if (route === "/") {
-          navigate(`/feed/${user.uid}`);
-        }
         if (route === "/signup") {
-          navigate(`/feed/${user.uid}`);
-        }
-        if (route === "/signup/login") {
-          navigate(`/feed/${user.uid}`);
-        }
-        if (route === "/signup/confirm") {
           navigate(`/feed/${user.uid}`);
         }
       } else return;
@@ -93,6 +85,14 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/feed/:userId/new-post",
+    element: (
+      <ProtectedRoute>
+        <NewBlogPost />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "*",
