@@ -4,8 +4,12 @@ import PeopleIcon from "../icons/PeopleIcon";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import "../styles/scss/landing-page.scss";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthenticationContext";
 
 export const LandingPage = () => {
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <section className="landing_page">
       <header>
@@ -30,12 +34,20 @@ export const LandingPage = () => {
           </ul>
 
           <div className="links">
-            <Link to={"/signup/login"} className="log_in">
-              Log in
-            </Link>
-            <Link to={"/signup"} className="sign_up">
-              Sign up
-            </Link>
+            {currentUser ? (
+              <Link to={`/feed/${currentUser?.uid}`} className="btn">
+                Feed
+              </Link>
+            ) : (
+              <>
+                <Link to={"/signup/login"} className="log_in">
+                  Log in
+                </Link>
+                <Link to={"/signup"} className="sign_up">
+                  Sign up
+                </Link>
+              </>
+            )}
           </div>
         </nav>
       </header>
