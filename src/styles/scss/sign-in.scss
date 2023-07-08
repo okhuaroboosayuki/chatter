@@ -246,7 +246,7 @@
                     }
 
                     .email_input,
-                    select {
+                    .designation {
                         border: 1px solid #ced4da;
                         outline: none;
                         height: 50px;
@@ -262,6 +262,7 @@
 
                     .first_name_input,
                     .last_name_input,
+                    .designation,
                     .email_input {
                         letter-spacing: .5008px;
                         word-spacing: 1px;
