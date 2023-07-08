@@ -8,11 +8,16 @@ import {
 } from "../context/AuthenticationContext";
 import PenIcon from "../icons/PenIcon";
 import { useContext } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { CustomLinkTwo } from "../components/CustomLink";
 
 export const Feed = () => {
   const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+      navigate(`/feed/${currentUser?.uid}/new-post`)
+  };
 
   return (
     <>
@@ -36,7 +41,7 @@ export const Feed = () => {
                   <h2>FEED</h2>
                   <p>Explore different content you’d love </p>
                 </div>
-                <div className="new_post_btn">
+                <div className="new_post_btn" onClick={handleClick}>
                   <PenIcon className="new_post_icon" />
                   <p>Post new content</p>
                 </div>
