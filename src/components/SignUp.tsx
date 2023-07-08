@@ -1,8 +1,9 @@
 import "../styles/scss/sign-in.scss";
 import GoogleIcon from "../icons/GoogleIcon";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Helmet } from "react-helmet-async";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthenticationContext";
 import { auth, db, provider } from "../lib/Firebase";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +15,8 @@ export const SignUp = () => {
   const navigate = useNavigate();
   const { signup, googleSignIn } = useContext(AuthContext);
 
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
+
   // use formik to handle form state and validation
   const formik = useFormik({
     initialValues: {
@@ -22,7 +25,7 @@ export const SignUp = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      options: "",
+      designation: "",
     },
     onSubmit: async (values) => {
       try {
@@ -30,21 +33,25 @@ export const SignUp = () => {
         const password = values.password;
 
         // create a new user in firebase auth
-        await signup({auth, email, password});
+        await signup({ auth, email, password });
 
         // add user to firestore with the user id from auth and the rest of the form data
         const loggedInUserId = auth.currentUser?.uid;
         const userRef = doc(db, "users", `${loggedInUserId}`);
-        await setDoc(userRef, {
-          id: loggedInUserId,
-          firstName: values.firstName,
-          lastName: values.lastName,
-          email: values.email,
-          options: values.options,
-          pictute: "",
-        });
 
-        // navigate to the feed page
+        await setDoc(
+          userRef,
+          {
+            id: loggedInUserId,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            designation: values.designation,
+            picture: "",
+          },
+          { merge: true }
+        );
+
         navigate("/signup/login");
       } catch (error) {
         console.log(error);
@@ -54,13 +61,11 @@ export const SignUp = () => {
     validationSchema: Yup.object({
       firstName: Yup.string().required("First Name is required"),
       lastName: Yup.string().required("Last Name is required"),
-      options: Yup.string().required("Select an option"),
+      designation: Yup.string().required("Enter your profession"),
       email: Yup.string().email("Invalid email address").required("An email address is required"),
-      password: Yup.string().required("Password is required"),
+      password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
       //check if password and confirm password match
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password")], "Passwords do not match")
-        .required("Confirm Password is required"),
+      confirmPassword: Yup.string().oneOf([Yup.ref("password")], "Passwords do not match").required("Confirm Password is required"),
     }),
   });
 
@@ -72,18 +77,54 @@ export const SignUp = () => {
 
       const userRef = doc(db, "users", `${loggedInUserId}`);
 
-        await setDoc(userRef, {
+      await setDoc(
+        userRef,
+        {
           id: loggedInUserId,
           firstName: auth.currentUser?.displayName?.split(" ")[0],
           lastName: auth.currentUser?.displayName?.split(" ")[1],
           email: auth.currentUser?.email,
-          options: "",
+          designation: "",
           picture: auth.currentUser?.photoURL,
-        });
+        },
+        { merge: true }
+      );
 
       navigate(`/feed/${loggedInUserId}`);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  // handle password visibility
+  const handlePasswordVisibility = () => {
+    if (formik.values.password.length < 1) {
+      return;
+    } else {
+      setPasswordVisibility(!passwordVisibility);
+
+      if (passwordVisibility) {
+        document.getElementById("password")?.setAttribute("type", "password");
+      } else {
+        document.getElementById("password")?.setAttribute("type", "text");
+      }
+    }
+  };
+  const handleConfirmPasswordVisibility = () => {
+    if (formik.values.confirmPassword.length < 1) {
+      return;
+    } else {
+      setPasswordVisibility(!passwordVisibility);
+
+      if (passwordVisibility) {
+        document
+          .getElementById("confirmPassword")
+          ?.setAttribute("type", "password");
+      } else {
+        document
+          .getElementById("confirmPassword")
+          ?.setAttribute("type", "text");
+      }
     }
   };
 
@@ -132,22 +173,20 @@ export const SignUp = () => {
           </div>
         </div>
 
-        <div className="profile_details_options input_wrapper">
-          <label htmlFor="options">You are joining as?</label>
-          <select
-            name="options"
-            id="options"
-            className="options"
-            value={formik.values.options}
+        <div className="input_wrapper">
+          <label htmlFor="designation">You are joining as?</label>
+          <input
+            type="text"
+            name="designation"
+            id="designation"
+            className="designation"
+            placeholder="Software Engineer"
+            value={formik.values.designation}
             onChange={formik.handleChange}
-          >
-            <option value="Select">Select</option>
-            <option value="Writer">Writer</option>
-            <option value="Reader">Reader</option>
-            <option value="Writer & Reader">Writer & Reader</option>
-          </select>
-          {formik.errors.options && formik.touched.options && (
-            <div className="error">{formik.errors.options}</div>
+            onBlur={formik.handleBlur}
+          />
+          {formik.errors.designation && formik.touched.designation && (
+            <div className="error">{formik.errors.designation}</div>
           )}
         </div>
 
@@ -180,7 +219,17 @@ export const SignUp = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <VisibilityOffOutlinedIcon className="visibility_icon" />
+            {passwordVisibility ? (
+              <VisibilityOutlinedIcon
+                className="visibility_icon"
+                onClick={handlePasswordVisibility}
+              />
+            ) : (
+              <VisibilityOffOutlinedIcon
+                className="visibility_icon"
+                onClick={handlePasswordVisibility}
+              />
+            )}
           </div>
           {formik.errors.password && formik.touched.password && (
             <div className="error">{formik.errors.password}</div>
@@ -199,7 +248,17 @@ export const SignUp = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <VisibilityOffOutlinedIcon className="visibility_icon" />
+            {passwordVisibility ? (
+              <VisibilityOutlinedIcon
+                className="visibility_icon"
+                onClick={handleConfirmPasswordVisibility}
+              />
+            ) : (
+              <VisibilityOffOutlinedIcon
+                className="visibility_icon"
+                onClick={handleConfirmPasswordVisibility}
+              />
+            )}
           </div>
           {formik.errors.confirmPassword && formik.touched.confirmPassword && (
             <div className="error">{formik.errors.confirmPassword}</div>
