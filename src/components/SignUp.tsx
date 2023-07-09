@@ -16,6 +16,7 @@ export const SignUp = () => {
   const { signup, googleSignIn } = useContext(AuthContext);
 
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(false);
 
   // use formik to handle form state and validation
   const formik = useFormik({
@@ -114,9 +115,9 @@ export const SignUp = () => {
     if (formik.values.confirmPassword.length < 1) {
       return;
     } else {
-      setPasswordVisibility(!passwordVisibility);
+      setConfirmPasswordVisibility(!confirmPasswordVisibility);
 
-      if (passwordVisibility) {
+      if (confirmPasswordVisibility) {
         document
           .getElementById("confirmPassword")
           ?.setAttribute("type", "password");
@@ -248,7 +249,7 @@ export const SignUp = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            {passwordVisibility ? (
+            {confirmPasswordVisibility ? (
               <VisibilityOutlinedIcon
                 className="visibility_icon"
                 onClick={handleConfirmPasswordVisibility}
