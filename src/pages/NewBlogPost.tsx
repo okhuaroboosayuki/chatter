@@ -12,6 +12,9 @@ import React from "react";
 import { addDoc, collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../lib/Firebase";
 import { useNavigate } from "react-router-dom";
+import { storage } from "../lib/Firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 // import ReactHtmlParser from 'react-html-parser';
 
 export const NewBlogPost = () => {
@@ -24,29 +27,23 @@ export const NewBlogPost = () => {
 
   const [content, setContent] = useState<any>("");
   const [imageUrl, setImageUrl] = useState<any>();
+  const [imageUpload, setImageUpload] = useState<any>();
 
+  // useEffect to show a preview of the image the user selects
   useEffect(() => {
-    //submit the image to cloudinary
-    const submitImage = async () => {
-      if (imageRef.current?.files) {
-        const file = imageRef.current?.files[0];
-        const formData = new FormData();
-        formData.append("upload_preset", "beub5k3i");
-        formData.append("file", file);
-        const res = await fetch(
-          "https://api.cloudinary.com/v1_1/dg0sck16v/upload",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-        const data = await res.json();
-        setImageUrl(data.secure_url);
-        console.log(data.secure_url);
-      }
+    const uploadImage = () => {
+      if (imageUpload == null) return;
+
+      const storageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+      uploadBytes(storageRef, imageUpload).then((snapshot) => {
+        console.log("Uploaded a blob or file!");
+        getDownloadURL(snapshot.ref).then((url) => {
+          setImageUrl(url);
+        });
+      });
     };
-    submitImage();
-  }, [imageRef.current?.files]);
+    uploadImage();
+  }, [imageUpload]);
 
   const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
     //clear the image input and the image preview
@@ -60,28 +57,22 @@ export const NewBlogPost = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-
       //get title and image from the refs
       const postTitle = titleRef.current?.value;
       const postImage = imageUrl;
       const postDescription = descriptionRef.current?.value;
-
       // get the author's name, image and designation from the users collection
       const authorRef = doc(db, "users", `${currentUser?.uid}`);
       const authorDoc = await getDoc(authorRef);
       const authorData = authorDoc.data();
-
       const authorName = `${authorData?.firstName} ${authorData?.lastName}`;
       const authorImage = authorData?.picture;
       const authorDesignation = authorData?.designation;
-
       // calculating the time to read the post minus the images
       const contentWithoutTags = content.getContent({ format: "text" });
       const timeToRead = Math.ceil(contentWithoutTags.length / 250);
-
       // create a collection in firestore with the user id from auth inside a document from the 'users' collection
       const userRef = collection(db, "users", `${currentUser?.uid}`, "posts");
-
       // add the new post to the collection named 'posts' inside the user's document
       await addDoc(userRef, {
         author: authorName,
@@ -101,7 +92,6 @@ export const NewBlogPost = () => {
         title: postTitle,
         image: postImage,
       });
-
       // navigate to the feed page
       navigate(`/feed/${currentUser?.uid}`);
     } catch (error) {
@@ -155,6 +145,9 @@ export const NewBlogPost = () => {
                         id="image"
                         className="image_input"
                         ref={imageRef}
+                        onChange={() => {
+                          setImageUpload(imageRef.current?.files![0]);
+                        }}
                       />
                       <button className="clear_btn" onClick={handleClear}>
                         Clear
@@ -166,26 +159,37 @@ export const NewBlogPost = () => {
                     <label htmlFor="description">Description</label>
                     <div className="description_input_wrapper">
                       <textarea
-                      id="description"
-                      name="description"
-                      className="description_input"
-                      placeholder="Give a short description of your post"
-                      maxLength={1000}
-                      ref={descriptionRef}
-                       />
+                        id="description"
+                        name="description"
+                        className="description_input"
+                        placeholder="Give a short description of your post"
+                        maxLength={1000}
+                        ref={descriptionRef}
+                      />
                     </div>
                   </div>
                 </div>
 
                 <div className="image_preview">
-                  <img src={imageUrl} alt="" />
+                  {
+                    // if there is an image url, show the image preview
+                    imageUrl ? (
+                      <img src={imageUrl} alt="preview" />
+                    ) : (
+                      // else show the default image
+                      <img
+                        src={require("../images/no_image_found.png")}
+                        alt="preview"
+                        draggable={false}
+                      />
+                    )
+                  }
                 </div>
               </div>
 
               <div className="editor_container">
                 <Editor
                   apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
-                  // onInit={(evt, editor) => (formik.values.content = editor)}
                   onInit={(evt, editor) => setContent(editor)}
                   id="content"
                   textareaName="content"
