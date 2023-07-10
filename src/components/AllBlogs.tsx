@@ -27,8 +27,11 @@ export const AllBlogs = () => {
     const querySnapshot = await getDocs(posts);
 
     // map through the documents and get the data
-    const blogs = querySnapshot.docs
-      .map((doc) => ({ id: doc.id, ...doc.data() }));
+    const blogs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+    //sort the blog content randomly
+    blogs.sort(() => Math.random() - 1);
+
 
     // set blogContent to the array of data
     setBlogContent(blogs);
@@ -77,7 +80,9 @@ export const AllBlogs = () => {
             </p>
           </div>
           <div className="blog_content" key={blog.description}>
-            <p className="blog_content_text">{blog.description}</p>
+            <p className="blog_content_text">{blog.description}......
+            <Link to={`/feed/${currentUser?.uid}/blogs/${blog.id}`} className="read_more">read more</Link>
+            </p>
             <div className="blog_content_image">
               <Link to={`/feed/${currentUser?.uid}/blogs/${blog.id}`}>
                 <img src={blog.image} alt="post pic" />
