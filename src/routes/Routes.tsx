@@ -3,32 +3,41 @@ import App from "../App";
 import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../components/SignUp";
 import { Login } from "../components/Login";
-import { Confirmation } from "../components/Confirmation";
 import { Feed } from "../pages/Feed";
 import { ErrorPage } from "../pages/ErrorPage";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../lib/Firebase";
 import { AllBlogs } from "../components/AllBlogs";
 import { NewBlogPost } from "../pages/NewBlogPost";
+import { AuthContext } from "../context/AuthenticationContext";
+import { SingleBlog } from "../pages/SingleBlog";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
 };
 
 function ProtectedRoute({ children }: ProtectedRouteProps) {
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const route = window.location.pathname;
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        if (route === "/signup") {
-          navigate(`/feed/${user.uid}`);
+      if (currentUser) {
+        if (route === "/signup" || route === "/signup/login") {
+          navigate(`/feed/${currentUser.uid}`);
         }
       } else return;
-    });
-  }, [navigate, route]);
+
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          navigate("/signup");
+        }
+      }
+      );
+
+      return () => unsubscribe();
+  }, [currentUser, navigate, route]);
 
   return <>{children}</>;
 }
@@ -37,10 +46,12 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/signup",
     element: <SignIn />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -58,14 +69,6 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      {
-        path: "confirm",
-        element: (
-          <ProtectedRoute>
-            <Confirmation />
-          </ProtectedRoute>
-        ),
-      },
     ],
   },
   {
@@ -75,6 +78,7 @@ export const router = createBrowserRouter([
         <Feed />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -91,6 +95,15 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <NewBlogPost />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/feed/:userId/post/:blogId",
+    element: (
+      <ProtectedRoute>
+        <SingleBlog />
       </ProtectedRoute>
     ),
   },
