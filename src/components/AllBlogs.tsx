@@ -70,7 +70,7 @@ export const AllBlogs = () => {
           </div>
           <div className="blog_title" key={blog.title}>
             <h3 className="blog_title_heading">
-              <Link to={`/feed/${currentUser?.uid}/blogs/${blog.id}`}>
+              <Link to={`/feed/${currentUser?.uid}/post/${blog.id}`}>
                 {blog.title}
               </Link>
             </h3>
@@ -84,7 +84,7 @@ export const AllBlogs = () => {
             <Link to={`/feed/${currentUser?.uid}/blogs/${blog.id}`} className="read_more">read more</Link>
             </p>
             <div className="blog_content_image">
-              <Link to={`/feed/${currentUser?.uid}/blogs/${blog.id}`}>
+              <Link to={`/feed/${currentUser?.uid}/post/${blog.id}`}>
                 <img src={blog.image} alt="post pic" />
               </Link>
             </div>
