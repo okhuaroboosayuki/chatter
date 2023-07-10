@@ -17,6 +17,7 @@ export const SignUp = () => {
 
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(false);
+  const [error, setError] = useState("");
 
   // use formik to handle form state and validation
   const formik = useFormik({
@@ -54,8 +55,10 @@ export const SignUp = () => {
         );
 
         navigate("/signup/login");
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        if (error.code === "auth/email-already-in-use") {
+          setError("Email already in use");
+        }
       }
     },
     // use yup to validate the form
@@ -206,6 +209,7 @@ export const SignUp = () => {
           {formik.errors.email && formik.touched.email && (
             <div className="error">{formik.errors.email}</div>
           )}
+          {error && <div className="error">{error}</div>}
         </div>
 
         <div className="input_wrapper">
