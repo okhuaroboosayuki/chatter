@@ -81,7 +81,7 @@ export const AllBlogs = () => {
           </div>
           <div className="blog_content" key={blog.description}>
             <p className="blog_content_text">{blog.description}......
-            <Link to={`/feed/${currentUser?.uid}/blogs/${blog.id}`} className="read_more">read more</Link>
+            <Link to={`/feed/${currentUser?.uid}/post/${blog.id}`} className="read_more">read more</Link>
             </p>
             <div className="blog_content_image">
               <Link to={`/feed/${currentUser?.uid}/post/${blog.id}`}>
