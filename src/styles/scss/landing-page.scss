@@ -83,6 +83,24 @@ nav ul,
                         background-color: #3a2b9e;
                     }
                 }
+
+                .logout {
+                    padding: 0.5rem 25px;
+                    border-radius: 0.5rem;
+                    text-align: center;
+                    transition: all 0.5s ease-in-out;
+                    border: 0.0625rem solid red;
+                    background-color: var(--pry-bg-color);
+                    color: red;
+                    font-weight: 400;
+                    font-size: 18px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: red;
+                        color: var(--pry-bg-color);
+                    }
+                }
             }
         }
     }
@@ -501,7 +519,7 @@ nav ul,
             }
         }
 
-        .footer_bottom{
+        .footer_bottom {
             width: 100%;
             align-self: center;
             display: flex;
@@ -509,7 +527,7 @@ nav ul,
             justify-content: center;
             margin-top: 5rem;
 
-            svg{
+            svg {
                 font-size: 16px;
                 // margin-top: 3px;
             }

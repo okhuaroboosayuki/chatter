@@ -3,12 +3,22 @@ import BookIcon from "../icons/BookIcon";
 import PeopleIcon from "../icons/PeopleIcon";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import "../styles/scss/landing-page.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthenticationContext";
 
 export const LandingPage = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/signup/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section className="landing_page">
@@ -33,22 +43,25 @@ export const LandingPage = () => {
             </li>
           </ul>
 
-          <div className="links">
-            {currentUser ? (
+          {currentUser ? (
+            <div className="links">
               <Link to={`/feed/${currentUser?.uid}`} className="btn">
                 Feed
               </Link>
-            ) : (
-              <>
-                <Link to={"/signup/login"} className="log_in">
-                  Log in
-                </Link>
-                <Link to={"/signup"} className="sign_up">
-                  Sign up
-                </Link>
-              </>
-            )}
-          </div>
+              <button className="logout" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="links">
+              <Link to={"/signup/login"} className="log_in">
+                Log in
+              </Link>
+              <Link to={"/signup"} className="sign_up">
+                Sign up
+              </Link>
+            </div>
+          )}
         </nav>
       </header>
 
@@ -59,9 +72,11 @@ export const LandingPage = () => {
             Unleash the Power of Words, Connect with Like-minded Readers and
             Writers
           </p>
-          <Link to={"/signup"} className="hero_btn btn">
-            Get started
-          </Link>
+          {!currentUser && (
+            <Link to={"/signup"} className="hero_btn btn">
+              Get started
+            </Link>
+          )}
         </div>
       </div>
 
@@ -155,9 +170,11 @@ export const LandingPage = () => {
               <span>Osayuki Okhuarobo, </span>Software developer at AltSchool
             </p>
           </div>
-          <Link to={"/signup"} className="btn">
-            Join chatter
-          </Link>
+          {!currentUser && (
+            <Link to={"/signup"} className="btn">
+              Join chatter
+            </Link>
+          )}
         </div>
       </div>
 
@@ -177,9 +194,11 @@ export const LandingPage = () => {
                 Share people your great ideas, and also read write-ups based on
                 your interests. connect with people of same interests and goals
               </p>
-              <Link to={"/signup"} className="btn">
-                Get started
-              </Link>
+              {!currentUser && (
+                <Link to={"/signup"} className="btn">
+                  Get started
+                </Link>
+              )}
             </article>
           </div>
         </div>
