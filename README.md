@@ -41,7 +41,7 @@ Chatter is a multi-functional platform where authors and readers can create and 
 
 - **TypeScript:** TypeScript enhances the development process by adding static typing to JavaScript, ensuring code integrity and improved developer productivity.
 
-**React-Router:** Chatter utilizes React-Router for efficient client-side routing, enabling seamless navigation within the application.
+- **React-Router:** Chatter utilizes React-Router for efficient client-side routing, enabling seamless navigation within the application.
 
 - **Firebase:** Firebase is utilized for authentication and database management. It provides a secure and scalable infrastructure for user management and data storage.
 
