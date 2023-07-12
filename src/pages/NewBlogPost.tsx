@@ -70,7 +70,7 @@ export const NewBlogPost = () => {
       const authorDesignation = authorData?.designation;
       // calculating the time to read the post minus the images
       const contentWithoutTags = content.getContent({ format: "text" });
-      const timeToRead = Math.ceil(contentWithoutTags.length / 250);
+      const timeToRead = Math.ceil(contentWithoutTags.length / 300);
       // create a collection in firestore with the user id from auth inside a document from the 'users' collection
       const userRef = collection(db, "users", `${currentUser?.uid}`, "posts");
       // add the new post to the collection named 'posts' inside the user's document
@@ -162,7 +162,7 @@ export const NewBlogPost = () => {
                         id="description"
                         name="description"
                         className="description_input"
-                        placeholder="Give a short description of your post"
+                        placeholder="Give a captivating description of your post"
                         maxLength={1000}
                         ref={descriptionRef}
                       />
