@@ -1,0 +1,143 @@
+.feed_single_blog_post {
+    display: flex;
+    position: relative;
+
+    .single_blog_post_container {
+        flex: 6;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.8rem;
+
+        .single_blog_post {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.8rem;
+            position: absolute;
+            top: 6rem;
+            right: 2.4rem;
+            width: 78.25rem;
+            overflow: hidden;
+
+            .author_details {
+                align-self: flex-start;
+                position: relative;
+                left: 3.2rem;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.75rem;
+
+                .left {
+                    display: inline-flex;
+
+                    .author_image {
+                        width: 6rem;
+                        height: 6rem;
+                        border-radius: 50%;
+                        background-color: #e6e5e5;
+                    }
+                }
+
+                .right {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    gap: 0.5rem;
+
+                    .author_name {
+                        font-size: 1.5rem;
+                        font-weight: 500;
+                    }
+
+                    .author_title {
+                        font-size: 1rem;
+                        font-weight: 400;
+                        color: #626262;
+                        display: inline-flex;
+                        gap: 0.5rem;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+
+            .blog_post_reading_time {
+                font-size: 1rem;
+                font-weight: 400;
+                color: #626262;
+                line-height: 1.5rem;
+                display: inline-flex;
+                gap: 1.9rem;
+                align-items: flex-start;
+                position: relative;
+                left: 3.2rem;
+
+                .blog_post_analytics {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+
+                    .comments,
+                    .likes,
+                    .views {
+                        display: inline-flex;
+                        gap: 0.2rem;
+                        cursor: text;
+                        font-weight: 400;
+                        color: #626262;
+                    }
+
+                    .comments_icon,
+                    .likes_icon,
+                    .views_icon {
+                        width: 1.3rem;
+                        height: 1.3rem;
+                        color: #626262;
+
+                        &:hover {
+                            color: var(--btn-color);
+                        }
+                    }
+                }
+
+                .reading_time {
+                    display: inline-flex;
+                    gap: 0.3rem;
+                    cursor: text;
+                }
+            }
+
+            .blog_title {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                .blog_title_heading {
+                    font-size: 2rem;
+                    font-weight: 500;
+                    text-transform: capitalize;
+                    width: 50rem;
+                    text-align: center;
+                }
+            }
+
+            .single_blog_post_content {
+                display: flex;
+                flex-direction: column;
+
+                article {
+                    width: 100%;
+                    font-size: 1.125rem;
+                    font-weight: 400;
+                    color: #626262;
+                    line-height: 1.6875rem;
+                    margin-bottom: 3rem;
+                }
+            }
+        }
+    }
+}
