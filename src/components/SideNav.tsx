@@ -67,11 +67,11 @@ export const SideNav = () => {
             </span>
           </h4>
           <div className="trending_tags_links">
-            <CustomLink to={"programming"}>Programming</CustomLink>
-            <CustomLink to={"data-science"}>Data science</CustomLink>
-            <CustomLink to={"technology"}>Technology</CustomLink>
-            <CustomLink to={"machine-learning"}>Machine learning</CustomLink>
-            <CustomLink to={"politics"}>Politics</CustomLink>
+            <CustomLink to={"/programming"}>Programming</CustomLink>
+            <CustomLink to={"/data-science"}>Data science</CustomLink>
+            <CustomLink to={"/technology"}>Technology</CustomLink>
+            <CustomLink to={"/machine-learning"}>Machine learning</CustomLink>
+            <CustomLink to={"/politics"}>Politics</CustomLink>
             <Link to={"trending-tags"} className="see_all_link">
               See all
             </Link>
@@ -81,11 +81,11 @@ export const SideNav = () => {
         <li className="personal">
           <h4 className="personal_heading">Personal</h4>
           <div className="profile_links">
-            <CustomLink to={"profile"}>
+            <CustomLink to={"/profile"}>
               <PersonIcon className="icon" />
               <span>Account</span>
             </CustomLink>
-            <CustomLink to={"notifications"}>
+            <CustomLink to={"/notifications"}>
               <NotificationIcon className="icon" />
               <span>Notifications</span>
             </CustomLink>
