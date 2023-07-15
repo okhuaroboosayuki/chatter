@@ -10,13 +10,15 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { doc, setDoc } from "firebase/firestore";
+import { ButtonLoader } from "./ButtonLoader";
 
 export const SignUp = () => {
   const navigate = useNavigate();
   const { signup, googleSignIn } = useContext(AuthContext);
 
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(false);
+  const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
+    useState(false);
   const [error, setError] = useState("");
 
   // use formik to handle form state and validation
@@ -66,10 +68,16 @@ export const SignUp = () => {
       firstName: Yup.string().required("First Name is required"),
       lastName: Yup.string().required("Last Name is required"),
       designation: Yup.string().required("Enter your profession"),
-      email: Yup.string().email("Invalid email address").required("An email address is required"),
-      password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("An email address is required"),
+      password: Yup.string()
+        .min(6, "Password must be at least 6 characters")
+        .required("Password is required"),
       //check if password and confirm password match
-      confirmPassword: Yup.string().oneOf([Yup.ref("password")], "Passwords do not match").required("Confirm Password is required"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password")], "Passwords do not match")
+        .required("Confirm Password is required"),
     }),
   });
 
@@ -270,9 +278,13 @@ export const SignUp = () => {
           )}
         </div>
 
-        <button type="submit" disabled={formik.isSubmitting}>
-          Create account
-        </button>
+        {formik.isSubmitting ? (
+          <ButtonLoader />
+        ) : (
+          <button type="submit">
+            Create account
+          </button>
+        )}
 
         <div className="or_sign_with">
           <div className="google">

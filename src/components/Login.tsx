@@ -3,12 +3,16 @@ import "../styles/scss/sign-in.scss";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthenticationContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { auth } from "../lib/Firebase";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { ButtonLoader } from "./ButtonLoader";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
 export const Login = () => {
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
+
   const navigate = useNavigate();
 
   const { login } = useContext(AuthContext);
@@ -22,8 +26,8 @@ export const Login = () => {
       try {
         const email = values.email;
         const password = values.password;
-        
-        await login({auth, email, password});
+
+        await login({ auth, email, password });
 
         const loggedInUserId = auth.currentUser?.uid;
 
@@ -33,10 +37,27 @@ export const Login = () => {
       }
     },
     validationSchema: Yup.object({
-      email: Yup.string().email("Invalid email address").required("An email address is required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("An email address is required"),
       password: Yup.string().required("Password is required"),
     }),
   });
+
+  // handle password visibility
+  const handlePasswordVisibility = () => {
+    if (formik.values.password.length < 1) {
+      return;
+    } else {
+      setPasswordVisibility(!passwordVisibility);
+
+      if (passwordVisibility) {
+        document.getElementById("password")?.setAttribute("type", "password");
+      } else {
+        document.getElementById("password")?.setAttribute("type", "text");
+      }
+    }
+  };
 
   return (
     <>
@@ -79,14 +100,28 @@ export const Login = () => {
                 placeholder="**********"
                 className="password_input"
               />
-              <VisibilityOffOutlinedIcon className="visibility_icon" />
+              {passwordVisibility ? (
+                <VisibilityOutlinedIcon
+                  className="visibility_icon"
+                  onClick={handlePasswordVisibility}
+                />
+              ) : (
+                <VisibilityOffOutlinedIcon
+                  className="visibility_icon"
+                  onClick={handlePasswordVisibility}
+                />
+              )}
             </div>
             {formik.errors.password && formik.touched.password && (
               <div className="error">{formik.errors.password}</div>
             )}
           </div>
 
-          <button type="submit">Log in</button>
+          {formik.isSubmitting ? (
+            <ButtonLoader />
+          ) : (
+            <button type="submit">Log in</button>
+          )}
         </form>
       </div>
     </>
