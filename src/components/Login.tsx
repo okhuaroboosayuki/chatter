@@ -1,6 +1,5 @@
 import { Helmet } from "react-helmet-async";
 import "../styles/scss/sign-in.scss";
-import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthenticationContext";
 import { useContext, useState } from "react";
@@ -9,6 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ButtonLoader } from "./ButtonLoader";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
 export const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
