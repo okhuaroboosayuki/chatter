@@ -358,6 +358,7 @@
                     width: 32.5rem;
                     gap: 1.5rem;
                     text-transform: capitalize;
+                    cursor: pointer;
                     
                     &:hover {
                         border: 1px solid var(--btn-color);
@@ -365,7 +366,6 @@
                 }
                 
                 .google span{
-                    cursor: pointer;
                     gap: .6875rem;
                     justify-content: flex-start;
                 }
