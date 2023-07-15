@@ -20,7 +20,7 @@ export const SideNav = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate("/signup/login");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
