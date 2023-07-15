@@ -1,7 +1,7 @@
 import "../styles/scss/sign-in.scss";
 import GoogleIcon from "../icons/GoogleIcon";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { Helmet } from "react-helmet-async";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthenticationContext";
@@ -233,12 +233,12 @@ export const SignUp = () => {
               onBlur={formik.handleBlur}
             />
             {passwordVisibility ? (
-              <VisibilityOutlinedIcon
+              <VisibilityOffOutlinedIcon
                 className="visibility_icon"
                 onClick={handlePasswordVisibility}
               />
             ) : (
-              <VisibilityOffOutlinedIcon
+              <VisibilityOutlinedIcon
                 className="visibility_icon"
                 onClick={handlePasswordVisibility}
               />
@@ -262,12 +262,12 @@ export const SignUp = () => {
               onBlur={formik.handleBlur}
             />
             {confirmPasswordVisibility ? (
-              <VisibilityOutlinedIcon
+              <VisibilityOffOutlinedIcon
                 className="visibility_icon"
                 onClick={handleConfirmPasswordVisibility}
               />
             ) : (
-              <VisibilityOffOutlinedIcon
+              <VisibilityOutlinedIcon
                 className="visibility_icon"
                 onClick={handleConfirmPasswordVisibility}
               />
@@ -287,8 +287,8 @@ export const SignUp = () => {
         )}
 
         <div className="or_sign_with">
-          <div className="google">
-            <span onClick={handleGoogleSignIn}>
+          <div className="google" onClick={handleGoogleSignIn}>
+            <span>
               <GoogleIcon />
               <div>Sign up with google</div>
             </span>
