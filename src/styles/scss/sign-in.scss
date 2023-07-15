@@ -356,16 +356,16 @@
                     border-radius: 8px;
                     padding: 8px 16px;
                     width: 32.5rem;
-                    cursor: pointer;
                     gap: 1.5rem;
                     text-transform: capitalize;
-
+                    
                     &:hover {
                         border: 1px solid var(--btn-color);
                     }
                 }
-
+                
                 .google span{
+                    cursor: pointer;
                     gap: .6875rem;
                     justify-content: flex-start;
                 }
