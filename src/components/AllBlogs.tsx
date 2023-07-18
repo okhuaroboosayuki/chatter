@@ -2,6 +2,7 @@ import {
   DocumentData,
   collectionGroup,
   getDocs,
+  orderBy,
   query,
 } from "firebase/firestore";
 import CommentsIcon from "../icons/CommentsIcon";
@@ -22,7 +23,7 @@ export const AllBlogs = () => {
 
   const fetchAllData = async () => {
     // get a subcollection from all the users called 'posts'
-    const posts = query(collectionGroup(db, "posts"));
+    const posts = query(collectionGroup(db, "posts"), orderBy("timeStamp", "desc"));
 
     // get all the documents from the 'posts' collection
     const querySnapshot = await getDocs(posts);
@@ -33,11 +34,10 @@ export const AllBlogs = () => {
       ...doc.data(),
     }));
 
-    //sort the blog content randomly
-    blogs.sort(() => Math.random() - 1);
-
+    
     // set blogContent to the array of data
     setBlogContent(blogs);
+    console.log(blogs)
   };
 
   //set loading state of component
