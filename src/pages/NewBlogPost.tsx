@@ -9,7 +9,7 @@ import {
 import { useContext, useEffect, useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import React from "react";
-import { addDoc, collection, doc, getDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../lib/Firebase";
 import { useNavigate } from "react-router-dom";
 import { storage } from "../lib/Firebase";
@@ -97,24 +97,31 @@ export const NewBlogPost = () => {
     // check if the title input is empty
     if (titleRef.current?.value.length === 0) {
       setTitleError("Title is required");
+      return;
     } else {
       setTitleError(null);
     }
     // check if the image input is empty
     if (!imageRef.current?.value) {
       setImageError("Image is required");
+      return;
     } else if (imageRef.current?.value) {
       setImageError(null);
     }
     // check if the description input is empty
     if (descriptionRef.current?.value.length === 0) {
       setDescriptionError("Description is required");
+      return;
     } else {
       setDescriptionError(null);
     }
 
-    //set publishing state to true
-    setPublishing(true);
+    //set publishing state to true if all conditions are met
+      if ( titleRef.current?.value && imageRef.current?.value && descriptionRef.current?.value) {
+        setPublishing(true);
+      } else {
+        setPublishing(false);
+      }
 
     // if there are no errors, create a new post
     try {
@@ -129,7 +136,7 @@ export const NewBlogPost = () => {
       const authorName = `${authorData?.firstName} ${authorData?.lastName}`;
       const authorImage = authorData?.picture;
       const authorDesignation = authorData?.designation;
-      // calculating the time to read the post minus the images
+      // calculating the time to read the post
       const contentWithoutTags = content.getContent({ format: "text" });
       const timeToRead = Math.ceil(contentWithoutTags.length / 300);
       // create a collection in firestore with the user id from auth inside a document from the 'users' collection
@@ -152,6 +159,7 @@ export const NewBlogPost = () => {
         timeToRead: timeToRead + ` min${timeToRead > 1 ? "s" : ""} read`,
         title: postTitle,
         image: postImage,
+        timeStamp: serverTimestamp(),
       });
       // navigate to the feed page
       navigate(`/feed/${currentUser?.uid}`);
