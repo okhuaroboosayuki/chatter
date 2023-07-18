@@ -4,7 +4,7 @@
 
 - [Overview](#overview)
 - [Features](#features)
-- [Tech](#Tech)
+- [Tech Used](#tech-used)
 - [Links](#links)
 - [Author](#author)
 
@@ -33,7 +33,7 @@ Chatter is a multi-functional platform where authors and readers can create and 
 
 - **Robust Technology Stack:** Chatter is built using modern web development technologies. The key technologies used include React, SCSS, TypeScript, and React-Router. Firebase is utilized for authentication and database management. The form handling is implemented using formik and Yup, ensuring efficient and reliable data processing. To enhance SEO and improve page optimization, react-helmet-async is used to create a unique head tag for each page. Additionally, the integration of @tinymce/tinymce-react and react-html-parser allows for seamless content creation and parsing.
 
-## Tech
+## Tech Used
 
 - **React:** Chatter leverages the power of React to build a dynamic and responsive user interface.
 
