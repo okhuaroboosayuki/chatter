@@ -118,7 +118,10 @@
 
 // for publish btn loader
 .publish_btn_loader {
-    cursor: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 9%;
     padding: 0.5rem 25px;
     height: 3rem;
     border-radius: 0.5rem;
