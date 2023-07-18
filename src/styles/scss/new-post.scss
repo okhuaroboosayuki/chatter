@@ -26,8 +26,8 @@
                 display: flex;
                 justify-content: flex-end;
                 position: relative;
-                right: 9rem;
-                top: 2.25rem;
+                right: 2rem;
+                margin-bottom: 2rem;
 
                 button {
                     cursor: pointer;
@@ -64,7 +64,8 @@
                     width: 100%;
 
                     .title,
-                    .image, .description {
+                    .image,
+                    .description {
                         display: flex;
                         flex-direction: column;
                         gap: 7px;
@@ -83,7 +84,9 @@
                             justify-content: center;
                             padding: 10px 16px 10px 16px;
                             border: 1px solid #ced4da;
-                            box-shadow: 0px 0px 1px 0px rgba(33, 37, 41, 0.08), 0px 2px 2px 0px rgba(33, 37, 41, 0.06);
+                            box-shadow:
+                                0px 0px 1px 0px rgba(33, 37, 41, 0.08),
+                                0px 2px 2px 0px rgba(33, 37, 41, 0.06);
                             outline: none;
                             height: 50px;
                             border-radius: 8px;
@@ -108,20 +111,20 @@
                     }
 
                     .image {
-                        .image_input_wrapper{
+                        .image_input_wrapper {
                             gap: 4rem;
-                            .image_input{
+                            .image_input {
                                 border: 1px solid #ced4da;
                                 font-size: 1rem;
                                 margin-left: -3rem;
                             }
 
-                            .clear_btn{
-                                padding: .5rem 1rem;
-                                border-radius: .5rem;
+                            .clear_btn {
+                                padding: 0.5rem 1rem;
+                                border-radius: 0.5rem;
                                 text-align: center;
                                 transition: all 0.5s ease-in-out;
-                                border: .0625rem solid var(--btn-color);
+                                border: 0.0625rem solid var(--btn-color);
                                 background-color: var(--pry-bg-color);
                                 color: var(--btn-color);
                                 font-size: 18px;
@@ -129,7 +132,7 @@
                                 cursor: pointer;
                                 text-transform: capitalize;
 
-                                &:hover{
+                                &:hover {
                                     background-color: #3a2b9e;
                                     color: #e6e5e5;
                                 }
@@ -137,15 +140,17 @@
                         }
                     }
 
-                    .description{
-                        .description_input_wrapper{
+                    .description {
+                        .description_input_wrapper {
                             width: 31.5rem;
                             display: flex;
                             align-items: center;
                             justify-content: center;
                             padding: 10px 16px 10px 16px;
                             border: 1px solid #ced4da;
-                            box-shadow: 0px 0px 1px 0px rgba(33, 37, 41, 0.08), 0px 2px 2px 0px rgba(33, 37, 41, 0.06);
+                            box-shadow:
+                                0px 0px 1px 0px rgba(33, 37, 41, 0.08),
+                                0px 2px 2px 0px rgba(33, 37, 41, 0.06);
                             outline: none;
                             height: 250px;
                             border-radius: 8px;
@@ -155,7 +160,7 @@
                                 border: 1px solid var(--font-pry-color);
                             }
 
-                            .description_input{
+                            .description_input {
                                 width: 35.5rem;
                                 height: 15rem;
                                 margin-left: -0.8rem;
@@ -164,7 +169,7 @@
                                 font-size: 1rem;
                                 word-wrap: break-word;
                                 resize: none;
-                                font-family: 'DM Sans', sans-serif;
+                                font-family: "DM Sans", sans-serif;
                             }
                         }
                     }
@@ -194,14 +199,20 @@
                 align-items: center;
                 gap: 1.5rem;
                 padding: 2rem 2rem 0 2rem;
-                // overflow: hidden;
-                // position: relative;
-                // top: 2rem;
 
                 .tox-tinymce {
                     width: 100%;
                 }
             }
         }
+    }
+
+    .error_message {
+        color: red;
+        font-size: 12px;
+        transition: all 0.5s ease-in-out;
+        border-radius: 8px;
+        position: relative;
+        bottom: 7px;
     }
 }
