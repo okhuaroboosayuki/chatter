@@ -68,23 +68,23 @@
     background-color: var(--btn-color);
     color: var(--pry-bg-color);
     margin-top: 1%;
-}
 
-.loader {
-    width: 30px;
-    height: 30px;
-    border: 3px solid rgba(255, 255, 255, 0.2);
-    border-top-color: #ffffff;
-    border-radius: 50%;
-    animation: spinAnimation 1.2s linear infinite;
-}
-
-@keyframes spinAnimation {
-    0% {
-        transform: rotate(0deg);
+    .loader {
+        width: 30px;
+        height: 30px;
+        border: 3px solid rgba(255, 255, 255, 0.2);
+        border-top-color: #ffffff;
+        border-radius: 50%;
+        animation: spinAnimation 1.2s linear infinite;
     }
-    100% {
-        transform: rotate(360deg);
+
+    @keyframes spinAnimation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
 }
 
@@ -105,13 +105,35 @@
         border-radius: 50%;
         animation: spinAnimation 1.2s linear infinite;
     }
+}
 
-    @keyframes spinAnimation {
-        0% {
-            transform: rotate(0);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
+@keyframes spinAnimation {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+// for publish btn loader
+.publish_btn_loader {
+    cursor: none;
+    padding: 0.5rem 25px;
+    height: 3rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    transition: all 0.5s ease-in-out;
+    border: 0.0625rem solid var(--btn-color);
+    background-color: var(--btn-color);
+    color: var(--pry-bg-color);
+
+    .pub_loader {
+        width: 30px;
+        height: 30px;
+        border: 3px solid rgba(255, 255, 255, 0.2);
+        border-top-color: #ffffff;
+        border-radius: 50%;
+        animation: spinAnimation 1.2s linear infinite;
     }
 }
