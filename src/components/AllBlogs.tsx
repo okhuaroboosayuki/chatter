@@ -37,7 +37,6 @@ export const AllBlogs = () => {
     
     // set blogContent to the array of data
     setBlogContent(blogs);
-    console.log(blogs)
   };
 
   //set loading state of component
