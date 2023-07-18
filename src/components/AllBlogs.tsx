@@ -13,7 +13,7 @@ import { db } from "../lib/Firebase";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthenticationContext";
-import { ComponentLoader } from "./ComponentLoader";
+import { ComponentLoader } from "./Loader";
 
 export const AllBlogs = () => {
   const { currentUser } = useContext(AuthContext);

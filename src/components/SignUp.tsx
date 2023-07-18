@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { doc, setDoc } from "firebase/firestore";
-import { ButtonLoader } from "./ButtonLoader";
+import { ButtonLoader } from "./Loader";
 
 export const SignUp = () => {
   const navigate = useNavigate();

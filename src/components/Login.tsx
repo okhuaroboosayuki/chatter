@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import { auth } from "../lib/Firebase";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { ButtonLoader } from "./ButtonLoader";
+import { ButtonLoader } from "./Loader";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
