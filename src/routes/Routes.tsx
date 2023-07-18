@@ -113,7 +113,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/:catchAll(.*)*",
+    path: "/:catchAll(.*)/*",
     element: <ErrorPage />,
   },
 ]);
