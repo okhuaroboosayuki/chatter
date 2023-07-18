@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { storage } from "../lib/Firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
-// import ReactHtmlParser from 'react-html-parser';
+import { ComponentLoader, PublishBtnLoader } from "../components/Loader";
 
 export const NewBlogPost = () => {
   const { currentUser } = useContext(AuthContext);
@@ -28,6 +28,45 @@ export const NewBlogPost = () => {
   const [content, setContent] = useState<any>("");
   const [imageUrl, setImageUrl] = useState<any>();
   const [imageUpload, setImageUpload] = useState<any>();
+  const [titleError, setTitleError] = useState<string | null>(null);
+  const [imageError, setImageError] = useState<string | null>(null);
+  const [descriptionError, setDescriptionError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [publishing, setPublishing] = useState(false);
+
+  // useEffect to check if input fields are empty and show error messages or remove error messages
+  useEffect(() => {
+    titleRef.current?.addEventListener("focusout", () => {
+      if (titleRef.current?.value.length === 0) {
+        setTitleError("Title is required");
+      } else {
+        setTitleError(null);
+      }
+    });
+    titleRef.current?.addEventListener("focusin", () => {
+      setTitleError(null);
+    });
+    //sets image error to a message if the image input is empty, if not empty, sets image error to null and sets the image upload to the image the user selects
+    imageRef.current?.addEventListener("change", () => {
+      if (!imageRef.current?.value) {
+        setImageError("Image is required");
+      } else if (imageRef.current?.value) {
+        setImageError(null);
+        setImageUpload(imageRef.current?.files![0]);
+      }
+    });
+    // sets description error to a message if the description input is empty, if not empty, sets description error to null
+    descriptionRef.current?.addEventListener("focusout", () => {
+      if (descriptionRef.current?.value.length === 0) {
+        setDescriptionError("Description is required");
+      } else {
+        setDescriptionError(null);
+      }
+    });
+    descriptionRef.current?.addEventListener("focusin", () => {
+      setDescriptionError(null);
+    });
+  }, []);
 
   // useEffect to show a preview of the image the user selects
   useEffect(() => {
@@ -36,7 +75,6 @@ export const NewBlogPost = () => {
 
       const storageRef = ref(storage, `images/${imageUpload.name + v4()}`);
       uploadBytes(storageRef, imageUpload).then((snapshot) => {
-        console.log("Uploaded a blob or file!");
         getDownloadURL(snapshot.ref).then((url) => {
           setImageUrl(url);
         });
@@ -45,8 +83,8 @@ export const NewBlogPost = () => {
     uploadImage();
   }, [imageUpload]);
 
+  //clear the image input and the image preview
   const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //clear the image input and the image preview
     e.preventDefault();
     if (imageRef.current) {
       imageRef.current.value = "";
@@ -56,6 +94,29 @@ export const NewBlogPost = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // check if the title input is empty
+    if (titleRef.current?.value.length === 0) {
+      setTitleError("Title is required");
+    } else {
+      setTitleError(null);
+    }
+    // check if the image input is empty
+    if (!imageRef.current?.value) {
+      setImageError("Image is required");
+    } else if (imageRef.current?.value) {
+      setImageError(null);
+    }
+    // check if the description input is empty
+    if (descriptionRef.current?.value.length === 0) {
+      setDescriptionError("Description is required");
+    } else {
+      setDescriptionError(null);
+    }
+
+    //set publishing state to true
+    setPublishing(true);
+
+    // if there are no errors, create a new post
     try {
       //get title and image from the refs
       const postTitle = titleRef.current?.value;
@@ -99,6 +160,14 @@ export const NewBlogPost = () => {
     }
   };
 
+  // set loading state for editor
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -116,10 +185,6 @@ export const NewBlogPost = () => {
             <TopNav />
 
             <form className="new_post" onSubmit={handleSubmit}>
-              <div className="publish_btn">
-                <button type="submit">Publish</button>
-              </div>
-
               <div className="title_and_image_container">
                 <div className="title_and_image">
                   <div className="title">
@@ -135,6 +200,9 @@ export const NewBlogPost = () => {
                         ref={titleRef}
                       />
                     </div>
+                    {titleError && (
+                      <p className="error_message">{titleError}</p>
+                    )}
                   </div>
                   <div className="image">
                     <label htmlFor="image">Primary Image</label>
@@ -145,14 +213,14 @@ export const NewBlogPost = () => {
                         id="image"
                         className="image_input"
                         ref={imageRef}
-                        onChange={() => {
-                          setImageUpload(imageRef.current?.files![0]);
-                        }}
                       />
                       <button className="clear_btn" onClick={handleClear}>
                         Clear
                       </button>
                     </div>
+                    {imageError && (
+                      <p className="error_message">{imageError}</p>
+                    )}
                   </div>
 
                   <div className="description">
@@ -167,6 +235,9 @@ export const NewBlogPost = () => {
                         ref={descriptionRef}
                       />
                     </div>
+                    {descriptionError && (
+                      <p className="error_message">{descriptionError}</p>
+                    )}
                   </div>
                 </div>
 
@@ -188,46 +259,60 @@ export const NewBlogPost = () => {
               </div>
 
               <div className="editor_container">
-                <Editor
-                  apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
-                  onInit={(evt, editor) => setContent(editor)}
-                  id="content"
-                  textareaName="content"
-                  initialValue="<h3>Start typing....</h3>"
-                  init={{
-                    height: 620,
-                    menubar: true,
-                    toolbar_mode: "wrap",
-                    plugins: [
-                      "advlist",
-                      "autolink",
-                      "lists",
-                      "link",
-                      "image",
-                      "charmap",
-                      "preview",
-                      "anchor",
-                      "searchreplace",
-                      "visualblocks",
-                      "code",
-                      "fullscreen",
-                      "insertdatetime",
-                      "media",
-                      "table",
-                      "code",
-                      "help",
-                      "wordcount",
-                    ],
-                    toolbar:
-                      "undo redo | blocks | " +
-                      "bold italic forecolor | alignleft aligncenter " +
-                      "alignright alignjustify | bullist numlist outdent indent | " +
-                      "removeformat | help",
-                    content_style:
-                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                  }}
-                />
+                {loading ? (
+                  <ComponentLoader />
+                ) : (
+                  <Editor
+                    apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
+                    onInit={(evt, editor) => setContent(editor)}
+                    id="content"
+                    textareaName="content"
+                    initialValue="<h3>Start typing....</h3>"
+                    init={{
+                      height: 620,
+                      menubar: true,
+                      toolbar_mode: "wrap",
+                      plugins: [
+                        "advlist",
+                        "autolink",
+                        "lists",
+                        "link",
+                        "image",
+                        "charmap",
+                        "preview",
+                        "anchor",
+                        "searchreplace",
+                        "visualblocks",
+                        "code",
+                        "fullscreen",
+                        "insertdatetime",
+                        "media",
+                        "table",
+                        "code",
+                        "help",
+                        "wordcount",
+                      ],
+                      toolbar:
+                        "undo redo | blocks | " +
+                        "bold italic forecolor | alignleft aligncenter " +
+                        "alignright alignjustify | bullist numlist outdent indent | " +
+                        "removeformat | help",
+                      content_style:
+                        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                    }}
+                  />
+                )}
               </div>
+
+              {publishing ? (
+                <div className="publish_btn">
+                  <PublishBtnLoader />
+                </div>
+              ) : (
+                <div className="publish_btn">
+                  <button type="submit">Publish</button>
+                </div>
+              )}
             </form>
           </div>
         </section>
