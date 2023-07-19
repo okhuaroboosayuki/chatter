@@ -50,7 +50,7 @@ export const SignIn = () => {
 
           <div className="right">
               <div className="back_icon">
-                <BackIcon className="icon" onClick={() => navigate(-1)} />
+                <BackIcon className="icon" onClick={() => navigate("/")} />
                 <span>Back</span>
               </div>
             <div className="right_container">
