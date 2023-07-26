@@ -2,10 +2,9 @@ import { createBrowserRouter, useNavigate } from "react-router-dom";
 import { SignUp } from "../components/SignUp";
 import { Login } from "../components/Login";
 import { Feed } from "../pages/Feed";
+import { SignIn } from "../pages/SignIn";
 import { ErrorPage } from "../pages/ErrorPage";
 import { Suspense, lazy, useContext, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../lib/Firebase";
 import { AllBlogs } from "../components/AllBlogs";
 import { AuthContext } from "../context/AuthenticationContext";
 import { SingleBlog } from "../pages/SingleBlog";
@@ -13,15 +12,13 @@ import { Loader } from "../components/Loader";
 
 // lazy load some pages
 const App = lazy(() => import("../App"));
-const SignIn = lazy(() =>
-  import("../pages/SignIn").then(({ SignIn }) => ({ default: SignIn }))
-);
 const NewBlogPost = lazy(() =>
   import("../pages/NewBlogPost").then(({ NewBlogPost }) => ({
     default: NewBlogPost,
   }))
 );
 
+// set protected routes
 type ProtectedRouteProps = {
   children: React.ReactNode;
 };
@@ -32,19 +29,13 @@ function ProtectedRoute({ children }: ProtectedRouteProps) {
   const route = window.location.pathname;
 
   useEffect(() => {
-    if (currentUser) {
-      if (route === "/signup" || route === "/signup/login") {
-        navigate(`/feed/${currentUser.uid}`);
+    if (!currentUser) {
+      if (route !== "/signup" && route !== "/signup/login") {
+      navigate("/signup");
       }
-    } else return;
+    }
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        navigate("/signup");
-      }
-    });
-
-    unsubscribe();
+  
   }, [currentUser, navigate, route]);
 
   return <>{children}</>;
@@ -62,15 +53,12 @@ export const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignIn />,
-    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
         element: (
           <ProtectedRoute>
-            <Suspense fallback={<Loader />}>
               <SignUp />
-            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -78,9 +66,7 @@ export const router = createBrowserRouter([
         path: "login",
         element: (
           <ProtectedRoute>
-            <Suspense fallback={<Loader />}>
               <Login />
-            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -93,7 +79,6 @@ export const router = createBrowserRouter([
         <Feed />
       </ProtectedRoute>
     ),
-    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -114,7 +99,6 @@ export const router = createBrowserRouter([
         </Suspense>
       </ProtectedRoute>
     ),
-    errorElement: <ErrorPage />,
   },
   {
     path: "/feed/:userId/post/:blogId",
@@ -125,7 +109,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/:catchAll(.*)/*",
+    path: "*",
     element: <ErrorPage />,
   },
 ]);
