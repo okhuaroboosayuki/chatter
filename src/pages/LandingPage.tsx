@@ -6,6 +6,7 @@ import "../styles/scss/landing-page.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthenticationContext";
+import { CustomLink } from "../components/CustomLink";
 
 export const LandingPage = () => {
   const { currentUser, logout } = useContext(AuthContext);
@@ -30,16 +31,16 @@ export const LandingPage = () => {
         <nav>
           <ul>
             <li>
-              <Link to={"/"}>Home</Link>
+              <CustomLink to={"/"}>Home</CustomLink>
             </li>
             <li>
-              <a href="http://">About us</a>
+              <a href="#about">About us</a>
             </li>
             <li>
-              <a href="http://">Contact</a>
+              <CustomLink to={"/contact"}>Contact</CustomLink>
             </li>
             <li>
-              <a href="http://">Blogs</a>
+              <CustomLink to={"/blogs"}>Blogs</CustomLink>
             </li>
           </ul>
 
@@ -80,7 +81,7 @@ export const LandingPage = () => {
         </div>
       </div>
 
-      <div className="about">
+      <div className="about" id="about">
         <div className="about_container">
           <div className="left">
             <h2>About Chatter</h2>
