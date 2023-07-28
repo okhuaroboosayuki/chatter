@@ -4,7 +4,7 @@ import PeopleIcon from "../icons/PeopleIcon";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import "../styles/scss/landing-page.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthenticationContext";
 import { CustomLink } from "../components/CustomLink";
 
@@ -20,6 +20,27 @@ export const LandingPage = () => {
       console.log(error);
     }
   };
+
+  //handles blur load of image
+  useEffect(() => {
+    const blurImage = document.querySelector(".blur_img") as HTMLElement;
+    const aboutImgBlur = document.querySelector(".about_img_blur") as HTMLElement;
+    
+    const heroImage = document.querySelector(".lady_biting_pen_img") as HTMLImageElement;
+    const aboutImage = document.querySelector(".about_img") as HTMLImageElement;
+
+    const loaded = () => {
+      blurImage.classList.add("loaded");
+      aboutImgBlur.classList.add("about_img_loaded");
+    };
+
+    if (heroImage?.complete) {
+      loaded();
+    } else {
+      heroImage?.addEventListener("load", loaded);
+      aboutImage?.addEventListener("load", loaded);
+    }
+  }, []);
 
   return (
     <section className="landing_page">
@@ -68,16 +89,28 @@ export const LandingPage = () => {
 
       <div className="hero">
         <div className="hero_container">
-          <h2>Welcome to Chatter: A Haven for Text-Based Content</h2>
-          <p>
-            Unleash the Power of Words, Connect with Like-minded Readers and
-            Writers
-          </p>
-          {!currentUser && (
-            <Link to={"/signup"} className="hero_btn btn">
-              Get started
-            </Link>
-          )}
+          <div className="hero_img_container blur_img">
+            <img
+              src={require("../images/lady-biting-pen.png")}
+              alt="writer"
+              className="lady_biting_pen_img"
+              loading="lazy"
+            />
+          </div>
+          <div className="hero_content_container">
+            <div className="hero_content">
+              <h2>Welcome to Chatter: A Haven for Text-Based Content</h2>
+              <p>
+                Unleash the Power of Words, Connect with Like-minded Readers and
+                Writers
+              </p>
+              {!currentUser && (
+                <Link to={"/signup"} className="hero_btn btn">
+                  Get started
+                </Link>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -97,7 +130,9 @@ export const LandingPage = () => {
               respectful of differences.
             </p>
           </div>
-          <div className="right"></div>
+          <div className="right about_img_blur">
+            <img src={require("../images/students-in-corridor.png")} alt="students in a corridor" className="about_img" />
+          </div>
         </div>
       </div>
 
