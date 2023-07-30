@@ -233,12 +233,12 @@ export const SignUp = () => {
               onBlur={formik.handleBlur}
             />
             {passwordVisibility ? (
-              <VisibilityOffOutlinedIcon
+              <VisibilityOutlinedIcon
                 className="visibility_icon"
                 onClick={handlePasswordVisibility}
               />
             ) : (
-              <VisibilityOutlinedIcon
+              <VisibilityOffOutlinedIcon
                 className="visibility_icon"
                 onClick={handlePasswordVisibility}
               />
@@ -262,12 +262,12 @@ export const SignUp = () => {
               onBlur={formik.handleBlur}
             />
             {confirmPasswordVisibility ? (
-              <VisibilityOffOutlinedIcon
+              <VisibilityOutlinedIcon
                 className="visibility_icon"
                 onClick={handleConfirmPasswordVisibility}
               />
             ) : (
-              <VisibilityOutlinedIcon
+              <VisibilityOffOutlinedIcon
                 className="visibility_icon"
                 onClick={handleConfirmPasswordVisibility}
               />
