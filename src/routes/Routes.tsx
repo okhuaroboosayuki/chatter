@@ -28,15 +28,19 @@ function ProtectedRoute({ children }: ProtectedRouteProps) {
   const navigate = useNavigate();
   const route = window.location.pathname;
 
-  useEffect(() => {
-    if (!currentUser) {
-      if (route !== "/signup" && route !== "/signup/login") {
-      navigate("/signup");
-      }
-    }
+  // useEffect(() => {
+  //   if (!currentUser && route === '/feed/:userId') {
+  //     navigate("/signup/login");
+  //   } else
+
+  //   if (currentUser && route === "/signup") {
+  //     navigate(`/feed/${currentUser?.uid}`);
+  //   } else return;
 
   
-  }, [currentUser, navigate, route]);
+  // }, [currentUser, navigate, route]);
+
+  // useEffect(() => {}, [])
 
   return <>{children}</>;
 }
