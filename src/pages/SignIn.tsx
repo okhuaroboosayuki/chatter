@@ -51,8 +51,8 @@ export const SignIn = () => {
         <div className="right">
           <div className="right_container">
             <div className="back_icon">
-              <BackIcon className="icon" onClick={() => navigate("/")} />
-              <span>Back</span>
+              {/* <BackIcon className="icon" onClick={() => navigate("/")} />
+              <span>Back</span> */}
             </div>
             <div className="links">
               <SignInHeader to={"/signup"} className="link_one">
