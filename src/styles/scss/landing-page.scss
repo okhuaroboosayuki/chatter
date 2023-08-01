@@ -110,7 +110,6 @@ nav ul,
     // hero section
     .hero {
         height: 764px;
-        background-blend-mode: darken;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -158,6 +157,7 @@ nav ul,
 
                 .hero_content {
                     max-width: 984px;
+                    padding: 10px 0;
 
                     h2 {
                         font-size: 48px;
@@ -277,8 +277,6 @@ nav ul,
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: cover;
-                background-blend-mode: darken;
-                width: 40px;
                 height: 414px;
 
                 .about_img {
@@ -641,7 +639,284 @@ nav ul,
 
             svg {
                 font-size: 16px;
-                // margin-top: 3px;
+            }
+        }
+    }
+}
+
+//media queries
+@media screen and (max-width: 1440px) {
+    .landing_page {
+        .about {
+            .about_container {
+                .left {
+                    width: 486px;
+
+                    p {
+                        width: 100%;
+                    }
+                }
+
+                .right {
+                    width: 100%;
+                }
+            }
+        }
+
+        .testimonial {
+            gap: 34px;
+
+            .left {
+                .avatar {
+                    margin-bottom: 40px;
+                }
+            }
+
+            .right {
+                p {
+                    width: 825px;
+                }
+            }
+        }
+
+        .c_t_a {
+            .c_t_a-container {
+                .left {
+                    .c_t_a-images {
+                        margin-left: 30px;
+                    }
+                }
+            }
+        }
+
+        footer {
+            .footer_container {
+                .right {
+                    justify-content: center;
+                    gap: 85px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .landing_page {
+        .testimonial {
+            gap: 34px;
+
+            .left {
+                .avatar {
+                    margin-bottom: 40px;
+                }
+            }
+
+            .right {
+                height: 328px;
+
+                p {
+                    width: 720px;
+                }
+            }
+        }
+
+        .c_t_a {
+            .c_t_a-container {
+                width: 1150px;
+
+                .right {
+                    article {
+                        margin-left: 34px;
+                    }
+                }
+            }
+        }
+
+        footer {
+            .footer_container {
+                .left {
+                    left: 70px;
+                }
+
+                .right {
+                    justify-content: center;
+                    gap: 75px;
+                }
+            }
+
+            .footer_bottom {
+                gap: 5px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .landing_page {
+        .hero {
+            .hero_container {
+                .hero_content_container {
+                    .hero_content {
+                        max-width: 854px;
+                    }
+                }
+            }
+        }
+
+        .about {
+            .about_container {
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 0;
+
+                .left {
+                    flex: 0;
+                    width: 100%;
+                    margin-bottom: 10px;
+
+                    h2 {
+                        text-align: center;
+                        margin-bottom: 10px;
+                    }
+
+                    p {
+                        align-self: center;
+                        margin-bottom: 0;
+                    }
+                }
+
+                .right {
+                    flex: 0;
+                    width: 100%;
+                    align-self: center;
+
+                    .about_img {
+                        width: 100%;
+                        height: 500px;
+                        aspect-ratio: 0;
+                    }
+                }
+            }
+        }
+
+        .why_join_chatter {
+            .why_join_chatter-container {
+                .top {
+                    p {
+                        width: 970px;
+                    }
+                }
+            }
+        }
+
+        .testimonial {
+            .right {
+                width: 724px;
+
+                p {
+                    width: 645px;
+                }
+            }
+        }
+
+        .c_t_a {
+            .c_t_a-container {
+                width: 1080px;
+
+                .left {
+                    .c_t_a-images {
+                        margin-left: 0;
+                    }
+                }
+
+                .right {
+                    article {
+                        margin-left: 34px;
+
+                        h3 {
+                            width: 600px;
+                        }
+                    }
+                }
+            }
+        }
+
+        footer {
+            .footer_container {
+                .left {
+                    left: 20px;
+                }
+
+                .right {
+                    justify-content: center;
+                    gap: 70px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .landing_page {
+        header {
+            nav {
+                display: none;
+            }
+        }
+
+        .hero {
+            .hero_container {
+                .hero_content_container {
+                    .hero_content {
+                        h2 {
+                            font-size: 40px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .about {
+            .about_container {
+                .left {
+                    h2 {
+                        font-size: 36px;
+                    }
+                }
+            }
+        }
+
+        .why_join_chatter {
+            .why_join_chatter-container {
+                .top,
+                .bottom {
+                    flex: 0;
+                }
+                .top {
+                    h2 {
+                        font-size: 36px;
+                    }
+                }
+            }
+        }
+
+        .testimonial {
+            .right {
+                p {
+                    width: 600px;
+                }
+            }
+        }
+
+        .c_t_a {
+            .c_t_a-container {
+                .right {
+                    article {
+                        h3 {
+                            font-size: 36px;
+                        }
+                    }
+                }
             }
         }
     }
