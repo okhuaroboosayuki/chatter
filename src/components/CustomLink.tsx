@@ -1,10 +1,6 @@
 import { NavLink, useResolvedPath, useMatch } from "react-router-dom";
 import "../styles/scss/custom-link.scss";
-
-type CustomLinkProps = {
-  to: string;
-  children: React.ReactNode;
-};
+import { CustomLinkProps } from "../types/Types";
 
 export function CustomLink(props: CustomLinkProps) {
   const resolvedPath = useResolvedPath(props.to);
