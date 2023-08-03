@@ -17,6 +17,7 @@ const NewBlogPost = lazy(() =>
     default: NewBlogPost,
   }))
 );
+const ContactUs = lazy(() => import("../pages/ContactUs").then(({ ContactUs }) => ({ default: ContactUs })));
 
 // set protected routes
 type ProtectedRouteProps = {
@@ -51,6 +52,14 @@ export const router = createBrowserRouter([
     element: (
       <Suspense fallback={<Loader />}>
         <App />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/contact-us",
+    element: (
+      <Suspense fallback={<Loader />}>
+        <ContactUs />
       </Suspense>
     ),
   },
