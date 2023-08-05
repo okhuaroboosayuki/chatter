@@ -103,8 +103,7 @@ export const Header = () => {
             </li>
             <li>
               <a href={window.location.pathname === "/" ? "#about" : "/#about"}>
-                About us
-              </a>
+                About us</a>
             </li>
             <li>
               <CustomLink to={"/contact-us"}>Contact</CustomLink>

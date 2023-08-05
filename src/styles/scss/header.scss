@@ -119,7 +119,7 @@ header {
             align-items: center;
             justify-content: space-between;
             gap: 5px;
-            width: 2.7rem;
+            width: 2.5rem;
             cursor: pointer;
             z-index: 300;
 
@@ -250,8 +250,19 @@ header {
 }
 
 @media screen and (max-width: 768px) {
+    header {
+        .logo {
+            padding-left: 0px;
+        }
+    }
     .mobile_menu {
         font-size: 21px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .mobile_menu {
+        height: 130vh;
     }
 }
 
@@ -259,7 +270,7 @@ header {
     .mobile_menu {
         font-size: 18px;
 
-        .links{
+        .links {
             flex-direction: column;
         }
     }
