@@ -77,7 +77,7 @@
     }
 
     //handles blur load of image
-    .blur_img::before {
+    .hero_blur_img::before {
         content: " ";
         position: absolute;
         inset: 0;
@@ -98,7 +98,7 @@
         }
     }
 
-    .blur_img {
+    .hero_blur_img {
         & > img {
             opacity: 0;
             transition: opacity 200ms ease-in-out;
@@ -183,42 +183,6 @@
                 }
             }
         }
-    }
-
-    .about_img_blur::before {
-        content: " ";
-        position: absolute;
-        inset: 0;
-        animation: aboutPulse 2.5s infinite;
-
-        @keyframes aboutPulse {
-            0% {
-                background-color: rgba(255, 255, 255, 0.3);
-            }
-
-            50% {
-                background-color: rgba(255, 255, 255, 0.1);
-            }
-
-            100% {
-                background-color: rgba(255, 255, 255, 0.3);
-            }
-        }
-    }
-
-    .about_img_blur {
-        & > img {
-            opacity: 0;
-            transition: opacity 200ms ease-in-out;
-        }
-    }
-
-    .about_img_loaded::before {
-        content: none;
-    }
-
-    .about_img_loaded > img {
-        opacity: 1;
     }
 
     //join chatter section
@@ -337,7 +301,7 @@
             justify-content: center;
 
             .avatar {
-                background-image: url(../../images/good-looking-man.png);
+                background-image: url(../../images/good-looking-man-small.png);
                 background-color: #d9d9d9;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -346,6 +310,15 @@
                 border-radius: 50%;
                 width: 300px;
                 height: 292px;
+
+                .avatar_img {
+                    width: 100%;
+                    height: 100%;
+                    aspect-ratio: 1/1;
+                    object-fit: cover;
+                    object-position: center;
+                    border-radius: 50%;
+                }
             }
         }
 
@@ -399,17 +372,34 @@
                     width: 100%;
                     padding: 2rem;
 
+                    .image1,
+                    .image2,
+                    .image3 {
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                    }
+
+                    .user_img {
+                        width: 100%;
+                        height: 100%;
+                        aspect-ratio: 1/1;
+                        object-fit: cover;
+                        object-position: center;
+                        border-radius: 50%;
+                    }
+
                     .image1 {
-                        background-image: url(../../images/good-looking-woman.png);
+                        background-image: url(../../images/good-looking-woman-small.webp);
                     }
 
                     .image2 {
-                        background-image: url(../../images/man-with-glasses.png);
+                        background-image: url(../../images/man-with-glasses-small.webp);
                         left: 150px;
                     }
 
                     .image3 {
-                        background-image: url(../../images/male-headshot-with-glasses.png);
+                        background-image: url(../../images/male-headshot-with-glasses-small.webp);
                     }
 
                     .image1,
@@ -1136,9 +1126,9 @@
 
 @media screen and (max-width: 483px) {
     .landing_page {
-        .testimonial{
-            .left{
-                .avatar{
+        .testimonial {
+            .left {
+                .avatar {
                     width: 200px;
                     height: 200px;
                 }
@@ -1174,13 +1164,13 @@
 
 @media screen and (max-width: 360px) {
     .landing_page {
-        .c_t_a{
-            .c_t_a-container{
-                .left{
-                    .c_t_a-images{
+        .c_t_a {
+            .c_t_a-container {
+                .left {
+                    .c_t_a-images {
                         .image1,
                         .image2,
-                        .image3{
+                        .image3 {
                             width: 100px;
                             height: 100px;
                         }

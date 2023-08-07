@@ -14,33 +14,30 @@ export const LandingPage = () => {
 
   //handles blur load of image
   useEffect(() => {
-    const blurImage = document.querySelector(".blur_img") as HTMLElement;
-    const aboutImgBlur = document.querySelector(
-      ".about_img_blur"
-    ) as HTMLElement;
+    const blurImage = document.querySelector(".hero_blur_img") as HTMLElement;
 
     const heroImage = document.querySelector(
       ".lady_biting_pen_img"
     ) as HTMLImageElement;
-    const aboutImage = document.querySelector(".about_img") as HTMLImageElement;
 
     const loaded = () => {
       blurImage.classList.add("loaded");
-      aboutImgBlur.classList.add("about_img_loaded");
     };
 
     if (heroImage?.complete) {
       loaded();
     } else {
       heroImage?.addEventListener("load", loaded);
-      aboutImage?.addEventListener("load", loaded);
     }
   }, []);
 
   return (
     <>
       <Helmet>
-        <title>Chatter | Unleash the Power of Words, Connect with Like-minded Readers and Writers</title>
+        <title>
+          Chatter | Unleash the Power of Words, Connect with Like-minded Readers
+          and Writers
+        </title>
         <meta
           name="description"
           content="Unleash the Power of Words, Connect with Like-minded Readers and Writers"
@@ -52,9 +49,9 @@ export const LandingPage = () => {
 
         <div className="hero">
           <div className="hero_container">
-            <div className="hero_img_container blur_img">
+            <div className="hero_img_container hero_blur_img">
               <img
-                src={require("../images/lady-biting-pen.png")}
+                src={require("../images/lady-biting-pen.webp")}
                 alt="writer"
                 className="lady_biting_pen_img"
                 loading="lazy"
@@ -95,7 +92,7 @@ export const LandingPage = () => {
             </div>
             <div className="right about_img_blur">
               <img
-                src={require("../images/students-in-corridor.png")}
+                src={require("../images/students-in-corridor.webp")}
                 alt="students in a corridor"
                 className="about_img"
               />
@@ -159,7 +156,14 @@ export const LandingPage = () => {
 
         <div className="testimonial">
           <div className="left">
-            <div className="avatar"></div>
+            <div className="avatar avatar_img_blur">
+              <img
+                src={require("../images/good-looking-man.webp")}
+                alt="a chatter community member"
+                loading="lazy"
+                className="avatar_img"
+              />
+            </div>
           </div>
           <div className="right">
             <p>
@@ -170,7 +174,7 @@ export const LandingPage = () => {
             </p>
             <div className="avatar_name">
               <p>
-                <span>Osayuki Okhuarobo, </span>Software developer at AltSchool
+                <span>Ramoni Suzuki, </span>Software developer at LeetCode
               </p>
             </div>
             {!currentUser && (
@@ -185,9 +189,30 @@ export const LandingPage = () => {
           <div className="c_t_a-container">
             <div className="left">
               <div className="c_t_a-images">
-                <div className="image1"></div>
-                <div className="image2"></div>
-                <div className="image3"></div>
+                <div className="image1">
+                  <img
+                    src={require("../images/good-looking-woman.webp")}
+                    alt="a user"
+                    className="user_img"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="image2">
+                  <img
+                    src={require("../images/man-with-glasses.webp")}
+                    alt="a user"
+                    className="user_img"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="image3">
+                  <img
+                    src={require("../images/male-headshot-with-glasses.webp")}
+                    alt="a user"
+                    className="user_img"
+                    loading="lazy"
+                  />
+                </div>
               </div>
             </div>
             <div className="right">
