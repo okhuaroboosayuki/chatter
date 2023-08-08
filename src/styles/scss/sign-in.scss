@@ -1,384 +1,451 @@
 .register,
 .register_container {
     display: flex;
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 .register {
-    height: 100vh;
-}
+    align-items: center;
+    justify-content: center;
 
-.register_container {
-    width: 100%;
+    .register_container {
+        width: 100%;
 
-    .left,
-    .right {
-        flex: 1;
-    }
-
-    .left {
-        position: relative;
-
-        .left_content-container {
-            position: absolute;
-            background-color: rgba(0, 0, 0, 0.6);
-            width: 90vh;
-            height: 100%;
-            top: 0;
-            display: flex;
+        .left,
+        .right {
+            width: 50%;
+            height: 100vh;
             align-items: center;
             justify-content: center;
-            color: var(--pry-bg-color);
+        }
 
-            .left_content {
+        .left {
+            position: relative;
+            background-image: url(../../images/lady-writing-on-a-book-small.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            .lady_writer_img {
+                width: 100%;
+                height: 100vh;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+                object-position: center;
+            }
+
+            .left_content-container {
+                position: absolute;
+                background-color: rgba(0, 0, 0, 0.6);
+                width: 100%;
+                height: 100vh;
+                top: 0;
                 display: flex;
-                flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                gap: 24px;
-                margin-bottom: 3.3rem;
+                color: var(--pry-bg-color);
 
-                h2 {
-                    text-transform: uppercase;
-                    font-size: 3rem;
-                    font-weight: 700;
-                    margin-bottom: 1rem;
-                }
+                .left_content {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 24px;
+                    margin-bottom: 3.3rem;
 
-                p {
-                    font-size: 1.5rem;
-                    font-weight: 500;
-                    width: 550px;
+                    h2 {
+                        text-transform: uppercase;
+                        font-size: 3rem;
+                        font-weight: 700;
+                        margin-bottom: 1rem;
+                    }
+
+                    p {
+                        font-size: 1.5rem;
+                        font-weight: 500;
+                        width: 550px;
+                    }
                 }
             }
         }
-    }
 
-    // .left {
-    //     background-image: url(../../images/lady-writing-on-a-book.webp);
-    //     background-repeat: no-repeat;
-    //     background-size: cover;
-    //     background-position: center;
-    //     filter: blur(10px);
-
-    //     &::before {
-    //         content: "";
-    //         position: absolute;
-    //         inset: 0;
-    //         opacity: 0;
-    //         animation: pulse 2.5s infinite;
-    //         background-color: white;
-
-    //         @keyframes pulse {
-    //             0% {
-    //                 opacity: 0;
-    //             }
-    //             50% {
-    //                 opacity: 0.2;
-    //             }
-    //             100% {
-    //                 opacity: 0;
-    //             }
-    //         }
-    //     }
-    // }
-
-    // .left .loaded::before {
-    //     animation: none;
-    //     content: none;
-    // }
-
-    // .left .loaded {
-    //     img {
-    //         opacity: 1;
-    //     }
-    // }
-
-    img {
-        // opacity: 0;
-        width: 90vh;
-        height: 100vh;
-        aspect-ratio: 1/1;
-        display: block;
-        object-position: center;
-        transition: opacity 250ms ease-in-out;
-    }
-
-    .right {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        .back_icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: .5rem;
-            cursor: pointer;
+        //handles blur load of image
+        .lady_writer_img_blur::before {
+            content: " ";
             position: absolute;
-            left: 44%;
-            top: .8rem;
+            inset: 0;
+            animation: pulse 2.5s infinite;
 
-            .icon {
-                width: 1.875rem;
-                height: 1.875rem;
+            @keyframes pulse {
+                0% {
+                    background-color: rgba(255, 255, 255, 0.3);
+                }
+
+                50% {
+                    background-color: rgba(255, 255, 255, 0);
+                }
+
+                100% {
+                    background-color: rgba(255, 255, 255, 0.3);
+                }
             }
         }
 
-        .right_container {
-            display: inline-flex;
+        .lady_writer_img_blur {
+            & > img {
+                opacity: 0;
+                transition: opacity 200ms ease-in-out;
+            }
+        }
+
+        .loaded::before {
+            content: none;
+        }
+
+        .loaded > img {
+            opacity: 1;
+        }
+
+        .right {
+            display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            gap: 18px;
-            height: 100%;
-            width: 100%;
-            position: relative;
+            justify-content: center;
 
-            .links {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 27.5rem;
-                margin-top: .0625rem;
-
-                .link_one,
-                .link_two {
-                    display: flex;
-                    flex-direction: column;
-                    gap: .5rem;
-
-                    a {
-                        display: flex;
-                        cursor: pointer;
-                    }
-                }
-
-                .link_one a {
-                    justify-self: flex-start;
-                    align-items: center;
-                }
-
-                .link_two a {
-                    align-items: center;
-                    justify-content: flex-end;
-                }
-
-                .active_border_bottom {
-                    display: flex;
-
-                    .active,
-                    .inactive {
-                        width: 13.75rem;
-                        height: .375rem;
-                        flex-shrink: 0;
-                        border: none;
-                    }
-
-                    .active {
-                        background-color: var(--btn-color);
-                        transition: all 0.5s ease-in-out;
-                    }
-
-                    .inactive {
-                        background-color: #d9d9d9;
-                        transition: all 0.5s ease-in-out;
-                    }
-                }
-            }
-
-            .login_container {
-                position: relative;
-                top: 5rem;
+            .right_container {
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
                 align-items: center;
-                gap: 3rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-                font-weight: 500;
-                color: var(--font-pry-color);
-            }
-
-            form {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 6px;
+                gap: 18px;
+                height: 100%;
                 width: 100%;
+                position: relative;
 
-                .names {
+                .auth_header {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    gap: .75rem;
                     width: 100%;
+                    padding: 1rem 0;
+                    position: relative;
+                    border: none;
+                    color: #61635B;
+
+                    .back_icon {
+                        align-self: center;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.5rem;
+                        cursor: pointer;
+                        position: absolute;
+                        right: 43rem;
+
+                        .icon {
+                            width: 1.875rem;
+                            height: 1.875rem;
+                        }
+                    }
+
+                    .links {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 27.5rem;
+
+                        .link_one,
+                        .link_two {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.5rem;
+
+                            a {
+                                display: flex;
+                                cursor: pointer;
+                            }
+                        }
+
+                        .link_one a {
+                            justify-self: flex-start;
+                            align-items: center;
+                        }
+
+                        .link_two a {
+                            align-items: center;
+                            justify-content: flex-end;
+                        }
+
+                        .active_border_bottom {
+                            display: flex;
+
+                            .active,
+                            .inactive {
+                                width: 13.75rem;
+                                height: 0.375rem;
+                                flex-shrink: 0;
+                                border: none;
+                            }
+
+                            .active {
+                                background-color: var(--btn-color);
+                                transition: all 0.5s ease-in-out;
+                            }
+
+                            .inactive {
+                                background-color: #d9d9d9;
+                                transition: all 0.5s ease-in-out;
+                            }
+                        }
+                    }
                 }
 
-                .input_wrapper {
+                .login_container {
+                    position: relative;
+                    top: 5rem;
                     display: flex;
                     flex-direction: column;
-                    gap: 7px;
-
-                    label {
-                        color: #3b3b3b;
-                        text-transform: capitalize;
-                    }
-
-                    .first_name_input,
-                    .last_name_input {
-                        border: 1px solid #ced4da;
-                        outline: none;
-                        height: 50px;
-                        width: 15.75rem;
-                        border-radius: 8px;
-                        padding: .625rem 1rem;
-                        box-shadow: 0px 0px 1px 0px rgba(33, 37, 41, 0.08), 0px 2px 2px 0px rgba(33, 37, 41, 0.06);
-
-                        &:focus {
-                            border: 1px solid var(--font-pry-color);
-                        }
-                    }
-
-                    .email_input,
-                    .designation {
-                        border: 1px solid #ced4da;
-                        outline: none;
-                        height: 50px;
-                        width: 32.5rem;
-                        border-radius: 8px;
-                        padding: 10px 16px 10px 16px;
-                        box-shadow: 0px 0px 1px 0px rgba(33, 37, 41, 0.08), 0px 2px 2px 0px rgba(33, 37, 41, 0.06);
-
-                        &:focus {
-                            border: 1px solid var(--font-pry-color);
-                        }
-                    }
-
-                    .first_name_input,
-                    .last_name_input,
-                    .designation,
-                    .email_input {
-                        letter-spacing: .5008px;
-                        word-spacing: 1px;
-
-                        &::placeholder {
-                            font-size: 14px;
-                        }
-                    }
+                    justify-content: center;
+                    align-items: center;
+                    gap: 3rem;
                 }
 
-                .input {
-                    width: 32.5rem;
-                    display: flex;
-                    align-items: center;
-                    padding: 10px 16px 10px 16px;
-                    border: 1px solid #ced4da;
-                    box-shadow: 0px 0px 1px 0px rgba(33, 37, 41, 0.08), 0px 2px 2px 0px rgba(33, 37, 41, 0.06);
-                    outline: none;
-                    height: 50px;
-                    border-radius: 8px;
-                    cursor: text;
+                h2 {
+                    font-size: 1.5rem;
+                    font-weight: 500;
+                    color: var(--font-pry-color);
+                    margin-top: 1rem;
+                }
 
-                    &:focus-within {
-                        border: 1px solid var(--font-pry-color);
+                form {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 6px;
+
+                    .names {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.75rem;
+                        width: 100%;
                     }
 
-                    input {
-                        width: 100%;
-                        border: none;
-                        outline: none;
-                        height: 44px;
-                        letter-spacing: .5008px;
+                    .input_wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 7px;
 
-                        &::placeholder {
-                            position: relative;
-                            top: 3px;
-                            font-size: 14px;
+                        label {
+                            color: #3b3b3b;
+                            text-transform: capitalize;
+                        }
+
+                        .first_name_input,
+                        .last_name_input {
+                            border: 1px solid #ced4da;
+                            outline: none;
+                            height: 50px;
+                            width: 15.75rem;
+                            border-radius: 8px;
+                            padding: 0.625rem 1rem;
+                            box-shadow:
+                                0px 0px 1px 0px rgba(33, 37, 41, 0.08),
+                                0px 2px 2px 0px rgba(33, 37, 41, 0.06);
+
+                            &:focus {
+                                border: 1px solid var(--font-pry-color);
+                            }
+                        }
+
+                        .email_input,
+                        .designation {
+                            border: 1px solid #ced4da;
+                            outline: none;
+                            height: 50px;
+                            width: 32.5rem;
+                            border-radius: 8px;
+                            padding: 10px 16px 10px 16px;
+                            box-shadow:
+                                0px 0px 1px 0px rgba(33, 37, 41, 0.08),
+                                0px 2px 2px 0px rgba(33, 37, 41, 0.06);
+
+                            &:focus {
+                                border: 1px solid var(--font-pry-color);
+                            }
+                        }
+
+                        .first_name_input,
+                        .last_name_input,
+                        .designation,
+                        .email_input {
+                            letter-spacing: 0.5008px;
+                            word-spacing: 1px;
+
+                            &::placeholder {
+                                font-size: 14px;
+                            }
                         }
                     }
 
-                    .visibility_icon {
+                    .input {
+                        width: 32.5rem;
+                        display: flex;
+                        align-items: center;
+                        padding: 10px 16px 10px 16px;
+                        border: 1px solid #ced4da;
+                        box-shadow:
+                            0px 0px 1px 0px rgba(33, 37, 41, 0.08),
+                            0px 2px 2px 0px rgba(33, 37, 41, 0.06);
+                        outline: none;
+                        height: 50px;
+                        border-radius: 8px;
+                        cursor: text;
+
+                        &:focus-within {
+                            border: 1px solid var(--font-pry-color);
+                        }
+
+                        input {
+                            width: 100%;
+                            border: none;
+                            outline: none;
+                            height: 44px;
+                            letter-spacing: 0.5008px;
+
+                            &::placeholder {
+                                position: relative;
+                                top: 3px;
+                                font-size: 14px;
+                            }
+                        }
+
+                        .visibility_icon {
+                            cursor: pointer;
+                            color: rgb(61, 58, 58);
+                            font-size: 1rem;
+
+                            &:hover {
+                                color: var(--font-pry-color);
+                            }
+                        }
+                    }
+
+                    button[type="submit"] {
+                        width: 32.5rem;
+                        padding: 0.5rem 1rem;
+                        border-radius: 0.5rem;
+                        text-align: center;
+                        transition: all 0.5s ease-in-out;
+                        border: 0.0625rem solid var(--btn-color);
+                        background-color: var(--btn-color);
+                        color: var(--pry-bg-color);
+                        font-size: 18px;
+                        height: 50px;
+                        font-weight: 500;
                         cursor: pointer;
-                        color: rgb(61, 58, 58);
-                        font-size: 1rem;
+                        text-transform: capitalize;
+                        margin-top: 1%;
 
                         &:hover {
-                            color: var(--font-pry-color);
+                            background-color: #3a2b9e;
+                            color: #e6e5e5;
                         }
                     }
                 }
 
-                button[type="submit"] {
-                    width: 32.5rem;
-                    padding: .5rem 1rem;
-                    border-radius: .5rem;
-                    text-align: center;
-                    transition: all 0.5s ease-in-out;
-                    border: .0625rem solid var(--btn-color);
-                    background-color: var(--btn-color);
-                    color: var(--pry-bg-color);
-                    font-size: 18px;
-                    height: 50px;
-                    font-weight: 500;
-                    cursor: pointer;
-                    text-transform: capitalize;
-                    margin-top: 1%;
-
-                    &:hover {
-                        background-color: #3a2b9e;
-                        color: #e6e5e5;
-                    }
+                .or_sign_with,
+                .google,
+                .google span {
+                    display: flex;
+                    align-items: center;
                 }
-            }
 
-            .or_sign_with,
-            .google,
-            .google span{
-                display: flex;
-                align-items: center;
-            }
-
-            .or_sign_with {
-                justify-content: center;
-                flex-direction: column;
-                width: 100%;
-                margin-top: 5px;
-
-                .google {
+                .or_sign_with {
                     justify-content: center;
-                    border: 1px solid #d0d0d0;
-                    border-radius: 8px;
-                    padding: 8px 16px;
-                    width: 32.5rem;
-                    gap: 1.5rem;
-                    text-transform: capitalize;
-                    cursor: pointer;
-                    
-                    &:hover {
-                        border: 1px solid var(--btn-color);
+                    flex-direction: column;
+                    width: 100%;
+                    margin-top: 5px;
+
+                    .google {
+                        justify-content: center;
+                        border: 1px solid #d0d0d0;
+                        border-radius: 8px;
+                        padding: 8px 16px;
+                        width: 32.5rem;
+                        gap: 1.5rem;
+                        text-transform: capitalize;
+                        cursor: pointer;
+
+                        &:hover {
+                            border: 1px solid var(--btn-color);
+                        }
+                    }
+
+                    .google span {
+                        gap: 0.6875rem;
+                        justify-content: flex-start;
                     }
                 }
-                
-                .google span{
-                    gap: .6875rem;
-                    justify-content: flex-start;
+            }
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            transition: all 0.5s ease-in-out;
+            border-radius: 8px;
+            position: relative;
+            bottom: 7px;
+        }
+    }
+}
+
+@media (max-width: 1440px) {
+    .register {
+        .register_container {
+            .right {
+                .right_container {
+                    .back_icon {
+                        right: 36rem;
+
+                        .icon {
+                            width: 1.655rem;
+                            height: 1.655rem;
+                        }
+                    }
                 }
             }
         }
     }
+}
 
-    .error {
-        color: red;
-        font-size: 12px;
-        transition: all 0.5s ease-in-out;
-        border-radius: 8px;
-        position: relative;
-        bottom: 7px;
+@media (max-width: 1280px) {
+    .register {
+        .register_container {
+            .left {
+                // img {
+                //     width: 80vh;
+                //     height: 100vh;
+                //     aspect-ratio: 1/1;
+                //     object-position: contain;
+                // }
+
+                .left_content-container {
+                    // width: 80vh;
+                }
+            }
+            .right {
+                .right_container {
+                    .back_icon {
+                        // right: 38rem;
+
+                        span {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
