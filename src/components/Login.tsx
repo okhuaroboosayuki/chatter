@@ -12,6 +12,7 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 
 export const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -32,8 +33,18 @@ export const Login = () => {
         const loggedInUserId = auth.currentUser?.uid;
 
         navigate(`/feed/${loggedInUserId}`);
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        if (error.code === "auth/user-not-found") {
+          setError("No user found with this email address");
+        } else if (error.code === "auth/wrong-password") {
+          setError("Incorrect password");
+        } else if (error.code === "auth/too-many-requests") {
+          setError("Too many requests. Try again later");
+        } else if (error.code === "auth/network-request-failed") {
+          setError("Network error. Check your internet connection");
+        } else {
+          setError("Something went wrong. Try again later");
+        }
       }
     },
     validationSchema: Yup.object({
@@ -85,6 +96,7 @@ export const Login = () => {
             {formik.errors.email && formik.touched.email && (
               <div className="error">{formik.errors.email}</div>
             )}
+            {error && <div className="error">{error}</div>}
           </div>
 
           <div className="input_wrapper">

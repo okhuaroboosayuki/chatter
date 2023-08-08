@@ -1,7 +1,7 @@
 import "../styles/scss/sign-in.scss";
 import GoogleIcon from "../icons/GoogleIcon";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Helmet } from "react-helmet-async";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthenticationContext";
@@ -60,6 +60,12 @@ export const SignUp = () => {
       } catch (error: any) {
         if (error.code === "auth/email-already-in-use") {
           setError("Email already in use");
+        } else if (error.code === "network-request-failed") {
+          setError("Network error. Check your internet connection");
+        } else if (error.code === "auth/too-many-requests") {
+          setError("Too many requests. Try again later");
+        } else {
+          setError("Something went wrong. Try again later");
         }
       }
     },
@@ -103,8 +109,14 @@ export const SignUp = () => {
       );
 
       navigate(`/feed/${loggedInUserId}`);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.code === "auth/network-request-failed") {
+        setError("Network error. Check your internet connection");
+      } else if (error.code === "auth/too-many-requests") {
+        setError("Too many requests. Try again later");
+      } else {
+        setError("Something went wrong. Try again later");
+      }
     }
   };
 
@@ -281,9 +293,7 @@ export const SignUp = () => {
         {formik.isSubmitting ? (
           <ButtonLoader />
         ) : (
-          <button type="submit">
-            Create account
-          </button>
+          <button type="submit">Create account</button>
         )}
 
         <div className="or_sign_with">
