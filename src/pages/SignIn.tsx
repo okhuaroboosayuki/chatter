@@ -30,8 +30,8 @@ export const SignIn = () => {
 
   return (
     <section className="register">
-      <div className="register_container">
-        <div className="left lady_writer_img_blur">
+      <main className="register_container">
+        <section className="left lady_writer_img_blur">
           <img
             src={require("../images/lady-writing-on-a-book.webp")}
             alt="writer"
@@ -47,11 +47,11 @@ export const SignIn = () => {
               </p>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className="right">
-          <div className="right_container">
-            <header className="auth_header">
+        <section className="right">
+          <main className="right_container">
+            <section className="auth_header">
               <div className="back_icon">
                 <BackIcon className="icon" onClick={() => navigate("/")} />
                 <span>Back</span>
@@ -64,11 +64,11 @@ export const SignIn = () => {
                   Log In
                 </SignInHeader>
               </div>
-            </header>
+            </section>
             <Outlet />
-          </div>
-        </div>
-      </div>
+          </main>
+        </section>
+      </main>
     </section>
   );
 };
