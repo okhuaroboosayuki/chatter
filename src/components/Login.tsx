@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ButtonLoader } from "./Loader";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
 export const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -24,6 +24,9 @@ export const Login = () => {
       password: "",
     },
     onSubmit: async (values) => {
+      if (values.email === "") {
+        setError("email is required")
+      } 
       try {
         const email = values.email;
         const password = values.password;
@@ -78,55 +81,72 @@ export const Login = () => {
         <link rel="canonical" href="/signup/login" />
       </Helmet>
       <div className="login_container">
+        {error && <div className="error">{error}</div>}
+
         <h2 className="login_header">Welcome Back</h2>
 
         <form onSubmit={formik.handleSubmit}>
-          <div className="input_wrapper">
-            <label htmlFor="email">Email Address</label>
-            <input
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              type="email"
-              name="email"
-              id="email"
-              className="email_input"
-              placeholder="Johndoe@gmail.com"
-            />
-            {formik.errors.email && formik.touched.email && (
-              <div className="error">{formik.errors.email}</div>
-            )}
-            {error && <div className="error">{error}</div>}
-          </div>
-
-          <div className="input_wrapper">
-            <label htmlFor="password">Password</label>
-            <div className="input">
+          <div className="wrapper_container">
+            <div className="input_wrapper">
+              <label htmlFor="email">Email Address</label>
               <input
-                value={formik.values.password}
+                value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                type="password"
-                name="password"
-                id="password"
-                placeholder="**********"
-                className="password_input"
+                type="email"
+                name="email"
+                id="email"
+                className="email_input"
+                placeholder="Johndoe@gmail.com"
+                style={
+                  formik.errors.email && formik.touched.email
+                    ? { border: "1px solid red" }
+                    : { border: "1px solid #ced4da" }
+                }
               />
-              {passwordVisibility ? (
-                <VisibilityOutlinedIcon
-                  className="visibility_icon"
-                  onClick={handlePasswordVisibility}
-                />
-              ) : (
-                <VisibilityOffOutlinedIcon
-                  className="visibility_icon"
-                  onClick={handlePasswordVisibility}
-                />
-              )}
             </div>
-            {formik.errors.password && formik.touched.password && (
-              <div className="error">{formik.errors.password}</div>
-            )}
+            {/* {formik.errors.email && formik.touched.email && (
+              <div className="error">{formik.errors.email}</div>
+            )} */}
+          </div>
+
+          <div className="wrapper_container">
+            <div className="input_wrapper">
+              <label htmlFor="password">Password</label>
+              <div
+                className="input"
+                style={
+                  formik.errors.password && formik.touched.password
+                    ? { border: "1px solid red" }
+                    : { border: "1px solid #ced4da" }
+                }
+              >
+                <input
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="**********"
+                  className="password_input"
+                />
+                {passwordVisibility ? (
+                  <VisibilityOutlinedIcon
+                    className="visibility_icon"
+                    onClick={handlePasswordVisibility}
+                  />
+                ) : (
+                  <VisibilityOffOutlinedIcon
+                    className="visibility_icon"
+                    onClick={handlePasswordVisibility}
+                  />
+                )}
+              </div>
+            </div>
+            {/* {formik.errors.password && formik.touched.password && (
+                <div className="error">{formik.errors.password}</div>
+              )} */}
           </div>
 
           {formik.isSubmitting ? (

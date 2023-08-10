@@ -32,6 +32,7 @@ export const SignUp = () => {
       designation: "",
     },
     onSubmit: async (values) => {
+      setError("");
       try {
         const email = values.email;
         const password = values.password;
@@ -60,7 +61,7 @@ export const SignUp = () => {
       } catch (error: any) {
         if (error.code === "auth/email-already-in-use") {
           setError("Email already in use");
-        } else if (error.code === "network-request-failed") {
+        } else if (error.code === "auth/network-request-failed") {
           setError("Network error. Check your internet connection");
         } else if (error.code === "auth/too-many-requests") {
           setError("Too many requests. Try again later");
@@ -88,6 +89,7 @@ export const SignUp = () => {
   });
 
   const handleGoogleSignIn = async () => {
+    setError("");
     try {
       await googleSignIn({ auth, provider });
 
@@ -159,135 +161,182 @@ export const SignUp = () => {
         <meta name="description" content="Register to get access to the app" />
         <link rel="canonical" href="/signup" />
       </Helmet>
-      <h2>Register as a Writer/Reader</h2>
+
+      {error && <div className="error">{error}</div>}
 
       <form onSubmit={formik.handleSubmit}>
+        <h2>Register as a Writer/Reader</h2>
         <div className="names">
-          <div className="input_wrapper">
-            <label htmlFor="firstName">First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              id="firstName"
-              className="first_name_input"
-              placeholder="John"
-              value={formik.values.firstName}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.errors.firstName && formik.touched.firstName && (
+          <div className="wrapper_container">
+            <div className="input_wrapper">
+              <label htmlFor="firstName">First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                id="firstName"
+                className="first_name_input"
+                placeholder="John"
+                value={formik.values.firstName}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                style={
+                  formik.errors.firstName && formik.touched.firstName
+                    ? { border: "1px solid red" }
+                    : { border: "1px solid #ced4da" }
+                }
+              />
+            </div>
+            {/* {formik.errors.firstName && formik.touched.firstName && (
               <div className="error">{formik.errors.firstName}</div>
-            )}
+            )} */}
           </div>
+          <div className="wrapper_container">
+            <div className="input_wrapper">
+              <label htmlFor="lastName">Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                id="lastName"
+                className="last_name_input"
+                placeholder="Doe"
+                value={formik.values.lastName}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                style={
+                  formik.errors.lastName && formik.touched.lastName
+                    ? { border: "1px solid red" }
+                    : { border: "1px solid #ced4da" }
+                }
+              />
+            </div>
+            {/* {formik.errors.lastName && formik.touched.lastName && (
+              <div className="error">{formik.errors.lastName}</div>
+            )} */}
+          </div>
+        </div>
+
+        <div className="wrapper_container">
           <div className="input_wrapper">
-            <label htmlFor="lastName">Last Name</label>
+            <label htmlFor="designation">You are joining as?</label>
             <input
               type="text"
-              name="lastName"
-              id="lastName"
-              className="last_name_input"
-              placeholder="Doe"
-              value={formik.values.lastName}
+              name="designation"
+              id="designation"
+              className="designation"
+              placeholder="Software Engineer"
+              value={formik.values.designation}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              style={
+                formik.errors.designation && formik.touched.designation
+                  ? { border: "1px solid red" }
+                  : { border: "1px solid #ced4da" }
+              }
             />
-            {formik.errors.lastName && formik.touched.lastName && (
-              <div className="error">{formik.errors.lastName}</div>
-            )}
           </div>
+          {/* {formik.errors.designation && formik.touched.designation && (
+              <div className="error">{formik.errors.designation}</div>
+            )} */}
         </div>
 
-        <div className="input_wrapper">
-          <label htmlFor="designation">You are joining as?</label>
-          <input
-            type="text"
-            name="designation"
-            id="designation"
-            className="designation"
-            placeholder="Software Engineer"
-            value={formik.values.designation}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.errors.designation && formik.touched.designation && (
-            <div className="error">{formik.errors.designation}</div>
-          )}
-        </div>
-
-        <div className="input_wrapper">
-          <label htmlFor="email">Email Address</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            className="email_input"
-            placeholder="Johndoe@gmail.com"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.errors.email && formik.touched.email && (
+        <div className="wrapper_container">
+          <div className="input_wrapper">
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              className="email_input"
+              placeholder="Johndoe@gmail.com"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              style={
+                formik.errors.email && formik.touched.email
+                  ? { border: "1px solid red" }
+                  : { border: "1px solid #ced4da" }
+              }
+            />
+          </div>
+          {/* {formik.errors.email && formik.touched.email && (
             <div className="error">{formik.errors.email}</div>
-          )}
-          {error && <div className="error">{error}</div>}
+          )} */}
         </div>
 
-        <div className="input_wrapper">
-          <label htmlFor="password">Password</label>
-          <div className="input">
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="**********"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {passwordVisibility ? (
-              <VisibilityOutlinedIcon
-                className="visibility_icon"
-                onClick={handlePasswordVisibility}
+        <div className="wrapper_container">
+          <div className="input_wrapper">
+            <label htmlFor="password">Password</label>
+            <div
+              className="input"
+              style={
+                formik.errors.email && formik.touched.email
+                  ? { border: "1px solid red" }
+                  : { border: "1px solid #ced4da" }
+              }
+            >
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="**********"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
-            ) : (
-              <VisibilityOffOutlinedIcon
-                className="visibility_icon"
-                onClick={handlePasswordVisibility}
-              />
-            )}
+              {passwordVisibility ? (
+                <VisibilityOutlinedIcon
+                  className="visibility_icon"
+                  onClick={handlePasswordVisibility}
+                />
+              ) : (
+                <VisibilityOffOutlinedIcon
+                  className="visibility_icon"
+                  onClick={handlePasswordVisibility}
+                />
+              )}
+            </div>
           </div>
-          {formik.errors.password && formik.touched.password && (
+          {/* {formik.errors.password && formik.touched.password && (
             <div className="error">{formik.errors.password}</div>
-          )}
+          )} */}
         </div>
 
-        <div className="input_wrapper">
-          <label htmlFor="confirmPassword">Confirm password</label>
-          <div className="input">
-            <input
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              placeholder="**********"
-              value={formik.values.confirmPassword}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {confirmPasswordVisibility ? (
-              <VisibilityOutlinedIcon
-                className="visibility_icon"
-                onClick={handleConfirmPasswordVisibility}
+        <div className="wrapper_container">
+          <div className="input_wrapper">
+            <label htmlFor="confirmPassword">Confirm password</label>
+            <div
+              className="input"
+              style={
+                formik.errors.email && formik.touched.email
+                  ? { border: "1px solid red" }
+                  : { border: "1px solid #ced4da" }
+              }
+            >
+              <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="**********"
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
-            ) : (
-              <VisibilityOffOutlinedIcon
-                className="visibility_icon"
-                onClick={handleConfirmPasswordVisibility}
-              />
-            )}
+              {confirmPasswordVisibility ? (
+                <VisibilityOutlinedIcon
+                  className="visibility_icon"
+                  onClick={handleConfirmPasswordVisibility}
+                />
+              ) : (
+                <VisibilityOffOutlinedIcon
+                  className="visibility_icon"
+                  onClick={handleConfirmPasswordVisibility}
+                />
+              )}
+            </div>
           </div>
-          {formik.errors.confirmPassword && formik.touched.confirmPassword && (
+          {/* {formik.errors.confirmPassword && formik.touched.confirmPassword && (
             <div className="error">{formik.errors.confirmPassword}</div>
-          )}
+          )} */}
         </div>
 
         {formik.isSubmitting ? (
