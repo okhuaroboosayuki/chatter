@@ -25,8 +25,8 @@ export const Login = () => {
     },
     onSubmit: async (values) => {
       if (values.email === "") {
-        setError("email is required")
-      } 
+        setError("email is required");
+      }
       try {
         const email = values.email;
         const password = values.password;
@@ -83,9 +83,8 @@ export const Login = () => {
       <div className="login_container">
         {error && <div className="error">{error}</div>}
 
-        <h2 className="login_header">Welcome Back</h2>
-
         <form onSubmit={formik.handleSubmit}>
+          <h2 className="login_header">Welcome Back</h2>
           <div className="wrapper_container">
             <div className="input_wrapper">
               <label htmlFor="email">Email Address</label>
@@ -149,11 +148,13 @@ export const Login = () => {
               )} */}
           </div>
 
-          {formik.isSubmitting ? (
-            <ButtonLoader />
-          ) : (
-            <button type="submit">Log in</button>
-          )}
+          <div className="submit_btn">
+            {formik.isSubmitting ? (
+              <ButtonLoader />
+            ) : (
+              <button type="submit">Create account</button>
+            )}
+          </div>
         </form>
       </div>
     </>

@@ -339,11 +339,13 @@ export const SignUp = () => {
           )} */}
         </div>
 
-        {formik.isSubmitting ? (
-          <ButtonLoader />
-        ) : (
-          <button type="submit">Create account</button>
-        )}
+        <div className="submit_btn">
+          {formik.isSubmitting ? (
+            <ButtonLoader />
+          ) : (
+            <button type="submit">Create account</button>
+          )}
+        </div>
 
         <div className="or_sign_with">
           <div className="google" onClick={handleGoogleSignIn}>
