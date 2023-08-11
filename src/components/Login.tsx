@@ -3,12 +3,14 @@ import "../styles/scss/sign-in.scss";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthenticationContext";
 import { useContext, useState } from "react";
-import { auth } from "../lib/Firebase";
+import { auth, db, provider } from '../lib/Firebase';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ButtonLoader } from "./Loader";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import { doc, setDoc } from "firebase/firestore";
+import GoogleIcon from "../icons/GoogleIcon";
 
 export const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -16,7 +18,7 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
-  const { login } = useContext(AuthContext);
+  const { login, googleSignIn } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
@@ -38,16 +40,14 @@ export const Login = () => {
         navigate(`/feed/${loggedInUserId}`);
       } catch (error: any) {
         if (error.code === "auth/user-not-found") {
-          setError("No user found with this email address");
+          setError("User does not exist");
         } else if (error.code === "auth/wrong-password") {
           setError("Incorrect password");
         } else if (error.code === "auth/too-many-requests") {
           setError("Too many requests. Try again later");
         } else if (error.code === "auth/network-request-failed") {
           setError("Network error. Check your internet connection");
-        } else {
-          setError("Something went wrong. Try again later");
-        }
+        } else return;
       }
     },
     validationSchema: Yup.object({
@@ -57,6 +57,39 @@ export const Login = () => {
       password: Yup.string().required("Password is required"),
     }),
   });
+
+  const handleGoogleSignIn = async () => {
+    if (error) setError("");
+
+    try {
+      await googleSignIn({ auth, provider });
+
+      const loggedInUserId = auth.currentUser?.uid;
+
+      const userRef = doc(db, "users", `${loggedInUserId}`);
+
+      await setDoc(
+        userRef,
+        {
+          id: loggedInUserId,
+          firstName: auth.currentUser?.displayName?.split(" ")[0],
+          lastName: auth.currentUser?.displayName?.split(" ")[1],
+          email: auth.currentUser?.email,
+          designation: "",
+          picture: auth.currentUser?.photoURL,
+        },
+        { merge: true }
+      );
+
+      navigate(`/feed/${loggedInUserId}`);
+    } catch (error: any) {
+      if (error.code === "auth/network-request-failed") {
+        setError("Network error. Check your internet connection");
+      } else if (error.code === "auth/too-many-requests") {
+        setError("Too many requests. Try again later");
+      } else return;
+    }
+  };
 
   // handle password visibility
   const handlePasswordVisibility = () => {
@@ -81,9 +114,8 @@ export const Login = () => {
         <link rel="canonical" href="/signup/login" />
       </Helmet>
       <div className="login_container">
-        {error && <div className="error">{error}</div>}
-
         <form onSubmit={formik.handleSubmit}>
+          {error && <div className="main_error">{error}</div>}
           <h2 className="login_header">Welcome Back</h2>
           <div className="wrapper_container">
             <div className="input_wrapper">
@@ -104,9 +136,9 @@ export const Login = () => {
                 }
               />
             </div>
-            {/* {formik.errors.email && formik.touched.email && (
+            {formik.errors.email && formik.touched.email && (
               <div className="error">{formik.errors.email}</div>
-            )} */}
+            )}
           </div>
 
           <div className="wrapper_container">
@@ -143,9 +175,9 @@ export const Login = () => {
                 )}
               </div>
             </div>
-            {/* {formik.errors.password && formik.touched.password && (
-                <div className="error">{formik.errors.password}</div>
-              )} */}
+            {formik.errors.password && formik.touched.password && (
+              <div className="error">{formik.errors.password}</div>
+            )}
           </div>
 
           <div className="submit_btn">
@@ -155,6 +187,15 @@ export const Login = () => {
               <button type="submit">Create account</button>
             )}
           </div>
+
+          <div className="or_sign_with">
+          <div className="google" onClick={handleGoogleSignIn}>
+            <span>
+              <GoogleIcon />
+              <div>Sign in with google</div>
+            </span>
+          </div>
+        </div>
         </form>
       </div>
     </>

@@ -89,7 +89,8 @@ export const SignUp = () => {
   });
 
   const handleGoogleSignIn = async () => {
-    setError("");
+    if (error) setError("");
+
     try {
       await googleSignIn({ auth, provider });
 
@@ -116,9 +117,7 @@ export const SignUp = () => {
         setError("Network error. Check your internet connection");
       } else if (error.code === "auth/too-many-requests") {
         setError("Too many requests. Try again later");
-      } else {
-        setError("Something went wrong. Try again later");
-      }
+      } else return;
     }
   };
 
@@ -162,9 +161,9 @@ export const SignUp = () => {
         <link rel="canonical" href="/signup" />
       </Helmet>
 
-      {error && <div className="error">{error}</div>}
 
       <form onSubmit={formik.handleSubmit}>
+      {error && <div className="main_error">{error}</div>}
         <h2>Register as a Writer/Reader</h2>
         <div className="names">
           <div className="wrapper_container">
@@ -186,9 +185,9 @@ export const SignUp = () => {
                 }
               />
             </div>
-            {/* {formik.errors.firstName && formik.touched.firstName && (
+            {formik.errors.firstName && formik.touched.firstName && (
               <div className="error">{formik.errors.firstName}</div>
-            )} */}
+            )}
           </div>
           <div className="wrapper_container">
             <div className="input_wrapper">
@@ -209,9 +208,9 @@ export const SignUp = () => {
                 }
               />
             </div>
-            {/* {formik.errors.lastName && formik.touched.lastName && (
+            {formik.errors.lastName && formik.touched.lastName && (
               <div className="error">{formik.errors.lastName}</div>
-            )} */}
+            )}
           </div>
         </div>
 
@@ -234,9 +233,9 @@ export const SignUp = () => {
               }
             />
           </div>
-          {/* {formik.errors.designation && formik.touched.designation && (
-              <div className="error">{formik.errors.designation}</div>
-            )} */}
+          {formik.errors.designation && formik.touched.designation && (
+            <div className="error">{formik.errors.designation}</div>
+          )}
         </div>
 
         <div className="wrapper_container">
@@ -258,9 +257,9 @@ export const SignUp = () => {
               }
             />
           </div>
-          {/* {formik.errors.email && formik.touched.email && (
+          {formik.errors.email && formik.touched.email && (
             <div className="error">{formik.errors.email}</div>
-          )} */}
+          )}
         </div>
 
         <div className="wrapper_container">
@@ -296,9 +295,9 @@ export const SignUp = () => {
               )}
             </div>
           </div>
-          {/* {formik.errors.password && formik.touched.password && (
+          {formik.errors.password && formik.touched.password && (
             <div className="error">{formik.errors.password}</div>
-          )} */}
+          )}
         </div>
 
         <div className="wrapper_container">
@@ -334,9 +333,9 @@ export const SignUp = () => {
               )}
             </div>
           </div>
-          {/* {formik.errors.confirmPassword && formik.touched.confirmPassword && (
+          {formik.errors.confirmPassword && formik.touched.confirmPassword && (
             <div className="error">{formik.errors.confirmPassword}</div>
-          )} */}
+          )}
         </div>
 
         <div className="submit_btn">
