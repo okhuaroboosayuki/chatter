@@ -197,7 +197,7 @@
 
                 .login_container {
                     position: relative;
-                    top: 5rem;
+                    top: 2rem;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -230,7 +230,7 @@
                             display: flex;
                             flex-direction: column;
                             align-items: flex-start;
-                            gap: 0.5rem;
+                            justify-content: center;
                         }
                     }
 
@@ -401,31 +401,24 @@
             }
         }
 
-        .error {
+        .error, .main_error {
             color: red;
-            font-size: 12px;
-            transition: all 0.5s ease-in-out;
-            // position: relative;
-            // bottom: 7px;
-            position: absolute;
-            top: 3.5rem;
-            right: 1rem;
-            padding: 1rem 1.7rem;
-            border: 1px solid red;
-            border-radius: 0.5rem;
-            background-color: rgba(255, 0, 0, 0.1);
+            transition: all 2s ease-in-out;
             text-transform: capitalize;
+        }
 
-            &::after {
-                content: "x";
-                position: absolute;
-                top: 0.4rem;
-                right: 0;
-                padding: 0.5rem;
-                cursor: pointer;
-                color: red;
-                font-size: 1rem;
-            }
+        .error{
+            font-size: 12px;
+        }
+
+        .main_error{
+            font-size: 13.5px;
+            background-color: rgba(255, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: .8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 }
@@ -433,7 +426,17 @@
 @media screen and (max-width: 1440px) {
     .register {
         .register_container {
+            .left{
+                height: 107vh;
+
+                .lady_writer_img{
+                    height: 107vh;
+                }
+            }
+
             .right {
+                height: 105vh;
+
                 .right_container {
                     .auth_header {
                         .back_icon {
@@ -458,6 +461,8 @@
             }
 
             .right {
+                height: 110vh;
+                
                 .right_container {
                     .auth_header {
                         .back_icon {
@@ -570,6 +575,10 @@
                     }
                 }
             }
+
+            .main_error{
+                background-color: rgba(255, 255, 255, 0.25);
+            }
         }
     }
 }
@@ -578,7 +587,7 @@
     .register {
         .register_container {
             .left {
-                height: 100vh;
+                height: 120vh;
 
                 .lady_writer_img{
                     height: 120vh;
@@ -611,12 +620,14 @@
     .register {
         .register_container {
             .left{
+                height: 107vh;
+
                 .lady_writer_img{
-                    height: 100vh;
+                    height: 107vh;
                 }
             }
             .right {
-                height: 100vh;
+                height: 107vh;
             }
         }
     }
@@ -625,13 +636,7 @@
 @media screen and (max-width: 824px) {
     .register {
         .register_container {
-            .left{
-                .lady_writer_img{
-                    height: 100vh;
-                }
-            }
             .right {
-                height: 100vh;
                 .right_container {
                     .auth_header {
                         .back_icon {
@@ -755,7 +760,7 @@
     }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 380px) {
     .register{
         .register_container{
             .left{
