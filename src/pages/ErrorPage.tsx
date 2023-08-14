@@ -24,17 +24,16 @@ export const ErrorPage = () => {
         <title>404</title>
         <meta
           name="description"
-          content="The page you are looking for does not exist. How you got here is a
-            mystery"
+          content="The page you are looking for does not exist. How you got here is a mystery"
         />
         <link rel="canonical" href="*" />
       </Helmet>
       <div className="error_page_container">
         <div className="row">
           <div className="space_man_container">
-            <SpaceMan className="space_man_icon" height={700} width={700} />
+            <SpaceMan className="space_man_icon" />
           </div>
-          <div className="col-md-6 align-self-center error_content">
+          <div className="error_content">
             <h1>404</h1>
             <h2>UH OH! You're lost.</h2>
             <p>
@@ -43,7 +42,7 @@ export const ErrorPage = () => {
               homepage.
             </p>
             <button className="btn" onClick={handleNavigate}>
-              HOME
+              {currentUser ? "Go back" : "home"}
             </button>
           </div>
         </div>
