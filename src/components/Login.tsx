@@ -184,7 +184,7 @@ export const Login = () => {
             {formik.isSubmitting ? (
               <ButtonLoader />
             ) : (
-              <button type="submit">Create account</button>
+              <button type="submit">Log In</button>
             )}
           </div>
 
