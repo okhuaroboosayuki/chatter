@@ -17,3 +17,7 @@ export type CustomLinkProps = {
   to: string;
   children: React.ReactNode;
 };
+
+export type ProtectedRouteProps = {
+  children: any;
+};
