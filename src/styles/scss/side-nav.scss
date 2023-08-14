@@ -1,142 +1,164 @@
 .side_nav {
-    flex: 1;
-    border-right: 1px solid#D0D0D0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 16.75rem;
-    flex-shrink: 0;
-    overflow: hidden;
-    gap: 1.5rem;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    overflow-x: hidden;
-    height: 100%;
-    z-index: 500;
-    background-color: #fff;
+    justify-content: center;
 
-    .logo {
-        width: 100%;
-        margin-top: 0.5rem;
-        margin-left: 4.5rem;
-
-        .logo_link {
-            color: var(--btn-color);
-            font-size: 2rem;
-            font-weight: 500;
-            line-height: 3rem;
-        }
-    }
-
-    .side_nav_list {
-        width: 100%;
-        display: inline-flex;
+    nav {
+        border-right: 1px solid#D0D0D0;
+        display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 500;
+        background-color: #fff;
 
-        .overview {
+        .logo {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0.54rem;
+            border-bottom: 1px solid #d0d0d0;
+
+            .logo_link {
+                color: var(--btn-color);
+                font-size: 2rem;
+                font-weight: 500;
+                line-height: 3rem;
+            }
+        }
+
+        .side_nav_list {
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            justify-content: center;
 
-            .overview_heading {
-                font-size: 1.125rem;
-                width: 100%;
-                margin-left: 4.5rem;
-            }
-
-            .overview_links {
+            .overview {
                 display: flex;
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 0.75rem;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
                 width: 100%;
-                margin-left: 6.5rem;
+                border-bottom: 1px solid #d0d0d0;
+                padding: 1rem;
 
-                a {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 0.5rem;
+                .overview_heading {
+                    font-size: 1.125rem;
+                    align-self: flex-start;
+                }
+
+                .overview_links {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 0.7rem;
+                    width: 100%;
+                    margin-left: 2rem;
                 }
             }
-        }
 
-        .trending_tags {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-
-            .trending_tags_heading {
-                font-size: 1.125rem;
-                width: 100%;
-                margin-left: 4.5rem;
+            a {
                 display: inline-flex;
                 align-items: center;
-                gap: 0.6rem;
-
-                .trending_icon {
-                    position: relative;
-                    top: 0.15rem;
-                }
+                gap: 0.5rem;
             }
 
-            .trending_tags_links {
+            .trending_tags {
                 display: flex;
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 0.75rem;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                border-bottom: 1px solid #d0d0d0;
                 width: 100%;
-                margin-left: 6.5rem;
+                padding: 1rem;
 
-                .see_all_link {
-                    color: var(--btn-color);
-                }
-            }
-        }
-
-        .personal {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-
-            .personal_heading {
-                font-size: 1.125rem;
-                width: 100%;
-                margin-left: 4.5rem;
-            }
-
-            .profile_links {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.75rem;
-                width: 100%;
-                margin-left: 6.5rem;
-
-                a {
-                    display: inline-flex;
+                .trending_tags_heading {
+                    font-size: 1.125rem;
+                    align-self: flex-start;
+                    display: flex;
                     align-items: center;
-                    gap: 0.5rem;
+                    justify-content: center;
+                    gap: 0.6rem;
+
+                    .trending_icon {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+
+                .trending_tags_links {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 0.7rem;
+                    width: 100%;
+                    margin-left: 2rem;
+
+                    .see_all_link {
+                        color: var(--btn-color);
+                    }
+                }
+            }
+
+            .personal {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                width: 100%;
+                padding: 1rem;
+
+                .personal_heading {
+                    font-size: 1.125rem;
+                    align-self: flex-start;
+                }
+
+                .profile_links {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 0.7rem;
+
+                    a {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    }
+                }
+            }
+
+            .log_out {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                width: 100%;
+                padding: 0.5rem;
+                margin-left: 1rem;
+
+                .log_out_btn {
+                    color: #ff1400;
+                    font-size: 1.125rem;
+                    background-color: transparent;
+                    border: none;
+                    cursor: pointer;
                 }
             }
         }
+    }
+}
 
-        .log_out {
-            display: flex;
-            margin-left: 3.2rem;
-
-            .log_out_btn {
-                color: #ff1400;
-                font-size: 1.125rem;
-                background-color: transparent;
-                border: none;
-                cursor: pointer;
-            }
-        }
+@media screen and (max-width: 1440px) {
+    .side_nav {
+        display: none;
     }
 }
