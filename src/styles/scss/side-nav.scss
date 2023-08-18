@@ -44,9 +44,8 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                gap: 0.5rem;
+                gap: 0.4rem;
                 width: 100%;
-                border-bottom: 1px solid #d0d0d0;
                 padding: 1rem;
 
                 .overview_heading {
@@ -75,10 +74,9 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                gap: 1rem;
-                border-bottom: 1px solid #d0d0d0;
+                gap: .4rem;
                 width: 100%;
-                padding: 1rem;
+                padding: 0 1rem;
 
                 .trending_tags_heading {
                     font-size: 1.125rem;
@@ -114,9 +112,9 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                gap: 1rem;
+                gap: .4rem;
                 width: 100%;
-                padding: 1rem;
+                padding: 0.8rem 1rem;
 
                 .personal_heading {
                     font-size: 1.125rem;
@@ -142,7 +140,7 @@
                 align-items: center;
                 justify-content: flex-start;
                 width: 100%;
-                padding: 0.5rem;
+                padding: 1rem;
                 margin-left: 1rem;
 
                 .log_out_btn {
