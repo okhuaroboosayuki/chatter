@@ -7,10 +7,9 @@ import {
   AuthContextProvider,
 } from "../context/AuthenticationContext";
 import PenIcon from "../icons/PenIcon";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { CustomLinkTwo } from "../components/CustomLink";
-import { Loader } from "../components/Loader";
 
 export const Feed = () => {
   const { currentUser } = useContext(AuthContext);
@@ -19,15 +18,6 @@ export const Feed = () => {
   const handleClick = () => {
     navigate(`/feed/${currentUser?.uid}/new-post`);
   };
-
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-  }, []);
 
   return (
     <>
@@ -39,15 +29,14 @@ export const Feed = () => {
         />
         <link rel="canonical" href={`/feed/${currentUser?.uid}`} />
       </Helmet>
-      {loading ? (
-        <Loader />
-      ) : (
-        <AuthContextProvider>
-          <section className="feed">
-            <SideNav />
-            <div className="feed_container">
-              <TopNav />
 
+      <AuthContextProvider>
+        <section className="feed">
+          <SideNav />
+          <div className="feed_container">
+            <TopNav />
+
+            <div className="feed_posts_container_wrapper">
               <div className="feed_posts_container">
                 <div className="feed_heading">
                   <div className="feed_title">
@@ -69,10 +58,14 @@ export const Feed = () => {
                         </CustomLinkTwo>
                       </h3>
                       <h3>
-                        <CustomLinkTwo to="/">Featured</CustomLinkTwo>
+                        <CustomLinkTwo to={"/feed/featured"}>
+                          Featured
+                        </CustomLinkTwo>
                       </h3>
                       <h3>
-                        <CustomLinkTwo to="/">Recent</CustomLinkTwo>
+                        <CustomLinkTwo to={"/feed/recent"}>
+                          Recent
+                        </CustomLinkTwo>
                       </h3>
                     </div>
                   </div>
@@ -80,9 +73,9 @@ export const Feed = () => {
                 </section>
               </div>
             </div>
-          </section>
-        </AuthContextProvider>
-      )}
+          </div>
+        </section>
+      </AuthContextProvider>
     </>
   );
 };
