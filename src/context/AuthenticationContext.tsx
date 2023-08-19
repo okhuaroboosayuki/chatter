@@ -27,7 +27,6 @@ export const AuthContext = createContext({} as AuthContextType);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [currentUser, setCurrentUser] = useState(null as unknown);
-  const [loading, setLoading] = useState(false);
 
   // sign up function
   function signup({ auth, email, password }: SignupProps) {
@@ -53,13 +52,24 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
+        localStorage.setItem("isUserLoggedIn", "true");
       } else {
         setCurrentUser(null);
+        localStorage.removeItem("isUserLoggedIn");
       }
-      setLoading(false);
     });
     return unsubscribe;
-  }, []); // empty array to prevent infinite loop
+  }, [currentUser]);
+
+  //check if user is logged in for more than 3 seconds using setTimeOut, then log them out
+  useEffect(() => {
+    const oneDay = 1000 * 60 * 60 * 24;
+    if (currentUser) {
+      setTimeout(() => {
+        signOut(auth);
+      }, oneDay);
+    }
+  }, [currentUser]);
 
   const AuthValue: AuthContextType = {
     currentUser,
@@ -71,7 +81,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
   return (
     <AuthContext.Provider value={AuthValue}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };
