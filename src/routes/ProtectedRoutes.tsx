@@ -7,8 +7,11 @@ export function ProtectedRouteOne({ children }: ProtectedRouteProps) {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+
+  //check if user is logged in through local storage, if not redirect to login page
   useEffect(() => {
-    if (!currentUser) {
+    const isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
+    if (!isUserLoggedIn) {
       navigate("/signup/login");
     } else return;
   }, [currentUser, navigate]);
@@ -17,17 +20,16 @@ export function ProtectedRouteOne({ children }: ProtectedRouteProps) {
 }
 
 export function ProtectedRouteTwo({ children }: ProtectedRouteProps) {
-    const { currentUser } = useContext(AuthContext);
-    const navigate = useNavigate();
-    const route = window.location.pathname;
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        if (currentUser) {
-            if (route === "/signup/login" || route === "/signup") {
-                navigate(`/feed/${currentUser.uid}`);
-            } else return;
-        } else return;
-    }, [currentUser, navigate, route])
+  //check if user is logged in through local storage, if yes redirect to feed page
+  useEffect(() => {
+    const isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
+    if (isUserLoggedIn && currentUser) {
+      navigate(`/feed/${currentUser.uid}`);
+    } else return;
+  }, [currentUser, navigate]);
 
-    return <>{children}</>;
+  return <>{children}</>;
 }
