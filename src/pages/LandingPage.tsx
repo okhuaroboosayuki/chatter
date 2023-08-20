@@ -64,11 +64,16 @@ export const LandingPage = () => {
                   Unleash the Power of Words, Connect with Like-minded Readers
                   and Writers
                 </p>
-                {!currentUser && (
+                {!currentUser ? (
                   <Link to={"/signup"} className="hero_btn btn">
                     Get started
                   </Link>
-                )}
+                ) : (
+                  <Link to={`/feed/${currentUser.uid}`} className="hero_btn btn">
+                    explore
+                  </Link>
+                )
+              }
               </div>
             </div>
           </div>
@@ -177,11 +182,16 @@ export const LandingPage = () => {
                 <span>Ramoni Suzuki, </span>Software developer at LeetCode
               </p>
             </div>
-            {!currentUser && (
+            {!currentUser ? (
               <Link to={"/signup"} className="btn">
                 Join chatter
               </Link>
-            )}
+            ) : (
+              <Link to={`/feed/${currentUser.uid}`} className="btn">
+                See more
+              </Link>
+            )
+          }
           </div>
         </div>
 
@@ -223,11 +233,16 @@ export const LandingPage = () => {
                   on your interests. connect with people of same interests and
                   goals
                 </p>
-                {!currentUser && (
+                {!currentUser ? (
                   <Link to={"/signup"} className="btn">
                     Get started
                   </Link>
-                )}
+                ) : (
+                  <Link to={`/feed/${currentUser.uid}`} className="btn">
+                    explore
+                  </Link>
+                )
+              }
               </article>
             </div>
           </div>
