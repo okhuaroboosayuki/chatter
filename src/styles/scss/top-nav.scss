@@ -52,10 +52,15 @@
                     height: 41.6px;
                     width: 100%;
                     font-size: 16px;
+                    background-color: transparent;
 
                     &::placeholder {
                         font-size: 16px;
                         color: #626262;
+                    }
+
+                    &:focus{
+                        font-size: 16px;
                     }
                 }
 
