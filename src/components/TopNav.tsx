@@ -158,7 +158,7 @@ export const TopNav = () => {
               src={
                 userImage ? userImage : require("../images/no-profile-pic.webp")
               }
-              alt="user"
+              alt={currentUser?.displayName}
             />
           </div>
         </div>
