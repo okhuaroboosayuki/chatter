@@ -9,7 +9,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 28.8px;
         width: 100%;
 
         .feed_posts_container_wrapper {
@@ -28,7 +27,6 @@
                 align-items: center;
                 justify-content: center;
                 gap: 24px;
-                // width: 100%;
                 padding: 16px 80px;
 
                 .feed_heading {
@@ -197,6 +195,10 @@
 
                                 h3 {
                                     font-size: 20px;
+
+                                    .active_link-2{
+                                        left: .2rem;
+                                    }
                                 }
                             }
                         }
