@@ -117,6 +117,7 @@
         padding: 0.5rem 25px;
         border-radius: 0.5rem;
         text-align: center;
+        text-transform: capitalize;
         transition: all 0.5s ease-in-out;
         border: 0.0625rem solid var(--btn-color);
         background-color: var(--btn-color);
@@ -650,7 +651,7 @@
                     margin-bottom: 10px;
 
                     h2 {
-                        text-align: center;
+                        text-align: justify;
                         margin-bottom: 10px;
                     }
 
@@ -836,6 +837,7 @@
 
                 p {
                     width: 100%;
+                    text-align: justify;
                 }
 
                 .avatar_name {
@@ -902,7 +904,7 @@
                 .top {
                     p {
                         width: 770px;
-                        text-align: center;
+                        text-align: justify;
                     }
                 }
             }
@@ -949,7 +951,7 @@
                     }
 
                     p {
-                        text-align: center;
+                        text-align: justify;
                     }
                 }
 
