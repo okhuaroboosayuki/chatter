@@ -285,9 +285,14 @@
                         .email_input {
                             letter-spacing: 0.5008px;
                             word-spacing: 1px;
+                            font-size: 16px;
 
                             &::placeholder {
                                 font-size: 14px;
+                            }
+
+                            &:focus {
+                                font-size: 16px;
                             }
                         }
                     }
@@ -316,11 +321,16 @@
                             outline: none;
                             height: 44px;
                             letter-spacing: 0.5008px;
+                            font-size: 16px;
 
                             &::placeholder {
                                 position: relative;
                                 top: 3px;
                                 font-size: 14px;
+                            }
+
+                            &:focus {
+                                font-size: 16px;
                             }
                         }
 
@@ -401,21 +411,22 @@
             }
         }
 
-        .error, .main_error {
+        .error,
+        .main_error {
             color: red;
             transition: all 2s ease-in-out;
             text-transform: capitalize;
         }
 
-        .error{
+        .error {
             font-size: 12px;
         }
 
-        .main_error{
+        .main_error {
             font-size: 13.5px;
             background-color: rgba(255, 0, 0, 0.1);
             border-radius: 8px;
-            padding: .8rem 1.5rem;
+            padding: 0.8rem 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -426,10 +437,10 @@
 @media screen and (max-width: 1440px) {
     .register {
         .register_container {
-            .left{
+            .left {
                 height: 107vh;
 
-                .lady_writer_img{
+                .lady_writer_img {
                     height: 107vh;
                 }
             }
@@ -462,7 +473,7 @@
 
             .right {
                 height: 110vh;
-                
+
                 .right_container {
                     .auth_header {
                         .back_icon {
@@ -576,7 +587,7 @@
                 }
             }
 
-            .main_error{
+            .main_error {
                 background-color: rgba(255, 255, 255, 0.25);
             }
         }
@@ -589,7 +600,7 @@
             .left {
                 height: 120vh;
 
-                .lady_writer_img{
+                .lady_writer_img {
                     height: 120vh;
                 }
             }
@@ -603,7 +614,7 @@
                         }
                     }
 
-                    form{
+                    form {
                         .or_sign_with {
                             .google {
                                 background-color: rgba(255, 255, 255, 0.3);
@@ -619,10 +630,10 @@
 @media screen and (max-width: 834px) {
     .register {
         .register_container {
-            .left{
+            .left {
                 height: 107vh;
 
-                .lady_writer_img{
+                .lady_writer_img {
                     height: 107vh;
                 }
             }
@@ -685,7 +696,7 @@
             .left {
                 height: 126vh;
 
-                .lady_writer_img{
+                .lady_writer_img {
                     height: 126vh;
                 }
             }
@@ -714,7 +725,7 @@
                         }
                     }
 
-                    .login_container{
+                    .login_container {
                         width: 100%;
                     }
 
@@ -761,17 +772,17 @@
 }
 
 @media screen and (max-width: 380px) {
-    .register{
-        .register_container{
-            .left{
+    .register {
+        .register_container {
+            .left {
                 height: 160vh;
 
-                .lady_writer_img{
+                .lady_writer_img {
                     height: 160vh;
                 }
             }
 
-            .right{
+            .right {
                 height: 160vh;
             }
         }
