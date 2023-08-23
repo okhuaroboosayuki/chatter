@@ -10,6 +10,7 @@ import PersonIcon from "../icons/PersonIcon";
 import NotificationIcon from "../icons/NotificationIcon";
 import { AuthContext } from "../context/AuthenticationContext";
 import { useContext } from "react";
+import PostAnalyticsIcon from "../icons/PostAnalyticsIcon";
 
 export const SideNav = () => {
   const { currentUser, logout } = useContext(AuthContext);
@@ -55,7 +56,7 @@ export const SideNav = () => {
                 <span>Drafts</span>
               </CustomLink>
               <CustomLink to={"/analytics"}>
-                <BookmarkIcon className="icon" />
+                <PostAnalyticsIcon className="icon" />
                 <span>Analytics</span>
               </CustomLink>
             </div>
