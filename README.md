@@ -6,13 +6,13 @@
 - [Features](#features)
 - [Tech Used](#tech-used)
 - [Links](#links)
-- [Author](#author)
+- [Creator](#creator)
 
 ## Overview
 
 ![Chatter Landing Page](https://res.cloudinary.com/dg0sck16v/image/upload/v1689204003/chatter-Images/Landing_Page_iloyav.png "Landing Page")
 
-Chatter is a multi-functional platform where authors and readers can create and have access to their own text-based content. It is a blog specifically for bookworms who want to escape the world of pictures, hashtags, Reels and Tiktoks, likes and comments. 
+Chatter is a multi-functional platform where authors and readers can create and have access to their own text-based content. It is a blog specifically for bookworms who want to escape the world of pictures, hashtags, Reels and Tiktoks.
 
 ## Features
 
@@ -55,14 +55,13 @@ Chatter is a multi-functional platform where authors and readers can create and 
 
 - **Material UI Icons:** Chatter leverages Material UI Icons to enhance the visual experience by incorporating a wide range of high-quality icons.
 
-#### Experience the joy of text-based content and join the vibrant community of authors and readers on Chatter. Start exploring, creating, and sharing captivating stories and insights. Let Chatter be your haven in the digital era of visual content. Happy reading and writing!
-
+### Experience the joy of text-based content and join the vibrant community of authors and readers on Chatter. Start exploring, creating, and sharing captivating stories and insights. Let Chatter be your haven in the digital era of visual content. Happy reading and writing
 
 ## Links
 
 - Live Site URL: [chatter-community.vercel.app](https://chatter-community.vercel.app)
 
-## Author
+## Creator
 
 [![GitHub Badge](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/okhuarobo-osayuki)](https://github.com/okhuarobo-osayuki)
 [![Twitter Badge](https://img.shields.io/badge/-@osayuki__-1ca0f1?style=for-the-badge&logo=twitter&logoColor=white&link=https://twitter.com/osayuki__)](https://twitter.com/osayuki__)
