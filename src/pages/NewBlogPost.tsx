@@ -9,7 +9,13 @@ import {
 import { useContext, useEffect, useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import React from "react";
-import { addDoc, collection, doc, getDoc, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { db } from "../lib/Firebase";
 import { useNavigate } from "react-router-dom";
 import { storage } from "../lib/Firebase";
@@ -56,9 +62,12 @@ export const NewBlogPost = () => {
       }
     });
     // sets description error to a message if the description input is empty, if not empty, sets description error to null
+    const textArea = descriptionRef.current;
     descriptionRef.current?.addEventListener("focusout", () => {
       if (descriptionRef.current?.value.length === 0) {
         setDescriptionError("Description is required");
+      } else if (textArea && textArea.value.length < 200) {
+        setDescriptionError("Description must be at least 200 characters");
       } else {
         setDescriptionError(null);
       }
@@ -83,11 +92,36 @@ export const NewBlogPost = () => {
     uploadImage();
   }, [imageUpload]);
 
-  //clear the image input and the image preview
+  useEffect(() => {
+    // check if select image is clicked, then change the inner html to the name of the image the user selects
+    const imageInputLabel = document.getElementById("image_input");
+    imageRef.current?.addEventListener("change", () => {
+      if (imageRef.current?.value === "") {
+        imageInputLabel!.innerHTML = "select image";
+      } else {
+        const imageNameLong = imageRef.current?.files![0].name;
+        const imageNameSplit = imageNameLong?.split(".")[0];
+        const imageName = imageNameSplit?.slice(0, 8) + "...";
+        imageInputLabel!.innerHTML = imageName;
+      }
+    });
+  }, [imageRef]);
+
+  // set loading state for editor
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
+
+  //clear the image input, label innerHTML, and the image preview
   const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (imageRef.current) {
       imageRef.current.value = "";
+      const imageInputLabel = document.getElementById("image_input");
+      imageInputLabel!.innerHTML = "select image";
       setImageUrl(null);
     }
   };
@@ -117,11 +151,15 @@ export const NewBlogPost = () => {
     }
 
     //set publishing state to true if all conditions are met
-      if ( titleRef.current?.value && imageRef.current?.value && descriptionRef.current?.value) {
-        setPublishing(true);
-      } else {
-        setPublishing(false);
-      }
+    if (
+      titleRef.current?.value &&
+      imageRef.current?.value &&
+      descriptionRef.current?.value
+    ) {
+      setPublishing(true);
+    } else {
+      setPublishing(false);
+    }
 
     // if there are no errors, create a new post
     try {
@@ -138,7 +176,7 @@ export const NewBlogPost = () => {
       const authorDesignation = authorData?.designation;
       // calculating the time to read the post
       const contentWithoutTags = content.getContent({ format: "text" });
-      const timeToRead = Math.ceil(contentWithoutTags.length / 300);
+      const timeToRead = Math.ceil(contentWithoutTags.length / 500);
       // create a collection in firestore with the user id from auth inside a document from the 'users' collection
       const userRef = collection(db, "users", `${currentUser?.uid}`, "posts");
       // add the new post to the collection named 'posts' inside the user's document
@@ -168,14 +206,6 @@ export const NewBlogPost = () => {
     }
   };
 
-  // set loading state for editor
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
-
   return (
     <>
       <Helmet>
@@ -192,136 +222,146 @@ export const NewBlogPost = () => {
           <div className="feed_new_post_container">
             <TopNav />
 
-            <form className="new_post" onSubmit={handleSubmit}>
-              <div className="title_and_image_container">
-                <div className="title_and_image">
-                  <div className="title">
-                    <label htmlFor="title">Title</label>
-                    <div className="title_input_wrapper">
-                      <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        className="title_input"
-                        placeholder="What is the title of your post?"
-                        maxLength={400}
-                        ref={titleRef}
-                      />
+            <section className="new_post_wrapper">
+              <form className="new_post" onSubmit={handleSubmit}>
+                <div className="title_and_image_container">
+                  <div className="title_and_image">
+                    <div className="title">
+                      <label htmlFor="title">Title</label>
+                      <div className="title_input_wrapper">
+                        <input
+                          type="text"
+                          id="title"
+                          name="title"
+                          className="title_input"
+                          placeholder="What is the title of your post?"
+                          maxLength={400}
+                          ref={titleRef}
+                        />
+                      </div>
+                      {titleError && (
+                        <p className="error_message">{titleError}</p>
+                      )}
                     </div>
-                    {titleError && (
-                      <p className="error_message">{titleError}</p>
-                    )}
-                  </div>
-                  <div className="image">
-                    <label htmlFor="image">Primary Image</label>
-                    <div className="image_input_wrapper">
-                      <input
-                        type="file"
-                        name="image"
-                        id="image"
-                        className="image_input"
-                        ref={imageRef}
-                      />
-                      <button className="clear_btn" onClick={handleClear}>
-                        Clear
-                      </button>
+                    <div className="image">
+                      <p>Primary Image</p>
+                      <div className="image_input_wrapper">
+                        <label
+                          htmlFor="image"
+                          className="image_input"
+                          id="image_input"
+                        >
+                          {" "}
+                          select image
+                        </label>
+                        <input
+                          type="file"
+                          name="image"
+                          id="image"
+                          ref={imageRef}
+                        />
+                        <button className="clear_btn" onClick={handleClear}>
+                          Remove
+                        </button>
+                      </div>
+                      {imageError && (
+                        <p className="error_message">{imageError}</p>
+                      )}
                     </div>
-                    {imageError && (
-                      <p className="error_message">{imageError}</p>
-                    )}
+
+                    <div className="description">
+                      <label htmlFor="description">Description</label>
+                      <div className="description_input_wrapper">
+                        <textarea
+                          id="description"
+                          name="description"
+                          className="description_input"
+                          placeholder="Give a captivating description of your post"
+                          minLength={200}
+                          maxLength={1000}
+                          ref={descriptionRef}
+                        />
+                      </div>
+                      {descriptionError && (
+                        <p className="error_message">{descriptionError}</p>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="description">
-                    <label htmlFor="description">Description</label>
-                    <div className="description_input_wrapper">
-                      <textarea
-                        id="description"
-                        name="description"
-                        className="description_input"
-                        placeholder="Give a captivating description of your post"
-                        maxLength={1000}
-                        ref={descriptionRef}
-                      />
-                    </div>
-                    {descriptionError && (
-                      <p className="error_message">{descriptionError}</p>
-                    )}
+                  <div className="image_preview">
+                    {
+                      // if there is an image url, show the image preview
+                      imageUrl ? (
+                        <img src={imageUrl} alt="preview" />
+                      ) : (
+                        // else show the default image
+                        <img
+                          src={require("../images/no_image_found.png")}
+                          alt="preview"
+                          draggable={false}
+                        />
+                      )
+                    }
                   </div>
                 </div>
 
-                <div className="image_preview">
-                  {
-                    // if there is an image url, show the image preview
-                    imageUrl ? (
-                      <img src={imageUrl} alt="preview" />
-                    ) : (
-                      // else show the default image
-                      <img
-                        src={require("../images/no_image_found.png")}
-                        alt="preview"
-                        draggable={false}
-                      />
-                    )
-                  }
+                <div className="editor_container">
+                  {loading ? (
+                    <ComponentLoader />
+                  ) : (
+                    <Editor
+                      apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
+                      onInit={(evt, editor) => setContent(editor)}
+                      id="content"
+                      textareaName="content"
+                      initialValue=""
+                      init={{
+                        height: 620,
+                        menubar: true,
+                        toolbar_mode: "wrap",
+                        plugins: [
+                          "advlist",
+                          "autolink",
+                          "lists",
+                          "link",
+                          "image",
+                          "charmap",
+                          "preview",
+                          "anchor",
+                          "searchreplace",
+                          "visualblocks",
+                          "code",
+                          "fullscreen",
+                          "insertdatetime",
+                          "media",
+                          "table",
+                          "code",
+                          "help",
+                          "wordcount",
+                        ],
+                        toolbar:
+                          "undo redo | blocks | " +
+                          "bold italic forecolor | alignleft aligncenter " +
+                          "alignright alignjustify | bullist numlist outdent indent | " +
+                          "removeformat | help",
+                        content_style:
+                          "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                      }}
+                    />
+                  )}
                 </div>
-              </div>
 
-              <div className="editor_container">
-                {loading ? (
-                  <ComponentLoader />
+                {publishing ? (
+                  <div className="publish_btn">
+                    <PublishBtnLoader />
+                  </div>
                 ) : (
-                  <Editor
-                    apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
-                    onInit={(evt, editor) => setContent(editor)}
-                    id="content"
-                    textareaName="content"
-                    initialValue="<h3>Start typing....</h3>"
-                    init={{
-                      height: 620,
-                      menubar: true,
-                      toolbar_mode: "wrap",
-                      plugins: [
-                        "advlist",
-                        "autolink",
-                        "lists",
-                        "link",
-                        "image",
-                        "charmap",
-                        "preview",
-                        "anchor",
-                        "searchreplace",
-                        "visualblocks",
-                        "code",
-                        "fullscreen",
-                        "insertdatetime",
-                        "media",
-                        "table",
-                        "code",
-                        "help",
-                        "wordcount",
-                      ],
-                      toolbar:
-                        "undo redo | blocks | " +
-                        "bold italic forecolor | alignleft aligncenter " +
-                        "alignright alignjustify | bullist numlist outdent indent | " +
-                        "removeformat | help",
-                      content_style:
-                        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                    }}
-                  />
+                  <div className="publish_btn">
+                    <button type="submit">Publish</button>
+                  </div>
                 )}
-              </div>
-
-              {publishing ? (
-                <div className="publish_btn">
-                  <PublishBtnLoader />
-                </div>
-              ) : (
-                <div className="publish_btn">
-                  <button type="submit">Publish</button>
-                </div>
-              )}
-            </form>
+              </form>
+            </section>
           </div>
         </section>
       </AuthContextProvider>
