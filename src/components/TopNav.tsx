@@ -14,6 +14,7 @@ import TrendingIcon from "../icons/TrendingIcon";
 import { Link } from "react-router-dom";
 import NotificationIcon from "../icons/NotificationIcon";
 import PersonIcon from "../icons/PersonIcon";
+import PostAnalyticsIcon from "../icons/PostAnalyticsIcon";
 
 export const TopNav = () => {
   const { currentUser, logout } = useContext(AuthContext);
@@ -86,7 +87,7 @@ export const TopNav = () => {
                   <span>Drafts</span>
                 </CustomLink>
                 <CustomLink to={"/analytics"}>
-                  <BookmarkIcon className="icon" />
+                  <PostAnalyticsIcon className="icon" />
                   <span>Analytics</span>
                 </CustomLink>
               </div>
