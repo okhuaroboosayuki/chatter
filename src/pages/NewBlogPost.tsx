@@ -244,7 +244,7 @@ export const NewBlogPost = () => {
                       )}
                     </div>
                     <div className="image">
-                      <p>Primary Image</p>
+                      <p className="p_label">Primary Image</p>
                       <div className="image_input_wrapper">
                         <label
                           htmlFor="image"
