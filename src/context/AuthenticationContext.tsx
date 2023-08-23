@@ -1,8 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
 import {
   UserCredential,
+  browserSessionPersistence,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  setPersistence,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -53,6 +55,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       if (user) {
         setCurrentUser(user);
         localStorage.setItem("isUserLoggedIn", "true");
+        setPersistence(auth, browserSessionPersistence);
       } else {
         setCurrentUser(null);
         localStorage.removeItem("isUserLoggedIn");
