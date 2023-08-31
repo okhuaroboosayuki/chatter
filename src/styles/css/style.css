@@ -27,4 +27,14 @@ body {
     position: relative;
     background-color: var(--pry-bg-color);
     font-family: 'DM Sans', sans-serif;
+
+    &::-webkit-scrollbar {
+        width: 13px;
+    }
+
+    &::-webkit-scrollbar-thumb{
+        background-color: color-mix(in srgb, grey 60%, black 40%);
+        border-radius: 20px;
+        border: 3px solid #fff;
+    }
 }
