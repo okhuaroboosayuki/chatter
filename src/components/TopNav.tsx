@@ -2,8 +2,7 @@ import "../styles/scss/top-nav.scss";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SearchIcon from "../icons/SearchIcon";
 import { AuthContext } from "../context/AuthenticationContext";
-// import { useContext } from "react";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CustomLink } from "./CustomLink";
 import FeedIcon from "../icons/FeedIcon";
@@ -15,6 +14,8 @@ import { Link } from "react-router-dom";
 import NotificationIcon from "../icons/NotificationIcon";
 import PersonIcon from "../icons/PersonIcon";
 import PostAnalyticsIcon from "../icons/PostAnalyticsIcon";
+import { collectionGroup, getDocs, query } from "firebase/firestore";
+import { db } from "../lib/Firebase";
 
 export const TopNav = () => {
   const { currentUser, logout } = useContext(AuthContext);
@@ -48,13 +49,65 @@ export const TopNav = () => {
   };
 
   //check if window width is greater than 1022px
-    const checkWindowWidth = () => {
-      if (window.innerWidth > 300) {
-        setMenuToggle(false);
-        setBurgerBarClass("burger_bar unclicked");
+  const checkWindowWidth = () => {
+    if (window.innerWidth > 300) {
+      setMenuToggle(false);
+      setBurgerBarClass("burger_bar unclicked");
+    }
+  };
+  window.addEventListener("resize", checkWindowWidth);
+
+  //useEffect to search for blog posts in firebase
+  const [searchParams, setSearchParams] = useState("");
+  const [searchResults, setSearchResults] = useState(([] as any) || "");
+
+  const handleSearchChange = (e: any) => {
+    e.preventDefault();
+    setSearchParams(e.target.value);
+  };
+
+  useEffect(() => {
+    const fetchSearchData = async () => {
+      const searchGroup = query(collectionGroup(db, "posts"));
+      const querySnapshot = await getDocs(searchGroup);
+
+      const queryResults = querySnapshot.docs.map((doc: any) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      if (searchParams === "") {
+        setSearchResults([]);
+      } else {
+        const searchResultsArray = queryResults.filter((result: any) => {
+          return result.title
+            .toLowerCase()
+            .includes(searchParams.toLowerCase());
+        });
+
+        if (searchResultsArray.length === 0) {
+          setSearchResults("no results found");
+        } else {
+          setSearchResults(
+            searchResultsArray.map((data: any) => {
+              return (
+                <li className="search_results_item" key={data.id}>
+                  <Link
+                    to={`/feed/${currentUser?.uid}/post/${data.id}`}
+                    className="search_item_link"
+                  >
+                    {data.title}
+                  </Link>
+                </li>
+              );
+            })
+          );
+        }
       }
     };
-    window.addEventListener("resize", checkWindowWidth);
+
+    fetchSearchData();
+  }, [currentUser?.uid, searchParams, searchResults]);
 
   return (
     <nav className="top_nav">
@@ -145,8 +198,16 @@ export const TopNav = () => {
               name="search"
               id="search"
               className="search"
+              value={searchParams}
               placeholder="search chatter"
+              onChange={handleSearchChange}
             />
+
+            {searchResults.length > 0 && (
+              <div className="search_results">
+                <ul className="search_results_list">{searchResults}</ul>
+              </div>
+            )}
           </div>
         </div>
         <div className="notification_and_profile">
