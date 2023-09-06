@@ -121,7 +121,7 @@ export const AllBlogs = () => {
                   <div className="likes">
                     <HeartIcon className="likes_icon" />
                     <span className="number_of_likes">
-                      {blog.likes > 0 ? blog.likes + "k" : "0"}
+                      {blog.likes?.length > 0 ? blog.likes.length : 0}
                     </span>
                   </div>
                   <div className="views">
