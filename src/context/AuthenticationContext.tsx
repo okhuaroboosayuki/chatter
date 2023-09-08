@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useLayoutEffect, useState } from "react";
 import {
   UserCredential,
   browserSessionPersistence,
@@ -23,12 +23,18 @@ type AuthContextType = {
   googleSignIn: ({ auth, provider }: GoogleSignInProps) => Promise<UserCredential>;
   login: ({ auth, email, password }: SignupProps) => Promise<UserCredential>;
   logout: () => Promise<void>;
+  bodyClicked: any;
+  setBodyClicked: React.SetStateAction<any>;
+  searchParams: any;
+  setSearchParams: React.SetStateAction<any>;
 };
 
 export const AuthContext = createContext({} as AuthContextType);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [currentUser, setCurrentUser] = useState(null as unknown);
+  const [bodyClicked, setBodyClicked] = useState(false);
+  const [searchParams, setSearchParams] = useState("");
 
   // sign up function
   function signup({ auth, email, password }: SignupProps) {
@@ -74,12 +80,26 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   }, [currentUser]);
 
+  useLayoutEffect(() => {
+    if (bodyClicked === true) {
+      setSearchParams("")
+
+      if (searchParams === "") {
+        setBodyClicked(false)
+      }
+    }
+  }, [bodyClicked, searchParams, setBodyClicked])
+
   const AuthValue: AuthContextType = {
     currentUser,
     signup,
     googleSignIn,
     login,
     logout,
+    bodyClicked,
+    setBodyClicked,
+    searchParams,
+    setSearchParams,
   };
 
   return (
