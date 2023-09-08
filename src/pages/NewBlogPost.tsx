@@ -6,7 +6,7 @@ import {
   AuthContext,
   AuthContextProvider,
 } from "../context/AuthenticationContext";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import React from "react";
 import {
@@ -78,7 +78,7 @@ export const NewBlogPost = () => {
   }, []);
 
   // useEffect to show a preview of the image the user selects
-  useEffect(() => {
+  useLayoutEffect(() => {
     const uploadImage = () => {
       if (imageUpload == null) return;
 
@@ -191,9 +191,9 @@ export const NewBlogPost = () => {
           day: "numeric",
           year: "numeric",
         }),
-        likes: 0,
+        likes: [],
         comments: 0,
-        views: 0,
+        views: [],
         timeToRead: timeToRead + ` min${timeToRead > 1 ? "s" : ""} read`,
         title: postTitle,
         image: postImage,
