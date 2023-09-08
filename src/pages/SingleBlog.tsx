@@ -5,26 +5,37 @@ import {
 } from "../context/AuthenticationContext";
 import { SideNav } from "../components/SideNav";
 import { TopNav } from "../components/TopNav";
-import { useContext, useState } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import "../styles/scss/single-blog.scss";
 import OpenBookIcon from "../icons/OpenBookIcon";
 import CommentsIcon from "../icons/CommentsIcon";
-import HeartIcon from "../icons/HeartIcon";
 import SmallChartIcon from "../icons/SmallChartIcon";
-import { DocumentData, collectionGroup, getDocs } from "firebase/firestore";
+import {
+  DocumentData,
+  arrayRemove,
+  arrayUnion,
+  collectionGroup,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import { db } from "../lib/Firebase";
-import { useEffect } from "react";
 import ReactHtmlParser from "react-html-parser";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 
 export const SingleBlog = () => {
   const { currentUser } = useContext(AuthContext);
 
   const [singleBlog, setSingleBlog] = useState<DocumentData>([]);
+  const [postLikes, setPostLikes] = useState([] as any);
+  const [postRef, setPostRef] = useState({} as any);
+  const [likeBtnStyle, setLikeBtnStyle] = useState({});
+  const [liked, setLiked] = useState(false);
+  const [numOfLikes, setNumOfLikes] = useState(singleBlog.likes?.length);
 
   const params = useParams();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchSinglePost = async () => {
       // get a single post from collectionGroup
       const post = collectionGroup(db, "posts");
@@ -33,12 +44,37 @@ export const SingleBlog = () => {
         snapshot.docs.forEach((doc) => {
           if (doc.id === params.blogId) {
             setSingleBlog({ id: doc.id, ...doc.data() });
+            setPostLikes(
+              Array.isArray(doc.data().likes) ? doc.data().likes : []
+            );
+            setPostRef(doc.ref);
+            setNumOfLikes(singleBlog.likes?.length)
           }
         });
       });
     };
     fetchSinglePost();
-  }, [params.blogId]);
+  }, [params.blogId, singleBlog.likes?.length]);
+
+  const handleLikeEvent = async (e: any) => {
+    e.preventDefault();
+
+    if (postLikes.includes(currentUser?.uid)) {
+      setLiked(true);
+      await updateDoc(postRef, { likes: arrayRemove(currentUser?.uid) });
+      setLikeBtnStyle({ color: "none" });
+      setLiked(false);
+      setNumOfLikes(numOfLikes - 1);
+      console.log("unliked");
+    } else {
+      setLiked(false);
+      await updateDoc(postRef, { likes: arrayUnion(currentUser?.uid) });
+      setLikeBtnStyle({ color: "red" }); 
+      setLiked(true);
+      setNumOfLikes(numOfLikes + 1);
+      console.log("liked");
+    }
+  };
 
   return (
     <>
@@ -90,9 +126,12 @@ export const SingleBlog = () => {
                         </span>
                       </div>
                       <div className="likes">
-                        <HeartIcon className="likes_icon" />
+                        <FavoriteOutlinedIcon
+                          className="likes_icon"
+                          style={likeBtnStyle}
+                        />
                         <span className="number_of_likes">
-                          {singleBlog.likes}
+                          {numOfLikes}
                         </span>
                       </div>
                       <div className="views">
@@ -114,6 +153,14 @@ export const SingleBlog = () => {
 
                   <div className="single_blog_post_content">
                     <article>{ReactHtmlParser(singleBlog.content)}</article>
+                  </div>
+
+                  <div className="like_btn">
+                    {liked ? (
+                      <button onClick={handleLikeEvent}>unlike</button>
+                    ) : (
+                      <button onClick={handleLikeEvent}>like</button>
+                    )}
                   </div>
                 </div>
               </div>

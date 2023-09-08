@@ -108,6 +108,10 @@
                             .views_icon {
                                 width: 1.3rem;
                                 height: 1.3rem;
+                            }
+
+                            .comments_icon,
+                            .views_icon {
                                 color: #626262;
 
                                 &:hover {
@@ -128,6 +132,7 @@
                         flex-direction: column;
                         align-items: center;
                         justify-content: center;
+                        width: 100%;
 
                         .blog_title_heading {
                             font-size: 2rem;
@@ -140,13 +145,38 @@
                     .single_blog_post_content {
                         display: flex;
                         flex-direction: column;
+                        width: 100%;
 
                         article {
                             font-size: 1.125rem;
                             font-weight: 400;
-                            color: #626262;
-                            line-height: 1.6875rem;
-                            margin-bottom: 3rem;
+                            // margin-bottom: 3rem;
+                            width: 100%;
+                        }
+                    }
+
+                    .like_btn {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        button {
+                            border: none;
+                            outline: none;
+                            padding: 0.5rem 25px;
+                            border: 0.0625rem solid var(--btn-color);
+                            border-radius: 0.5rem;
+                            text-align: center;
+                            transition: all 0.5s ease-in-out;
+                            background-color: var(--btn-color);
+                            color: var(--pry-bg-color);
+                            cursor: pointer;
+                            text-transform: capitalize;
+
+                            &:hover {
+                                color: var(--btn-color);
+                                background-color: var(--pry-bg-color);
+                            }
                         }
                     }
                 }
@@ -237,8 +267,8 @@
                                 font-size: 1rem;
                                 line-height: 1.5rem;
 
-                                p{
-                                    img{
+                                p {
+                                    img {
                                         width: 100%;
                                     }
                                 }
