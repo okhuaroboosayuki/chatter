@@ -18,7 +18,7 @@ import { collectionGroup, getDocs, query } from "firebase/firestore";
 import { db } from "../lib/Firebase";
 
 export const TopNav = () => {
-  const { currentUser, logout } = useContext(AuthContext);
+  const { currentUser, logout, setBodyClicked, searchParams, setSearchParams } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const loggedinUser = currentUser?.uid;
@@ -58,7 +58,7 @@ export const TopNav = () => {
   window.addEventListener("resize", checkWindowWidth);
 
   //useEffect to search for blog posts in firebase
-  const [searchParams, setSearchParams] = useState("");
+  
   const [searchResults, setSearchResults] = useState(([] as any) || "");
 
   const handleSearchChange = (e: any) => {
@@ -109,9 +109,10 @@ export const TopNav = () => {
     fetchSearchData();
   }, [currentUser?.uid, searchParams, searchResults]);
 
+
   return (
     <nav className="top_nav">
-      <div className="responsive_menu_icon" onClick={showMenu}>
+      <div className="responsive_menu_icon"  onClick={() => {setBodyClicked(true); showMenu()}}>
         <div className={burgerBarClass}></div>
         <div className={burgerBarClass}></div>
         <div className={burgerBarClass}></div>
@@ -210,7 +211,7 @@ export const TopNav = () => {
             )}
           </div>
         </div>
-        <div className="notification_and_profile">
+        <div className="notification_and_profile" onClick={() => setBodyClicked(true)}>
           <div className="notifications">
             <NotificationsOutlinedIcon className="notifications_icon" />
             <span className="notifications_count">15</span>

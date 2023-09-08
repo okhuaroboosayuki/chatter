@@ -13,7 +13,7 @@ import { useContext } from "react";
 import PostAnalyticsIcon from "../icons/PostAnalyticsIcon";
 
 export const SideNav = () => {
-  const { currentUser, logout } = useContext(AuthContext);
+  const { currentUser, logout, setBodyClicked } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const loggedinUser = currentUser?.uid;
@@ -29,7 +29,7 @@ export const SideNav = () => {
 
   return (
     <section className="side_nav">
-      <nav>
+      <nav onClick={() => setBodyClicked(true)}>
         <h1 className="logo">
           <Link to={`/feed/${loggedinUser}`} className="logo_link">
             Chatter
