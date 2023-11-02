@@ -27,7 +27,6 @@
 
             .lady_writer_img {
                 width: 100%;
-                height: 100vh;
                 aspect-ratio: 1/1;
                 object-fit: cover;
                 object-position: center;
@@ -217,7 +216,7 @@
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
-                    gap: 6px;
+                    gap: 0.7rem;
 
                     .names {
                         display: flex;
@@ -231,13 +230,14 @@
                             flex-direction: column;
                             align-items: flex-start;
                             justify-content: center;
+                            position: relative;
                         }
                     }
 
                     .input_wrapper {
                         display: flex;
                         flex-direction: column;
-                        gap: 7px;
+                        gap: 5px;
                         width: 100%;
 
                         label {
@@ -357,7 +357,7 @@
                             border-radius: 0.5rem;
                             text-align: center;
                             transition: all 0.5s ease-in-out;
-                            border: 0.0625rem solid var(--btn-color);
+                            border: 1px solid var(--btn-color);
                             background-color: var(--btn-color);
                             color: var(--pry-bg-color);
                             font-size: 18px;
@@ -408,6 +408,10 @@
                         justify-content: flex-start;
                     }
                 }
+
+                .back_home {
+                    display: none;
+                }
             }
         }
 
@@ -420,6 +424,11 @@
 
         .error {
             font-size: 12px;
+            position: absolute;
+        }
+
+        .names_error {
+            top: 4.8rem;
         }
 
         .main_error {
@@ -437,17 +446,16 @@
 @media screen and (max-width: 1440px) {
     .register {
         .register_container {
+            height: 100vh;
             .left {
-                height: 107vh;
+                height: 100vh;
 
                 .lady_writer_img {
-                    height: 107vh;
+                    height: 100vh;
                 }
             }
 
             .right {
-                height: 105vh;
-
                 .right_container {
                     .auth_header {
                         .back_icon {
@@ -467,13 +475,7 @@
 @media screen and (max-width: 1240px) {
     .register {
         .register_container {
-            .left {
-                height: 110vh;
-            }
-
             .right {
-                height: 110vh;
-
                 .right_container {
                     .auth_header {
                         .back_icon {
@@ -491,12 +493,10 @@
         .register_container {
             .left {
                 width: 100%;
-                height: 120vh;
+                background-color: var(--pry-bg-color);
 
                 .lady_writer_img {
-                    object-fit: fill;
-                    object-position: center;
-                    height: 120vh;
+                    display: none;
                 }
 
                 .left_content-container {
@@ -506,89 +506,29 @@
                 }
             }
 
+            .lady_writer_img_blur,
+            .loaded {
+                display: none;
+            }
+
             .right {
                 position: absolute;
                 width: 100%;
-                height: 120vh;
-                background-color: rgba(0, 0, 0, 0.5);
 
                 .right_container {
                     gap: 0;
                     .auth_header {
-                        color: var(--pry-bg-color);
-
                         width: 100%;
 
                         .back_icon {
                             right: 55rem;
-
-                            svg {
-                                path {
-                                    stroke: var(--pry-bg-color);
-                                }
-                            }
                         }
-                    }
-
-                    h2 {
-                        color: var(--pry-bg-color);
                     }
 
                     form {
                         width: 100%;
-                        gap: 12px;
-
-                        .input_wrapper {
-                            label {
-                                color: var(--pry-bg-color);
-                            }
-
-                            .first_name_input,
-                            .last_name_input,
-                            .designation,
-                            .email_input {
-                                background-color: rgba(255, 255, 255, 0.3);
-                                color: var(--pry-bg-color);
-
-                                &::placeholder {
-                                    color: rgb(167, 167, 167);
-                                }
-                            }
-                        }
-
-                        .input {
-                            background-color: rgba(255, 255, 255, 0.3);
-
-                            input {
-                                color: var(--pry-bg-color);
-                                background-color: transparent;
-
-                                &::placeholder {
-                                    color: rgb(167, 167, 167);
-                                }
-                            }
-
-                            .visibility_icon {
-                                color: var(--pry-bg-color);
-
-                                &:hover {
-                                    background-color: var(--btn-color);
-                                }
-                            }
-                        }
-                    }
-
-                    .or_sign_with {
-                        .google {
-                            background-color: rgba(255, 255, 255, 0.3);
-                            color: var(--pry-bg-color);
-                        }
                     }
                 }
-            }
-
-            .main_error {
-                background-color: rgba(255, 255, 255, 0.25);
             }
         }
     }
@@ -597,48 +537,14 @@
 @media screen and (max-width: 980px) {
     .register {
         .register_container {
-            .left {
-                height: 120vh;
-
-                .lady_writer_img {
-                    height: 120vh;
-                }
-            }
-
             .right {
-                height: 120vh;
                 .right_container {
                     .auth_header {
                         .back_icon {
                             right: 48rem;
                         }
                     }
-
-                    form {
-                        .or_sign_with {
-                            .google {
-                                background-color: rgba(255, 255, 255, 0.3);
-                            }
-                        }
-                    }
                 }
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 834px) {
-    .register {
-        .register_container {
-            .left {
-                height: 107vh;
-
-                .lady_writer_img {
-                    height: 107vh;
-                }
-            }
-            .right {
-                height: 107vh;
             }
         }
     }
@@ -667,7 +573,21 @@
                 .right_container {
                     .auth_header {
                         .back_icon {
-                            right: 40rem;
+                            display: none;
+                        }
+                    }
+
+                    .back_home {
+                        display: flex;
+                        border: 1px solid var(--btn-color);
+                        border-radius: 0.5rem;
+                        padding: 10px 16px 10px 16px;
+                        text-transform: capitalize;
+                        cursor: pointer;
+                        margin-top: 1rem;
+
+                        &:hover {
+                            border: 1px solid #d0d0d0;
                         }
                     }
                 }
@@ -693,16 +613,7 @@
 @media screen and (max-width: 560px) {
     .register {
         .register_container {
-            .left {
-                height: 126vh;
-
-                .lady_writer_img {
-                    height: 126vh;
-                }
-            }
-
             .right {
-                height: 126vh;
                 .right_container {
                     .auth_header {
                         width: 100%;
@@ -766,24 +677,6 @@
                         }
                     }
                 }
-            }
-        }
-    }
-}
-
-@media screen and (max-width: 380px) {
-    .register {
-        .register_container {
-            .left {
-                height: 160vh;
-
-                .lady_writer_img {
-                    height: 160vh;
-                }
-            }
-
-            .right {
-                height: 160vh;
             }
         }
     }
