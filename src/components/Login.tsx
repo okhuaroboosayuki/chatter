@@ -3,7 +3,7 @@ import "../styles/scss/sign-in.scss";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthenticationContext";
 import { useContext, useState } from "react";
-import { auth, db, provider } from '../lib/Firebase';
+import { auth, db, provider } from "../lib/Firebase";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ButtonLoader } from "./Loader";
@@ -134,6 +134,7 @@ export const Login = () => {
                     ? { border: "1px solid red" }
                     : { border: "1px solid #ced4da" }
                 }
+                autoComplete="on"
               />
             </div>
             {formik.errors.email && formik.touched.email && (
@@ -161,6 +162,7 @@ export const Login = () => {
                   id="password"
                   placeholder="**********"
                   className="password_input"
+                  autoComplete="on"
                 />
                 {passwordVisibility ? (
                   <VisibilityOutlinedIcon
@@ -189,13 +191,17 @@ export const Login = () => {
           </div>
 
           <div className="or_sign_with">
-          <div className="google" onClick={handleGoogleSignIn}>
-            <span>
-              <GoogleIcon />
-              <div>Sign in with google</div>
-            </span>
+            <div className="google" onClick={handleGoogleSignIn}>
+              <span>
+                <GoogleIcon />
+                <div>Sign in with google</div>
+              </span>
+            </div>
           </div>
-        </div>
+
+          <div className="back_home" onClick={() => navigate("/")}>
+            back
+          </div>
         </form>
       </div>
     </>

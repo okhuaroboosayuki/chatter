@@ -161,9 +161,8 @@ export const SignUp = () => {
         <link rel="canonical" href="/signup" />
       </Helmet>
 
-
       <form onSubmit={formik.handleSubmit}>
-      {error && <div className="main_error">{error}</div>}
+        {error && <div className="main_error">{error}</div>}
         <h2>Register as a Writer/Reader</h2>
         <div className="names">
           <div className="wrapper_container">
@@ -186,7 +185,7 @@ export const SignUp = () => {
               />
             </div>
             {formik.errors.firstName && formik.touched.firstName && (
-              <div className="error">{formik.errors.firstName}</div>
+              <div className="error names_error">{formik.errors.firstName}</div>
             )}
           </div>
           <div className="wrapper_container">
@@ -209,7 +208,7 @@ export const SignUp = () => {
               />
             </div>
             {formik.errors.lastName && formik.touched.lastName && (
-              <div className="error">{formik.errors.lastName}</div>
+              <div className="error names_error">{formik.errors.lastName}</div>
             )}
           </div>
         </div>
@@ -353,6 +352,10 @@ export const SignUp = () => {
               <div>Sign up with google</div>
             </span>
           </div>
+        </div>
+
+        <div className="back_home" onClick={() => navigate("/")}>
+          back
         </div>
       </form>
     </>
