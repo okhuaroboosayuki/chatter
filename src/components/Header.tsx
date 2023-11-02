@@ -61,9 +61,6 @@ export const Header = () => {
             <a href="#about">About us</a>
           </li>
           <li>
-            <CustomLink to={"/contact-us"}>Contact</CustomLink>
-          </li>
-          <li>
             <CustomLink to={"/blogs"}>Blogs</CustomLink>
           </li>
         </ul>
