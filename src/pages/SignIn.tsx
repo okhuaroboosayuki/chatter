@@ -52,8 +52,8 @@ export const SignIn = () => {
         <section className="right">
           <main className="right_container">
             <section className="auth_header">
-              <div className="back_icon">
-                <BackIcon className="icon" onClick={() => navigate("/")} />
+              <div className="back_icon" onClick={() => navigate("/")}>
+                <BackIcon className="icon" />
                 <span>Back</span>
               </div>
               <div className="links">
