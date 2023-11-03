@@ -17,6 +17,11 @@ const NewBlogPost = lazy(() =>
     default: NewBlogPost,
   }))
 );
+const BlogsPage = lazy(() =>
+  import("../pages/BlogsPage").then(({ BlogsPage }) => ({
+    default: BlogsPage,
+  }))
+);
 
 // set protected routes
 
@@ -26,6 +31,14 @@ export const router = createBrowserRouter([
     element: (
       <Suspense fallback={<Loader />}>
         <App />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/blogs",
+    element: (
+      <Suspense fallback={<Loader />}>
+        <BlogsPage />
       </Suspense>
     ),
   },
