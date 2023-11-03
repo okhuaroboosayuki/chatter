@@ -58,7 +58,7 @@ export const Header = () => {
             <CustomLink to={"/"}>Home</CustomLink>
           </li>
           <li>
-            <a href="#about">About us</a>
+            <a href={window.location.pathname === "/" ? "#about" : "/#about"}>About us</a>
           </li>
           <li>
             <CustomLink to={"/blogs"}>Blogs</CustomLink>
