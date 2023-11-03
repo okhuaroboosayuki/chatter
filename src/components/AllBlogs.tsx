@@ -1,43 +1,17 @@
-import {
-  DocumentData,
-  collectionGroup,
-  getDocs,
-  orderBy,
-  query,
-} from "firebase/firestore";
 import CommentsIcon from "../icons/CommentsIcon";
 import HeartIcon from "../icons/HeartIcon";
 import OpenBookIcon from "../icons/OpenBookIcon";
 import SmallChartIcon from "../icons/SmallChartIcon";
 import "../styles/scss/all-blogs.scss";
-import { db } from "../lib/Firebase";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthenticationContext";
-import { ComponentLoader } from "./Loader";
+import { useBlogData } from "../hooks/useBlogData";
+import { Skeleton } from "@mui/material";
 
 export const AllBlogs = () => {
   const { currentUser } = useContext(AuthContext);
-
-  const [blogContent, setBlogContent] = useState<DocumentData>([]);
-
-  const fetchAllData = async () => {
-    // get a subcollection from all the users called 'posts'
-    const posts = query(collectionGroup(db, "posts"), orderBy("timeStamp", "desc"));
-
-    // get all the documents from the 'posts' collection
-    const querySnapshot = await getDocs(posts);
-
-    // map through the documents and get the data
-    const blogs = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-
-    
-    // set blogContent to the array of data
-    setBlogContent(blogs);
-  };
+  const { blogContent } = useBlogData();
 
   //set loading state of component
   const [loading, setLoading] = useState(false);
@@ -47,13 +21,33 @@ export const AllBlogs = () => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-    fetchAllData();
   }, []);
 
   return (
     <>
       {loading ? (
-        <ComponentLoader />
+        <section className="all_blogs">
+          <article className="single_blog">
+            <div className="author_details">
+              <div className="left">
+                <Skeleton variant="circular" sx={{bgcolor: '#aca0fa'}} className="author_image" />
+              </div>
+
+              <div className="right">
+                <Skeleton variant="text" sx={{bgcolor: '#aca0fa'}} className="author_name" />
+                <Skeleton variant="text" sx={{bgcolor: '#aca0fa'}} className="author_title" />
+              </div>
+            </div>
+            <div className="blog_title">
+              <Skeleton variant="text" sx={{bgcolor: '#aca0fa'}} className="blog_title_heading" />
+              <Skeleton variant="text" sx={{bgcolor: '#aca0fa'}} className="blog_post_reading_time" />
+            </div>
+            <div className="blog_content">
+              <Skeleton variant="text" sx={{bgcolor: '#aca0fa'}} className="blog_content_text" />
+              <Skeleton variant="rectangular" sx={{bgcolor: '#aca0fa'}} className="blog_content_image" />
+            </div>
+          </article>
+        </section>
       ) : (
         <section className="all_blogs">
           {blogContent.map((blog: any) => (
