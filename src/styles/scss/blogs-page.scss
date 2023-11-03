@@ -1,0 +1,16 @@
+.blogs_page_wrapper,
+.blogs_page_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.blogs_page_wrapper{
+    width: 100%;
+}
+
+.blogs_page_container {
+    align-items: center;
+    justify-content: center;
+}
